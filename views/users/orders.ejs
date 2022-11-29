@@ -1,0 +1,354 @@
+<%- include('../partials/userHeader')%>
+<style>
+  .hide{
+    display:none
+  }
+</style>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/userProfile">My profile</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Orders</li>
+            </ol>
+            <div>
+              <div class="input-group me-5">
+                <div class="form-input" id="search-container">
+                  <input type="search" id="search-input" class="form-control" placeholder="Search"/>
+                  <!-- <label class="form-label" for="form1">Search</label> -->
+                </div>
+                <button type="button" id="search" class="btn btn-primary">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="card mb-4">
+            <div class="card-body">
+              <p class=" mx-2"><strong>Order Status</strong></p>
+                <div class="form-check">
+                  <input class="form-check-input button-value" type="radio" id="all" name="filter" onclick="filterProducts('all')">
+                  <label class="form-check-label" for="all">
+                    All
+                  </label>
+              </div>
+            
+                <!-- <div class="form-check">
+                    <input class="form-check-input button-value" type="radio" id="pending" name="filter" onclick="filterProducts('pending')" >
+                    <label class="form-check-label" for="">
+                    Pending 
+                    </label>
+                </div> -->
+
+                <div class="form-check">
+                  <input class="form-check-input button-value" type="radio" id="confirmed" name="filter" onclick="filterProducts('confirmed')" >
+                  <label class="form-check-label" for="confirmed">
+                  Confirmed
+                  </label>
+              </div>
+
+              <div class="form-check">
+                <input class="form-check-input button-value" type="radio" id="shipped" name="filter" onclick="filterProducts('shipped')" >
+                <label class="form-check-label" for="shipped">
+                Shipped
+                </label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input button-value" type="radio" id="ontheway" name="filter" onclick="filterProducts('outfordelivery')" >
+              <label class="form-check-label" for="ontheway">
+              On the way
+              </label>
+          </div> 
+
+
+        <!-- <div class="form-check">
+          <input class="form-check-input button-value" type="radio" id="cancelled" name="filter" onclick="filterProducts('cancelled')" >
+          <label class="form-check-label" for="">
+          Cancelled
+          </label>
+      </div> -->
+<!-- 
+      <div class="form-check">
+        <input class="form-check-input button-value" type="radio" id="returned" name="filter" onclick="filterProducts('return')" >
+        <label class="form-check-label" for="">
+        Returned
+        </label>
+    </div> -->
+
+            </div>
+          </div>
+
+
+
+
+          <div class="card mb-4">
+            <div class="card-body">
+              <p class=" mx-2"><strong>Order Status</strong></p>
+                
+
+              <div class="form-check">
+                <input class="form-check-input button-value" type="radio" id="delivered" name="filter" onclick="filterProducts('delivered')" >
+                <label class="form-check-label" for="delivered">
+                Delivered
+                </label>
+            </div>
+
+        <div class="form-check">
+          <input class="form-check-input button-value" type="radio" id="cancelled" name="filter" onclick="filterProducts('cancelled')" >
+          <label class="form-check-label" for="cancelled">
+          Cancelled order
+          </label>
+      </div>
+
+      <div class="form-check">
+        <input class="form-check-input button-value" type="radio" id="returned" name="filter" onclick="filterProducts('return')" >
+        <label class="form-check-label" for="returned">
+        Returned
+        </label>
+    </div>
+
+    <div class="form-check">
+      <input class="form-check-input button-value" type="radio" id="creturned" name="filter" onclick="filterProducts('return cancel')" >
+      <label class="form-check-label" for="creturned">
+      Cancelled return
+      </label>
+  </div>
+
+            </div>
+          </div>
+          
+        </div>
+
+        
+
+        <div class="col-lg-10">
+            <% if(orders.length>0){%>
+                
+                    
+                    <% for(let item of orders){%>
+                      
+                        
+                            
+                        <% for(let p of item.products){%>
+                          <div class="card mb-4 hide cards <%-p.status%>">
+                          <div class="card-body">
+                          <div class="row">
+                            <a href="/orders/viewProduct/<%-item._id%>/<%-p.item%>">
+                            <div class="row border-top border-bottom ">
+                                <div class="row main  p-3">
+                                    <div class="col-2">
+                                        <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                            <img src="/uploads/<%-p.product.images[0].filename%>"
+                                              class="w-100" />
+                                           
+                                              <div class="hover-overlay">
+                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                              </div>
+                                           
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-center">
+                                       
+                                        <div class="row text-dark fw-bold product-name">
+                                          <%- p.product.name%>
+                                        </div>
+                                       
+                                    </div>
+                                    <div class="col d-flex text-dark fw-bold  me-5 align-items-center">
+                                      <div class="me-5">₹ <%- p.product.sellingprice%></div> 
+                                       
+                                    
+                                        <span class="product-quantity">Qty : <%-p.quantity%> </span> 
+                                         </div>
+                                    <div class="col d-flex justify-content-start align-items-center order-status">
+                                   <%if(p.status=="delivered"){%>     
+                                        <i class="fa-solid fa-circle text-success me-2"></i>Delivered on <%-p.deliveredDate%>
+                                   <%}else if(p.status=="outfordelivery"){%>
+                                        <i class="fa-solid fa-circle-dot text-success me-2"></i>Outfordelivery on <%-p.outfordeliveryDate%>
+                                    <%}else if(p.status=="shipped"){%>
+                                        <i class="fa-solid fa-circle text-warning me-2"></i>Shipped on <%-p.shippedDate%>
+                                    <%}else if(p.status=="confirmed"){%>
+                                        <i class="fa-solid fa-circle text-primary me-2"></i>Confirmed on <%-p.confirmedDate%>
+                                    <%}else if(p.status=="cancelledbyadmin"){%>
+                                        <i class="fa-solid fa-circle text-danger me-2"></i> Cancelled by admin on <%-p.cancelledbyadminDate%>
+                                    <%}else if(p.status=="cancelled"){%>
+                                        <i class="fa-solid fa-circle text-danger me-2"></i>Cancelled on <%-p.cancelledDate%>
+                                    <%}else if(p.status=="returnrequest"){%>
+                                        <i class="fa-solid fa-circle text-warning me-2"></i>Return requested on<br> <%-p.returnRequestDate%>
+                                    <%}else if(p.status=="returnapproved"){%>
+                                      <i class="fa-solid fa-circle text-success me-2"></i>Return approved on<br> <%-p.returnApprovedDate%>
+                                    <%}else if(p.status=="returnpickuped"){%>
+                                      <i class="fa-solid fa-circle text-primary me-2"></i>Return pickuped on<br><%-p.returnPickupedDate%>
+                                    <%}else if(p.status=="refunddone"){%>
+                                      <i class="fa-solid fa-circle text-warning me-2"></i>Refund done on <br><%-p.refundDoneDate%>
+                                    <%}else if(p.status=="returncancelledbyadmin"){%>
+                                      <i class="fa-solid fa-circle text-danger me-2"></i>Return rejected on<br> <%-p.returnCancelledByAdminDate%>
+                                      <%}else if(p.status=="returncancelled"){%>
+                                        <i class="fa-solid fa-circle text-danger me-2"></i>Return cancelled on<br> <%-p.returnCancelledDate%>
+                                              
+                                    <%}else{%>
+                                        <i class="fa-solid fa-circle-dot text-primary me-2"></i>Ordered on <%-p.orderedDate%> <br>Wait for confirmation
+                                    <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                       <%}%>
+                     
+                    
+                
+                    <%}%>
+              
+            
+            <%}else{%>
+            <div class="card mb-4">
+                <div class="card-body">
+                    
+                            <section class="container my-5" style="width: 35rem;">
+      
+          
+                                <div class="text-center">
+                                    <img src="/images/cartempty.webp" class="img-fluid">
+                                  <h5 class="card-title">You have 0 orders!!</h5>
+                                  <p class="card-text">Why to wait purchase your favorites :)</p>
+                                  <a href="/" class="btn  btn-primary px-5">Continue Shopping</a>
+                                </div>
+                               
+                              
+                            </section>
+                           
+                        
+                </div>
+            </div>
+            <%}%>
+        </div>
+
+       
+  </section>
+  <script>
+    window.onload = function () {
+      document.getElementById("all").checked=true
+      filterProducts('all')
+    }
+
+    function filterProducts(value){
+    
+    let elements = document.querySelectorAll(".cards");
+    elements.forEach((element)=>{
+      if(value=="all"){
+
+        element.classList.remove("hide");
+      }
+      else{
+        if(value=="return"){
+            if(element.classList.contains("returnrequest")){
+              element.classList.remove("hide")
+              
+            }
+            else if(element.classList.contains("refunddone")){
+              element.classList.remove("hide")
+              
+            }
+            else if(element.classList.contains("returnapproved")){
+              element.classList.remove("hide")
+              
+            }
+            else if(element.classList.contains("returnpickuped")){
+              element.classList.remove("hide")
+              
+            }
+            else{
+              element.classList.add("hide")
+            }
+        }
+        else if(value=="cancelled"){
+            if(element.classList.contains("cancelled")){
+              element.classList.remove("hide")
+              
+            }
+            else if(element.classList.contains("cancelledbyadmin")){
+              element.classList.remove("hide")
+              
+            }
+            else{
+              element.classList.add("hide")
+            }
+            
+        }
+        else if(value=="return cancel"){
+            if(element.classList.contains("returncancelled")){
+              element.classList.remove("hide")
+              
+            }
+            else if(element.classList.contains("returncancelledbyadmin")){
+              element.classList.remove("hide")
+              
+            }
+            else{
+              element.classList.add("hide")
+            }
+            
+        }
+        else{
+            if(element.classList.contains(value)){
+              element.classList.remove("hide")
+            }
+            else{
+              element.classList.add("hide")
+            }
+      }
+    }
+    })
+  }
+
+
+  document.getElementById('search').addEventListener
+        ("click", () => {
+          let searchInput = document.getElementById("search-input").value;
+          let elements = document.querySelectorAll(".product-name");
+          let elementsOfCat = document.querySelectorAll(".order-status");
+
+          let cards = document.querySelectorAll(".cards")
+          console.log(searchInput)
+
+          elements.forEach((element, index) => {
+            console.log(element.innerText)
+            console.log(searchInput.toUpperCase())
+            if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+              cards[index].classList.remove("hide");
+            }
+            else {
+
+              elementsOfCat.forEach((element, indexx) => {
+
+                if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+                  cards[indexx].classList.remove("hide");
+                }
+                else {
+                  cards[index].classList.add("hide");
+                }
+              })
+            }
+          })
+        })
+ 
+
+
+  </script>
+  <%- include('../partials/footer')%>
+
+
+
+

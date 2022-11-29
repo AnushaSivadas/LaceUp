@@ -1,0 +1,741 @@
+<%- include('../partials/userHeader')%>
+
+<link rel="stylesheet" href="/stylesheets/home.css" />
+<link rel="stylesheet" href="/stylesheets/products.css">
+<style>
+  /* @import url('https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap');
+
+
+
+.container {
+    position: relative;
+}
+
+.container .card {
+    position: relative;
+    width: 320px;
+    height: 450px;
+    background: #232323;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.container .card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1BBFE9;
+    clip-path: circle(150px at 80% 20%);
+    transition: 0.5s ease-in-out;
+}
+
+.container .card:hover:before {
+    clip-path: circle(300px at 80% -20%);
+}
+
+.container .card:after {
+    content: "Nike";
+    position: absolute;
+    top: 30%;
+    left: -20%;
+    font-size: 12em;
+    font-weight: 800;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.04);
+
+}
+
+.container .card .imgBx {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    transition: .5s;
+}
+
+.container .card:hover .imgBx {
+    top: 0%;
+    transform: translateY(-25%);
+   
+}
+
+.container .card .imgBx img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+    width: 270px;
+}
+
+.container .card .contentBx {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+    transition: 1s;
+    z-index: 90;
+}
+
+.container .card:hover .contentBx {
+    height: 210px;
+}
+
+.container .card .contentBx h2 {
+    position: relative;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.container .card .contentBx .size,
+.container .card .contentBx .color {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    transition: .5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.container .card:hover .contentBx .size {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: .5s;
+}
+
+.container .card:hover .contentBx .color {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: .6s;
+}
+
+.container .card .contentBx .size h3,
+.container .card .contentBx .color h3 {
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 10px;
+}
+
+.container .card .contentBx .size span {
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-size: 14px;
+    display: inline-block;
+    color: #111;
+    background: #fff;
+    margin: 0 5px;
+    transition: .5s;
+    color: #111;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container .card .contentBx .size span:hover {  
+    background: #B90000;
+}
+
+.container .card .contentBx .color span {
+    width: 20px;
+    height: 20px;
+    background: #ff0;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.container .card .contentBx .color span:nth-child(2) {
+     background: #1BBFE9;
+}
+
+.container .card .contentBx .color span:nth-child(3) {
+     background: #1B2FE9;
+}
+
+.container .card .contentBx .color span:nth-child(4) {
+     background: #080481;
+}
+
+.container .card .contentBx a {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #111;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: .5s;
+}
+
+.container .card:hover .contentBx a {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: .7s;
+}  */
+
+
+
+
+/* === BASE HEADING === */ 
+
+.twelve h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: rgb(134, 158, 173);
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: rgb(134, 158, 173);
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* body {
+  background: #eee;
+} */
+.heading {
+  position: relative;
+  /* background: #f8f8f8; */
+  width: 90%;
+  max-width: 500px;
+  padding: 2em;
+  margin: 1.5em auto;
+  /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+  background-color: rgb(134, 158, 173);
+}
+ h4 {
+	color: #000;
+	font-size: 26px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
+	position: relative; 
+  /* font-weight: 400; */
+	margin: 30px 0 60px;
+}
+h4::after {
+	content: "";
+	width: 100px;
+	position: absolute;
+	margin: 0 auto;
+	height: 4px;
+	border-radius: 1px;
+	background: rgb(134, 158, 173);
+	left: 0;
+	right: 0;
+	bottom: 0px;
+}
+
+
+
+@import url(https://fonts.googleapis.com/css?family=Calibri:400,300,700);.product-wrapper, .product-img{overflow: hidden;position: relative}.mb-45{margin-bottom: 45px}.product-action{bottom: 0px;left: 0;opacity: 0;position: absolute;right: 0;text-align: center;transition: all 0.6s ease 0s}.product-wrapper{border-radius: 10px}.product-img >span{background-color: #fff;box-shadow: 0 0 8px 1.7px rgba(0, 0, 0, 0.06);color: #333;display: inline-block;font-size: 12px;font-weight: 500;left: 20px;letter-spacing: 1px;padding: 3px 12px;position: absolute;text-align: center;text-transform: uppercase;top: 20px}.product-action-style{background-color: #fff;box-shadow: 0 0 8px 1.7px rgba(0, 0, 0, 0.06);display: inline-block;padding: 16px 2px 12px}.product-action-style >a{color: #979797;line-height: 1;padding: 0 21px;position: relative}.product-action-style >a.action-plus{font-size: 18px}.product-wrapper:hover .product-action{bottom: 20px;opacity: 1}
+</style>
+<!-- slide  -->
+<section class="py-4">
+  
+   <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" >
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"  class="active"  aria-current="true"   aria-label="Slide 1" ></button>
+        <button
+          type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+          <img src="/uploads/<%-banner[0].image.filename%>" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-md-block" style="top: 50%;
+          transform: translateY(-50%); text-align:left">
+            <h5><%-banner[0].name%></h5>
+            <p><%-banner[0].description%></p>
+            <a href="/subCategoryView/<%-banner[0].subCategory%>" class="btn btn-primary btn-blue smoothScroll">Checkout Products</a>
+
+          </div>
+        </div>
+        <%for(var i=1;i<banner.length;i++){%>
+        <div class="carousel-item " data-bs-interval="10000">
+          <img src="/uploads/<%-banner[i].image.filename%>" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-md-block" style="top: 50%;
+          transform: translateY(-50%); text-align:left">
+            <h5><%-banner[i].name%></h5>
+            <p><%-banner[i].description%></p>
+            <a href="/subCategoryView/<%-banner[i].subCategory%>" class="btn btn-primary btn-blue smoothScroll">Checkout Products</a>
+
+          </div>
+        </div>
+       <%}%>
+        <!-- <div class="carousel-item" data-bs-interval="10000">
+          <img src="/images/banner1.jpg" class="d-block w-100" alt="..." />
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Third slide label</h5>
+            <p>Some representative placeholder content for the third slide.</p>
+          </div>
+        </div> -->
+      </div>
+      <button class="carousel-control-prev"  type="button"  data-bs-target="#carouselExampleCaptions"  data-bs-slide="prev" >
+        <span class="" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button  class="carousel-control-next"  type="button"  data-bs-target="#carouselExampleCaptions" data-bs-slide="next"  >
+        <span class="" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+
+
+  <!-- category  -->
+    <section class="m-5 mb-0 ">
+      <div class="container-fluid text-center">
+        <!-- <h4 class="py-4 text-dark"><strong>Categories</strong></h4> -->
+        <div class="row d-flex justify-content-center">
+          <% for(let cat of subCategory){%>
+       
+          <div class="col-lg-4 col-md-6 mb-4 ">
+            <a href="/subCategoryView/<%-cat._id%>">
+                <div class="card mx-auto mt-5 cattt">
+                 
+                    <div class="pos1" style="background-image:url('/uploads/<%-cat.image.filename%>') ;">
+                      
+                      <div class="abv abv1"><%-cat.name%></div>
+                    
+                    </div>
+                </div>
+              </a>
+              </div>
+             
+              <%}%>
+            </div>
+          </div>
+
+    </section>
+
+    
+
+    <!-- dummy  -->
+    
+    <section class="about py-md-5 py-5">
+      <div class="container-fluid">
+        <div class="feature-grids row px-3">
+          <div class="col-lg-3 gd-bottom">
+            <div class="bottom-gd row">
+              <div class="icon-gd col-md-3 text-center">
+                <span class="fa fa-truck" aria-hidden="true"></span>
+              </div>
+              <div class="icon-gd-info col-md-9">
+                <h3 class="mb-2">FREE SHIPPING</h3>
+                <p>On all order over &#8377;999</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 gd-bottom">
+            <div class="bottom-gd row bottom-gd2-active">
+              <div class="icon-gd col-md-3 text-center">
+                <span class="fa fa-bullhorn" aria-hidden="true"></span>
+              </div>
+              <div class="icon-gd-info col-md-9">
+                <h3 class="mb-2">FREE RETURN</h3>
+                <p>On 1st exchange in 30 days</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 gd-bottom">
+            <div class="bottom-gd row">
+              <div class="icon-gd col-md-3 text-center">
+                <span class="fa fa-gift" aria-hidden="true"></span>
+              </div>
+
+              <div class="icon-gd-info col-md-9">
+                <h3 class="mb-2">MEMBER DISCOUNT</h3>
+                <p>Register & save up to 29%</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 gd-bottom">
+            <div class="bottom-gd row">
+              <div class="icon-gd col-md-3 text-center">
+                <span class="fa fa-usd" aria-hidden="true"></span>
+              </div>
+              <div class="icon-gd-info col-md-9">
+                <h3 class="mb-2">PREMIUM SUPPORT</h3>
+                <p>Support 24 hours per day</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- all products  -->
+
+  <!-- <section >
+    <div class="container text-center">
+      <h4 class="py-4 text-dark"><strong>New Arrivals</strong></h4>
+      <div class="row d-flex justify-content-center ">
+        <% for(var i=productLength-1;i>=0;i--){%>
+          <div class="col-md-3 col-sm-6   p-4">
+           
+              <div class="product-grid">
+                  <div class="product-image">
+                    <a href="/productDetails/<%- product[i]._id%>" class="image">
+                          <img class="pic-1" src="/uploads/<%-product[i].images[0].filename%>">
+                          <img class="pic-2" src="/uploads/<%-product[i].images[1].filename%>">
+                      </a>
+                    
+                      <ul class="social">
+                          <li><a href="/productDetails/<%- product[i]._id%>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                          <%if(user){%>
+                            <%if(product[i].inWishlist){%>
+                              <li><a role="button" onclick="removeWishlistItem('<%-product[i]._id%>','<%-user._id%>')" data-tip="Remove from wishlist"><i class="fa fa-heart text-danger"></i></a></li>
+                            <%}else{%>
+                              <li><a role="button" onclick="addToWishlist('<%-product[i]._id%>','<%-user._id%>')" data-tip="Add to wishlist"><i class="fa fa-heart "></i></a></li>
+                            <%}%>
+                          <%}else{%>
+                            <li><a href="/loginNeedWL" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
+                          <%}%>
+                      </ul>
+                      <div class="product-rating">
+                          <ul class="rating">
+                              <li class="fas fa-star"></li>
+                              <li class="fas fa-star"></li>
+                              <li class="fas fa-star"></li>
+                              <li class="far fa-star"></li>
+                              <li class="far fa-star"></li>
+                          </ul>
+                          
+                          <a class="add-to-cart " href="/subCategoryView/<%-product[i].subCategoryInfo._id%>"><%-product[i].subCategoryInfo.name%></a> 
+                          
+                      </div>
+                  </div>
+                  <div class="product-content">
+                      <h3 class="title fs-6"> <a href="/productDetails/<%- product[i]._id%>"><%-product[i].name%></a></h3>
+                       <span class=text-muted>(<%-product[i].categoryInfo.name%>)</span>
+                      <div class="price text-dark fw-bold text-decoration-none">&#8377;<%-product[i].sellingprice%>  <span class="fs-6">&#8377;<%-product[i].actualprice%></span></div>
+                  </div>
+              </div>
+          </div>
+          <%}%>
+ 
+      </div>
+  </div>
+</section> -->
+<!-- <section >
+
+
+  <div class="container">
+    <div class="card">
+        <div class="imgBx">
+            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" alt="nike-air-shoe">
+        </div>
+
+        <div class="contentBx">
+
+            <h2>Nike Shoes</h2>
+
+            <div class="size">
+                <h3>Size :</h3>
+                <span>7</span>
+                <span>8</span>
+                <span>9</span>
+                <span>10</span>
+            </div>
+
+            <div class="color">
+
+                <h3>Color :</h3>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <a href="#">Buy Now</a>
+        </div>
+
+    </div>
+</div>
+</section> -->
+
+
+<!-- /////////////////// brands /////////////  -->
+
+
+<!-- <section>
+  <div class="container text-center">
+    <div class="twelve heading">
+      <h1>Popular Brands</h1>
+    </div>
+    <div class="row d-flex justify-content-center ">
+<div class="container d-flex justify-content-center mt-100">	
+  <div class="row">
+     <div class="col-md-3"> 
+      <div class="product-wrapper mb-45 text-center"> 
+        <div class="product-img">
+           <a href="#" data-abc="true"> 
+            <img src="https://i.imgur.com/tL7ZE46.jpg" alt="">
+           </a>	
+           <span class="text-center"><i class="fa fa-rupee"></i> 43,000</span>
+            <div class="product-action">
+               <div class="product-action-style"> 
+                <a href="#"> 
+                  <i class="fa fa-plus"></i> 
+                </a> 
+                <a href="#"> 
+                  <i class="fa fa-heart"></i>
+                 </a> 
+                 <a href="#"> 
+                  <i class="fa fa-shopping-cart"></i>
+                 </a> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+   
+    
+    <div class="col-md-3">
+      <div class="product-wrapper mb-45 text-center">
+        <div class="product-img">
+          <a href="#" data-abc="true"> 
+            <img src="https://i.imgur.com/lAQxXCK.jpg" alt=""> 
+          </a>	<span><i class="fa fa-rupee"></i> 41,000</span> 
+          <div class="product-action"> 
+            <div class="product-action-style"> 
+              <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true">
+                 <i class="fa fa-plus"></i> 
+                </a>
+                 <a class="action-heart" title="Wishlist" href="#" data-abc="true">
+                   <i class="fa fa-heart"></i> 
+                  </a> 
+                  <a class="action-cart" title="Add To Cart" href="#" data-abc="true"> 
+                    <i class="fa fa-shopping-cart"></i>
+                   </a>
+                   </div>
+                   </div> 
+                  </div> 
+                </div> 
+              </div>	
+
+              <div class="col-md-3">
+                 <div class="product-wrapper mb-45 text-center"> 
+                  <div class="product-img">
+                     <a href="#" data-abc="true"> 
+                      <img src="https://i.imgur.com/HxEEu5g.jpg" alt="">
+                     </a>	
+                     <span><i class="fa fa-rupee"></i> 33,000</span>
+                      <div class="product-action"> 
+                        <div class="product-action-style"> 
+                          <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true">
+                             <i class="fa fa-plus"></i>
+                             </a> 
+                             <a class="action-heart" title="Wishlist" href="#" data-abc="true">
+                               <i class="fa fa-heart"></i> 
+                              </a>
+                            <a class="action-cart" title="Add To Cart" href="#" data-abc="true">
+                               <i class="fa fa-shopping-cart"></i> 
+                              </a> 
+                            </div> 
+                          </div> 
+                        </div> 
+                      </div> 
+                    </div>	
+
+                    <div class="col-md-3"> 
+                      <div class="product-wrapper mb-45 text-center"> 
+                        <div class="product-img">
+                           <a href="#" data-abc="true"> 
+                            <img src="https://i.imgur.com/lAQxXCK.jpg" alt="">
+                           </a>
+                           	<span><i class="fa fa-rupee"></i> 23,000</span> 
+                           <div class="product-action">
+                             <div class="product-action-style">
+                               <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#" data-abc="true">
+                                <i class="fa fa-plus"></i> 
+                              </a> 
+                              <a class="action-heart" title="Wishlist" href="#" data-abc="true">
+                                 <i class="fa fa-heart"></i>
+                                 </a> 
+                                 <a class="action-cart" title="Add To Cart" href="#" data-abc="true"> 
+                                  <i class="fa fa-shopping-cart"></i> 
+                                </a> 
+                              </div> 
+                            </div> 
+                          </div> 
+                        </div> 
+                      </div> 
+        </div>	</div>
+
+</section> -->
+
+
+<section>
+  <div class="container text-center">
+    <!-- <h4 class="py-4 text-dark"><strong>New Arrivals</strong></h4> -->
+    <div class="twelve heading">
+      <h1>New Arrivals</h1>
+    </div>
+    <div class="row d-flex justify-content-center ">
+      <% for(var i=productLength-1;i>=0;i--){%>
+        
+       
+    <div class="col-md-3 col-sm-6 p-4 ">
+
+        <div class="product-grid box">
+      <div class="dis-ribbon"><span><%-product[i].dis%> % off</span></div>
+         
+            <div class="product-image ">
+                
+                <a href="/productDetails/<%- product[i]._id%>" class="image">
+                  <img class="pic-1" src="/uploads/<%-product[i].images[0].filename%>">
+                  <img class="pic-2" src="/uploads/<%-product[i].images[1].filename%>">
+              </a>
+              <%if(user){%>
+                <%if(product[i].inWishlist){%>
+                <a class="product-like-icon fs-6" role="button"  onclick="removeWishlistItem('<%-product[i]._id%>','<%-user._id%>')" data-tip="Remove from Wishlist">
+                    <i class="fa fa-heart text-danger"></i>
+                </a>
+                <%}else{%>
+                  <a  class="product-like-icon fs-6" role="button"   onclick="addToWishlist('<%-product[i]._id%>','<%-user._id%>')" data-tip="Add to Wishlist">
+                    <i class="fa fa-heart "></i>
+                </a>
+                <%}%>
+              <%}else{%>
+                <a  class="product-like-icon fs-6" role="button" href="/loginNeedWL" data-tip="Add to Wishlist">
+                  <i class="fa fa-heart "></i>
+              </a>
+              <%}%>
+              <!-- <%if(product[i].stock!=0){%>
+                <ul class="product-links">
+                    <%if(user){%>
+                    <li><a href="/addToCart/<%-product[i]._id%>" role="button" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                    <%}else{%>
+                    <li><a href="/addToGuestCart/<%-product[i]._id%>" role="button" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                    <%}%>
+
+                </ul>
+                <%}%> -->
+            </div>
+            <div class="product-content p-2 text-center">
+                <h3 class="title"><a href="/productDetails/<%- product[i]._id%>"><%-product[i].name%> <span class="text-muted">(<%-product[i].categoryInfo.name%>)</span></a></h3>
+                
+                <a hidden class="add-to-cart " href="/subCategoryView/<%-product[i].subCategoryInfo._id%>"><%-product[i].subCategoryInfo.name%></a> 
+                <div class="price text-decoration-none"><span>&#8377;<%-product[i].actualprice%></span>  &#8377;<%-product[i].sellingprice%></div>
+                <%if(product[i].stock==0){%>
+                <div class=text-danger>Currently Unavailable</div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+ 
+    <%}%>
+ 
+  </div>
+</div>
+</section>
+<%- include('../partials/footer')%>
+<script>
+  function removeWishlistItem(proId,userId){
+    $.ajax({
+      url:'/remove-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem('reloading',true)
+        location.reload()
+      }
+    })
+  }
+  function addToWishlist(proId,userId){
+    console.log('heyy kuttaa')
+    $.ajax({
+      url:'/add-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem('addtowish',true)
+        location.reload()
+      }
+    })
+  }
+  
+  function myFunction(msg) {
+            alertify.success(msg);
+          }
+          
+        window.onload = function () {
+            var reloading = sessionStorage.getItem("reloading");
+            var addtowish = sessionStorage.getItem("addtowish");
+            var deactivate = sessionStorage.getItem("deactivate")
+            if (reloading) {
+              sessionStorage.removeItem("reloading");
+              myFunction('Removed From Wishlist');
+            }
+            if(addtowish){
+              sessionStorage.removeItem("addtowish");
+              myFunction("Added to Wishlist");
+            }
+            if(deactivate){
+              console.log("hey shani")
+              // cookieStorage.removeItem("deactivate");
+              myFunction("Added to Wishlist");
+              
+            }
+          }
+</script>
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+
+   
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LACE UP</title>
+    <link rel="icon" href="/images/logo2.png"emo type="image/gif" sizes="16x16">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+   <!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+rel="stylesheet"
+/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/adminStyle.css" >
+
+  </head>
+  <body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
+
+  
+<div class="sidebar bg-dark">
+  
+    <a  href="/admin/dashboard" class="fw-bold fs-5">            <img src="/images/laceupfont.png" class="img-fluid " width="180px" alt="profile">
+    </a>
+  
+  <% if(active=="dashboard") {%>
+    <a class="active" href="/admin/dashboard">
+      <i class="fa fa-tachometer me-2" aria-hidden="true"></i>Dashboard</a>
+  <%} else {%>
+  <a href="/admin/dashboard">
+    <i class="fa fa-tachometer me-2" aria-hidden="true"></i>Dashboard</a>
+  <%}%>
+
+  <% if(active=="products") {%>
+    <a class="active" href="/admin/products">
+    <i class="fa fa-th-large me-2" aria-hidden="true"></i>Products</a>
+  <%} else {%>
+    <a href="/admin/products">
+    <i class="fa fa-th-large me-2" aria-hidden="true"></i>Products</a>
+  <%}%>
+
+  <% if(active=="category") {%>
+    <a href="/admin/category" class="active">
+    <i class="fa-solid fa-layer-group me-2"></i>Category</a>
+    <%} else {%>
+    <a href="/admin/category">
+      <i class="fa-solid fa-layer-group me-2"></i>Category</a>
+      <%}%>
+
+      <% if(active=="orders") {%>
+        <a href="/admin/orders" class="active">
+          <i class="fa-solid fa-calendar-days me-2" ></i>Orders</a>
+        <%} else {%>
+        <a href="/admin/orders">
+    <i class="fa-solid fa-calendar-days me-2" ></i>Orders</a>
+    <%}%>
+  
+    <% if(active=="customers") {%>
+  <a class="active" href="/admin/customers">
+    <i class="fa-solid fa-users me-2"></i>Customers</a>
+    <%} else {%>
+  <a href="/admin/customers">
+    <i class="fa-solid fa-users me-2"></i>Customers</a>
+  <%}%>
+
+  <% if(active=="coupons") {%>
+    <a class="active" href="/admin/coupons">
+     <i class="fa-solid fa-ticket me-2"></i>Coupons</a>
+      <%} else {%>
+    <a href="/admin/coupons">
+     <i class="fa-solid fa-ticket me-2"></i></i>Coupons</a>
+    <%}%>
+
+  <% if(active=="offers") {%>
+    <a class="active" href="/admin/offers">
+      <i class="fa-solid fa-tags me-2"></i>Offers</a>
+      <%} else {%>
+    <a href="/admin/offers">
+      <i class="fa-solid fa-tags me-2"></i>Offers</a>
+    <%}%>
+
+  <% if(active=="banners") {%>
+    <a class="active" href="/admin/banners">
+     <i class="fa-solid fa-feather me-2"></i>Banners</a>
+      <%} else {%>
+    <a href="/admin/banners">
+     <i class="fa-solid fa-feather me-2"></i></i>Banners</a>
+    <%}%>
+  
+  <a href="/admin/logout">
+    <i class="fa fa-sign-out me-2" aria-hidden="true"></i>Logout</a>
+</div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+

@@ -1,0 +1,253 @@
+<%- include('../partials/sidebar')%>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Cropper -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+
+<div class="content">
+  <div class="row">
+    <div class="mt-3 text-center"><%- include('../partials/flash')%></div>
+    <!-- <h2 class="text-center fw-bold mt-3">ADD BANNER</h2> -->
+    <div class="twelve heading">
+    <h1>ADD BANNER</h1>
+  </div>
+    <div class="col-6 offset-3 ">
+      <form
+        method="post"
+        action="/admin/addBanner"
+        enctype="multipart/form-data"
+        id="myForm"
+        
+      >
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            onkeyup="validateName()"
+          />
+          <span id="name-error"></span>
+        </div>
+
+        
+        <!-- <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <div id="imagePreview" class="mb-2" ></div>
+          <input class="form-control" type="file" id="image" name="image"  onchange="validateImage()" required />
+          <span id="image-error"></span>
+        </div> -->
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <!-- <div id="imagePreview" class="mb-2" ></div> -->
+        <img src="" id="imgView1" alt="" style="height:100px">
+
+          <input class="form-control" type="file" id="id_image1" name="image" accept="image/*"  onchange="validateImage()" required />
+          <span id="image-error"></span>
+          <div >
+            <div id="image-box1" class="image-container"></div>
+            <div class="d-flex justify-content-end">
+              <a class="btn btn-sm btn-primary ms-3" id="crop-btn1" style=" margin-top: 10px; display: none;">Crop</a>
+              
+            <a href="/admin/addBanner" class="btn btn-sm btn-danger  ms-3" id="cancel-crop" style=" margin-top: 10px; display: none;">Cancel</a>
+               
+              </div>
+          </div> 
+        </div>
+        
+
+         
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="description"
+            rows="3"
+            onkeyup="validateDescription()"
+          ></textarea>
+          <span id="description-error"></span>
+        </div>
+
+        <div class="mb-3">
+           
+                <label for="category" class="form-label">Sub Category</label>
+                <select class="form-select" name="subCategory" id="category" >
+                 
+                  <% for(let cat of subcategory) {%>
+                  <option value="<%- cat._id %>"><%- cat.name %></option>
+                  <%}%>
+                </select>
+              
+        </div>
+
+        <button type="submit" class="btn btn-primary align-center">
+          Submit
+        </button>
+        <span id="submit-error"></span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("myForm");
+  const nameError = document.getElementById("name-error");
+  const descriptionError = document.getElementById("description-error");
+  const imageError = document.getElementById("image-error");
+  const imagebox1 = document.getElementById('image-box1')
+  const crop_btn1 = document.getElementById('crop-btn1')
+  const input1 = document.getElementById('id_image1')
+  
+  // When user uploads the image this event will get triggered
+  input1.addEventListener('change', () => {
+    if(imageError.innerHTML=="Image is valid"){
+    // Getting image file object from the input variable
+    const img_data1 = input1.files[0]
+    // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+    // The new object URL represents the specified File object or Blob object.
+    const url1 = URL.createObjectURL(img_data1)
+    // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+    imagebox1.innerHTML = `<img src="${url1}" id="image1" style="width:100%;">`
+    // Storing that cropping view image in a variable
+    const image = document.getElementById('image')
+    // Displaying the image box
+    document.getElementById('image-box1').style.display = 'block'
+    // Displaying the Crop buttton
+    document.getElementById('crop-btn1').style.display = 'block'
+    document.getElementById('cancel-crop').style.display = 'block'
+
+    // Hiding the Post button
+    const cropper1 = new Cropper(image1, {
+      autoCropArea: 1,
+      viewMode: 1,
+      scalable: false,
+      zoomable: false,
+      movable: false,
+      minCropBoxWidth: 50,
+      minCropBoxHeight: 50,
+    })
+    // When crop button is clicked this event will get triggered
+    crop_btn1.addEventListener('click', () => {
+      // This method coverts the selected cropped image on the cropper canvas into a blob object
+      cropper1.getCroppedCanvas().toBlob((blob) => {
+        // Gets the original image data
+        let fileInputElement1 = document.getElementById('id_image1');
+        // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+        let file1 = new File([blob], img_data1.name, { type: "image/*", lastModified: new Date().getTime() });
+        // Create a new container
+        let container1 = new DataTransfer();
+        // Add the cropped image file to the container
+        container1.items.add(file1);
+        // Replace the original image file with the new cropped image file
+        fileInputElement1.files = container1.files;
+        document.getElementById('imgView1').src = URL.createObjectURL(fileInputElement1.files[0])
+        // Hide the cropper box
+        document.getElementById('image-box1').style.display = 'none'
+        // Hide the crop button
+        document.getElementById('crop-btn1').style.display = 'none'
+    document.getElementById('cancel-crop').style.display = 'none'
+
+
+        
+      })
+    })
+  }
+})
+  
+
+  form.addEventListener("submit", (e) => {
+    if (validateName() && validateImage() && validateDescription()) {
+      console.log("hai");
+    } else {
+      e.preventDefault();
+      var error = document.getElementById("submit-error");
+      error.innerHTML = "Fill all fields";
+      error.style.color = "red";
+      setTimeout(function () {
+        error.innerHTML = "";
+      }, 3000);
+    }
+  });
+
+  function validateName() {
+    var name = document.getElementById("name").value.trim();
+
+    if (name.length == 0) {
+      nameError.innerHTML = "Name is Required";
+      nameError.style.color = "red";
+      return false;
+    } else if (name.length <= 2) {
+      nameError.innerHTML = "Atleast 3 characters";
+      nameError.style.color = "red";
+      return false;
+    }
+
+    if (!name.match(/^[0-9A-Za-z\s]*$/)) {
+      nameError.innerHTML = "Write a valid name";
+      nameError.style.color = "red";
+      return false;
+    }
+
+    nameError.innerHTML = "name is valid";
+    nameError.style.color = "green";
+    return true;
+  }
+
+  function validateDescription() {
+    var description = document.getElementById("description").value.trim();
+    var Required = 8;
+    var left = Required - description.length;
+    if (left > 0) {
+      descriptionError.innerHTML = left + "more character Required";
+      descriptionError.style.color = "red";
+      return false;
+    }
+
+    descriptionError.innerHTML = "description is valid";
+    descriptionError.style.color = "green";
+    return true;
+  }
+
+  function validateImage() {
+      var fileInput =
+          document.getElementById('id_image1');
+        
+      var filePath = fileInput.value;
+   
+      // Allowing file type
+      var allowedExtensions =
+              /(\.jpg|\.webp|\.jpeg|\.png|\.gif)$/i;
+       
+      if (!allowedExtensions.exec(filePath)) {
+        imageError.innerHTML = "Image is not valid";
+        imageError.style.color = "red";
+          return false;
+      }
+      imageError.innerHTML = "Image is valid";
+                      imageError.style.color = "green";
+                      return true;
+      // else
+      // {
+       
+      //     // Image preview
+      //     if (fileInput.files && fileInput.files[0]) {
+      //         var reader = new FileReader();
+      //         reader.onload = function(e) {
+      //             document.getElementById(
+      //                 'imagePreview').innerHTML =
+      //                 '<img src="' + e.target.result
+      //                 + '" style="width:50px; height:50px;"/>';
+                     
+      //         };
+               
+      //         reader.readAsDataURL(fileInput.files[0]);
+      //         imageError.innerHTML = "Image is valid";
+      //                 imageError.style.color = "green";
+      //                 return true;
+      //     }
+      // }
+  }
+</script>

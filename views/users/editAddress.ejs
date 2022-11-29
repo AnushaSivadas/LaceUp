@@ -1,0 +1,337 @@
+<%- include('../partials/userHeader')%>
+<style>
+  
+  .profilepic {
+    position: relative;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #111;
+    
+  }
+  
+  .profilepic:hover .profilepic__content {
+    opacity: 1;
+  }
+  
+  .profilepic:hover .profilepic__image {
+    opacity: .5;
+  }
+  
+  .profilepic__image {
+    object-fit: fill;
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
+  }
+  
+  .profilepic__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+  }
+  
+  .profilepic__icon {
+    color: white;
+    padding-bottom: 8px;
+  }
+  
+  .fas {
+    font-size: 20px;
+  }
+  
+  .profilepic__text {
+    text-transform: uppercase;
+    font-size: 12px;
+    width: 50%;
+    text-align: center;
+  } 
+  
+  </style>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/userProfile">User Profile</a></li>
+              <li class="breadcrumb-item"><a href="/viewAddress">Manage Addresses</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Edit Address</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <div class="d-flex justify-content-center">
+                <div class="profilepic d-flex justify-content-center ">
+                  
+                  <img class="" src="/uploads/<%-user.dp.filename%>" alt="avatar">
+    
+                  </div></div>
+              <h5 class="my-3"><%-user.username%></h5>
+
+              <div class="form-control d-flex justify-content-between border" >
+                <span class="fs-6 fw-bold text-dark align-self-center d-flex" id="refferalId"><%-user.referral_code%></span>
+                <button class="btn px-3 text-dark" onclick="CopyToClipboard('refferalId');return false;">Copy</button>
+              </div>
+              <p class="text-muted m-0 text-center" style="font-size: 13px;">Share your refferal Id to win ₹<%-referral.referrer_offer%>/- wallet  balance</p>
+            </div>
+          </div>
+
+          <div class="card mb-4 ">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+              <i class="fa-solid fa-wallet fa-xl"><span class="fs-6  logo"> Wallet</span> </i>
+              <span>Balance:<span class="fs-4 fw-bold"> ₹ <%-user.wallet%>/-</span></span>
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                    <i class="fa-solid fa-calendar mx-2 text-dark"></i>
+                    <a href="/orders"><p class="mb-0 fw-bold text-dark">MY ORDERS</p></a>
+                </li>
+                <!-- <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-heart mx-2 text-dark"></i>
+                <a href="/wishlist"><p class="mb-0 fw-bold text-dark">MY WISHLIST</p></a>
+              </li> -->
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-user-gear mx-2 text-primary"></i>
+                  <p class="mb-0 fw-bold text-primary"> ACCOUNT SETTINGS</p>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href='/userProfile'> <p class="mb-0 text-dark">Profile Information</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3 bg-light">
+                    <i class="fa-regular fa-circle-dot mx-2 text-primary"></i>
+                    <a href='/viewAddress'><p class="mb-0 text-primary">Manage Addresses</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href='/changePassword'><p class="mb-0 text-dark">Change Password </p></a>
+                </li>
+
+
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-id-card-clip mx-2 text-dark"></i>
+                  <p class="mb-0 fw-bold text-dark"> MY STUFFS</p>
+                </li>
+                <li class="  list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href='/myCoupons'> <p class="mb-0 text-dark">My Coupons</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark "></i>
+                    <a href='/wishlist'><p class="mb-0 text-dark">My Wishlist</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href=""><p class="mb-0 text-dark">Ratings And Reviews</p></a>
+                </li>
+                
+                <li class="list-group-item d-flex px-5 align-items-center p-3">
+                    <i class="fa-solid fa-right-from-bracket mx-2 text-dark"></i>
+                  <a href="/userLogout"><p class="mb-0 fw-bold  text-dark">LOGOUT</p></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+             
+                <form class="form-horizontal" role="form" action="/editAddress/<%-address._id%>" method="post">
+
+                    <h2>Edit Address</h2>
+                
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inputFullName" class="col-sm-5 control-label">Name<span class="text-danger mx-1">&#42;</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputFullName"
+                                        name="fullname" placeholder="Full Name" value="<%-address.fullname%>">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <!-- <p class="col-sm-offset-2 col-sm-10 help-block">Street address</p> -->
+                                <label for="inputAddressLine1"
+                                    class="col-sm-5 control-label">Phone:<span class="text-danger mx-1">&#42;</span></label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" id="inputAddressLine1"
+                                        name="phoneno" placeholder="Enter your phone number" value="<%-address.phoneno%>">
+                                </div>
+                            </div>
+                
+                        </div><br>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputZipPostalCode" class="col-sm-5 control-label">Pin
+                                        Code<span class="text-danger mx-1">&#42;</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control"
+                                            id="inputZipPostalCode" name="pincode"
+                                            placeholder="Your pin code" value="<%-address.pincode%>">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="inputZipPostalCode"
+                                        class="col-sm-5 control-label">Locality<span class="text-danger mx-1">&#42;</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inputZipPostalCode"
+                                            name="locality" placeholder="Your Locality" value="<%-address.locality%>">
+                                    </div>
+                                </div>
+                            </div>
+                
+                        </div>
+                        <br>
+                
+                    <div class="form-group">
+                        <p class="col-sm-offset-2 col-sm-10 help-block">Street address, P.O. box,
+                            company name, c/o</p>
+                
+                
+                <label for="description" class="form-label">Address Line<span class="text-danger mx-1">&#42;</span></label>
+                        <textarea class="form-control" name="address_line" id="description"
+                            rows="3"><%-address.address_line%></textarea>
+                    </div><br>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="inputCityTown" class="col-sm-12 control-label">City /
+                                    Districy / Town<span class="text-danger mx-1">&#42;</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputCityTown"
+                                        name="city_district_town" placeholder="City / District / Town" value="<%-address.city_district_town%>">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="selectState" class="col-sm-5 control-label">State<span class="text-danger mx-1">&#42;</span></label>
+                                <div class="col-sm-10">
+                
+                                    <!--- India states -->
+                                    <select class="form-select" id="selectState" name="state">
+                                        <option selected="true" disabled="disabled">--Select State--</option>
+                                        <option value="AN">Andaman and Nicobar Islands</option>
+                                        <option value="AP">Andhra Pradesh</option>
+                                        <option value="AR">Arunachal Pradesh</option>
+                                        <option value="AS">Assam</option>
+                                        <option value="BR">Bihar</option>
+                                        <option value="CH">Chandigarh</option>
+                                        <option value="CT">Chhattisgarh</option>
+                                        <option value="DN">Dadra and Nagar Haveli</option>
+                                        <option value="DD">Daman and Diu</option>
+                                        <option value="DL">Delhi</option>
+                                        <option value="GA">Goa</option>
+                                        <option value="GJ">Gujarat</option>
+                                        <option value="HR">Haryana</option>
+                                        <option value="HP">Himachal Pradesh</option>
+                                        <option value="JK">Jammu and Kashmir</option>
+                                        <option value="JH">Jharkhand</option>
+                                        <option value="KA">Karnataka</option>
+                                        <option value="Kerala" selected>Kerala</option>
+                                        <option value="LA">Ladakh</option>
+                                        <option value="LD">Lakshadweep</option>
+                                        <option value="MP">Madhya Pradesh</option>
+                                        <option value="MH">Maharashtra</option>
+                                        <option value="MN">Manipur</option>
+                                        <option value="ML">Meghalaya</option>
+                                        <option value="MZ">Mizoram</option>
+                                        <option value="NL">Nagaland</option>                                      <option value="OR">Odisha</option>
+                                        <option value="PY">Puducherry</option>
+                                        <option value="PB">Punjab</option>
+                                        <option value="RJ">Rajasthan</option>
+                                        <option value="SK">Sikkim</option>
+                                        <option value="TN">Tamil Nadu</option>
+                                        <option value="TG">Telangana</option>
+                                        <option value="TR">Tripura</option>
+                                        <option value="UP">Uttar Pradesh</option>
+                                        <option value="UT">Uttarakhand</option>
+                                        <option value="WB">West Bengal</option>
+                                    </select>
+                
+                                </div>
+                            </div>
+                        </div><br>
+                
+                
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="inputStateProvinceRegion"
+                                        class="col-sm-10 control-label">Landmark</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control"
+                                            id="inputStateProvinceRegion" name="landmark"
+                                            placeholder="Landmark(optional)" value="<%-address.landmark%>">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="inputStateProvinceRegion"
+                                        class="col-sm-10 control-label">Alternative phone no:</label>
+                                    <div class="col-sm-10">
+                                        <input type="number" class="form-control"
+                                            id="inputStateProvinceRegion" name="alt_phoneno"
+                                            placeholder="(optional)" value="<%-address.alt_phoneno%>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div><br>
+                        Address Type<span class="text-danger mx-1">&#42;</span>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault1" value="Home" 
+                            <%if(address.addresstype=="Home"){%>
+                                checked
+                                <%}%>>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                             Home
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault2"  value="Work" 
+                            <%if(address.addresstype=="Work"){%>
+                                checked
+                                <%}%>>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                              Work
+                            </label>
+                          </div>
+                
+                
+                          <div class="d-flex justify-content-center my-2 px-5 mx-5" >
+                          
+                            <button type="submit"
+                                  class="btn btn-primary align-center me-1 my-3">Submit</button>
+                                 <a href="/viewAddress"  class="btn btn-danger align-center ms-1 my-3">Cancel
+                                </a>
+                          </div>
+                          <center> <span id="submit-error"></span></center>
+
+             
+             
+             
+            </div>
+          </div>
+          
+      </div>
+    </div>
+  </section>
+  <%- include('../partials/footer')%>

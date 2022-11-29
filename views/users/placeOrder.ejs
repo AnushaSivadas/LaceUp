@@ -1,0 +1,915 @@
+<%- include('../partials/userHeader')%>
+<style>
+  .clr {
+        display: none;
+    }
+
+    .disbtn {
+        display: block;
+    }
+  
+
+.text-gray {
+  color: #aaa;
+}
+</style>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AbItc1rCeWExJ8b4DkA9V3qZQ2nNVc4R-9MW1hzOicUAxU3-8IO0-vJFcA-zbJ_qwGyG70iklw59Kpyc&currency=USD"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+<section style="background-color: rgb(160, 180, 193);">
+  <div class="container py-2">
+    <div class="row d-flex justify-content-center my-4 py-5">
+      <div class="col-md-8">
+      
+
+
+
+      
+      <div class="card mb-4">
+        <div class="card-header py-3">
+          <h3 class="col mb-0">Checkout</h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col d-flex align-items-center">  
+              <h6 class="col mb-0 text-muted">DELIVERY ADDRESS</h6>
+            </div>
+            <div class="col-sm-4 d-flex justify-content-end">
+                 
+              <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#addAddress" aria-expanded="false" aria-controls="addAddress">+NEW ADDRESS</button>
+                
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="collapse" id="addAddress">
+              <hr>
+          <form class="form-horizontal"  action="/addNewAddress" method="post" id="myForm" novalidate>
+
+            <h2>Add Address</h2>
+        
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="inputFullName" class="col-sm-5 control-label">Name<span class="text-danger mx-1">&#42;</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="fullname"
+                                name="fullname" placeholder="Full Name" onkeyup="validateFullname()">
+                        </div>
+                        <span id="fullname-error"></span>
+                    </div>
+                    <div class="col">
+                        <!-- <p class="col-sm-offset-2 col-sm-10 help-block">Street address</p> -->
+                        <label for="inputAddressLine1"
+                            class="col-sm-5 control-label">Phone:<span class="text-danger mx-1">&#42;</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="phoneno"
+                                name="phoneno" placeholder="Enter your phone number" onkeyup="validatePhoneno()">
+                        </div>
+                        <span id="phoneno-error"></span>
+                    </div>
+        
+                </div><br>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputZipPostalCode" class="col-sm-5 control-label">Pin
+                                Code<span class="text-danger mx-1">&#42;</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"
+                                    id="pincode" name="pincode"
+                                    placeholder="Your pin code" onkeyup="validatePincode()">
+                            </div>
+                            <span id="pincode-error"></span>
+                        </div>
+                        <div class="col">
+                            <label for="inputZipPostalCode"
+                                class="col-sm-5 control-label">Locality<span class="text-danger mx-1">&#42;</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="locality"
+                                    name="locality" placeholder="Your Locality" onkeyup="validateLocality()">
+                            </div>
+                            <span id="locality-error"></span>
+                        </div>
+                    </div>
+        
+                </div>
+                <br>
+        
+            <!-- <div class="form-group">
+                <p class="col-sm-offset-2 col-sm-10 help-block">Street address, P.O. box,
+                    company name, c/o</p> -->
+        
+        
+        <label for="description" class="form-label">Address Line<span class="text-danger mx-1">&#42;</span></label>
+                <textarea class="form-control" name="address_line" id="address_line" onkeyup="validateAddressline()"
+                    rows="3"></textarea>
+                    <span id="addressline-error"></span>
+            </div><br>
+            
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="inputCityTown" class="col-sm-8 control-label">City /
+                            Districy / Town<span class="text-danger mx-1">&#42;</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="city"
+                                name="city_district_town" placeholder="City / District / Town" onkeyup="validateCity()">
+                        </div>
+                        <span id="city-error"></span>
+                    </div>
+                    <div class="col">
+                        <label for="selectState" class="col-sm-5 control-label">State<span class="text-danger mx-1">&#42;</span></label>
+                        <div class="col-sm-8">
+        
+                            <!--- India states -->
+                            <select class="form-select" id="selectState" name="state">
+                                <!-- <option selected="true" disabled="disabled">--Select State--</option> -->
+                                <option value="AN">Andaman and Nicobar Islands</option>
+                                <option value="AP">Andhra Pradesh</option>
+                                <option value="AR">Arunachal Pradesh</option>
+                                <option value="AS">Assam</option>
+                                <option value="BR">Bihar</option>
+                                <option value="CH">Chandigarh</option>
+                                <option value="CT">Chhattisgarh</option>
+                                <option value="DN">Dadra and Nagar Haveli</option>
+                                <option value="DD">Daman and Diu</option>
+                                <option value="DL">Delhi</option>
+                                <option value="GA">Goa</option>
+                                <option value="GJ">Gujarat</option>
+                                <option value="HR">Haryana</option>
+                                <option value="HP">Himachal Pradesh</option>
+                                <option value="JK">Jammu and Kashmir</option>
+                                <option value="JH">Jharkhand</option>
+                                <option value="KA">Karnataka</option>
+                                <option value="Kerala" selected>Kerala</option>
+                                <option value="LA">Ladakh</option>
+                                <option value="LD">Lakshadweep</option>
+                                <option value="MP">Madhya Pradesh</option>
+                                <option value="MH">Maharashtra</option>
+                                <option value="MN">Manipur</option>
+                                <option value="ML">Meghalaya</option>
+                                <option value="MZ">Mizoram</option>
+                                <option value="NL">Nagaland</option>                                      <option value="OR">Odisha</option>
+                                <option value="PY">Puducherry</option>
+                                <option value="PB">Punjab</option>
+                                <option value="RJ">Rajasthan</option>
+                                <option value="SK">Sikkim</option>
+                                <option value="TN">Tamil Nadu</option>
+                                <option value="TG">Telangana</option>
+                                <option value="TR">Tripura</option>
+                                <option value="UP">Uttar Pradesh</option>
+                                <option value="UT">Uttarakhand</option>
+                                <option value="WB">West Bengal</option>
+                            </select>
+        
+                        </div>
+                      
+                    </div>
+                </div><br>
+        
+        
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <label for="inputStateProvinceRegion"
+                                class="col-sm-8 control-label">Landmark</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"
+                                    id="inputStateProvinceRegion" name="landmark"
+                                    placeholder="Landmark(optional)">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="inputStateProvinceRegion"
+                                class="col-sm-8 control-label">Alternative phone no:</label>
+                            <div class="col-sm-8">
+                                <input type="number" class="form-control"
+                                    id="inputStateProvinceRegion" name="alt_phoneno"
+                                    placeholder="(optional)">
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                Address Type<span class="text-danger mx-1">&#42;</span>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault1" value="Home">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                     Home
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="addresstype" id="flexRadioDefault2" checked value="Work">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Work
+                    </label>
+                  </div>
+        
+        
+                  <div class="d-flex justify-content-center  my-2 px-5 mx-5" >
+                  
+                    <button type="submit"
+                          class="btn btn-primary align-center me-1 my-3">Submit</button>
+                         <a href="/placeOrder"  class="btn btn-danger align-center ms-1 my-3">Cancel
+                        </a>
+                  </div>
+               <center> <span id="submit-error"></span></center>
+        </form>
+</div></div>
+
+         <%if(guestUser){%>
+        <form action="" id="checkout-guest-form" >
+          <%}else{%>
+          <form action="" id="checkout-form" >
+            <%}%>
+          <input type="text" name="userId" id="" value="<%-user._id%>" hidden>
+         
+             <%if(user.address.length>0){%>
+               
+              <%for(var i=user.address.length-1;i>=0;i--){%>
+           
+          <hr>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="address" id="<%-user.address[i]._id%>" value="<%-user.address[i]._id%>" 
+              <%if(i==(user.address.length-1)){%>
+                checked
+                <%}%>
+                >
+            <label class="form-check-label" for="<%-user.address[i]._id%>">
+              <div class="row">
+                <div class="col-sm-12">
+                     
+                      <p class="fw-bold"><%-user.address[i].fullname%> <span class="badge text-muted mx-2 py-2" style="background-color: rgb(216, 215, 215);"><%-user.address[i].addresstype%></span><span class="mx-2"><%-user.address[i].phoneno%></span></p>
+                      
+                            <p class="text-muted"><%-user.address[i].address_line%>,
+                            <%-user.address[i].locality%>,<%-user.address[i].city_district_town%>,
+                            <%-user.address[i].state%>-
+                            <strong><%-user.address[i].pincode%></strong>
+                </div>                
+                  
+             
+              
+            </label>
+          </div>
+         
+            
+            </div>
+         
+              <%}%>
+            <%}else{%>
+            <hr>
+          <div class="form-check">
+                <input class="form-check-input" type="radio" name="no-address" id="no-address" value="no-address" checked>
+            <label class="form-check-label" for="no-address">
+                  No saved address 
+            </label>
+          </div>
+              
+            <%}%>
+      </div>
+    </div>
+
+
+</div>
+
+
+
+  <!-- ///////order summary/////// -->
+
+
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h3 class="col mb-0">Order Summary</h3>
+          </div>
+          <div class="card-body py-0">  
+           
+              <%if(unavailable.length>0){%>
+                                                                                
+                                                                               
+                <div class="bg-light mb-2 p-2">
+
+                <div class="text-danger">
+The following items are Not available
+                </div>
+                
+<%for(var i=unavailable.length-1;i>=0;i--){%>
+
+
+
+    <i class="fa-duotone fa-chevron-right"></i>
+<%-unavailable[i].name%> <br>
+
+<%}%>
+
+
+</div>
+<%if(cartItems.length>0){%>
+
+<p class="fw-bold">
+You can continue to place order with following available items.</p>
+<%}%>
+
+<%}%>
+
+                   
+              <% for(let p of cartItems){%>
+                  
+                  <div class="row  border-bottom">
+                    
+
+                      <div class="row main  p-3">
+                          <div class="col-2">
+                              <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                  <img src="/uploads/<%-p.product.images[0].filename%>"
+                                    class="w-100" />
+                                  
+                                    <div class="hover-overlay">
+                                      <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                    </div>
+                                  
+                                </div>
+                          </div>
+                          <div class="col-md-4 d-flex align-self-center">
+                             
+                              <div class="row text-dark fw-bold "><%- p.product.name%></div>
+                              
+                          </div>
+                          <div class="col d-flex text-dark fw-bold  me-5 align-items-center ">
+                             <div class="me-5">₹ <%- p.product.sellingprice%> </div> 
+                                  <!-- <span class="text-muted"><strike>₹<%- p.product.actualprice%></strike></span> -->
+                              
+
+                              Qty : <%-p.quantity%>
+                         
+                                <p class="fw-bold text-dark ms-5 mt-3">₹ <%-(p.quantity*p.product.sellingprice)%></p>
+                              </div>
+                              
+                              
+                              
+                      </div>
+                  </div>
+              
+             <%}%>
+            </div>
+        </div>
+  
+
+        <!-- ///////order summary/////// -->
+  </div>
+     
+  <%if(cartItems.length>0){%>
+    <div class="col-md-4">
+
+      <div class="card mb-4">
+        <div class="card-body ">
+          <%if(user.address.length>0){%>
+
+                <p class="mb-1"><strong>Payment Method</strong></p>
+
+                <div class="form-check">
+                <input  type="radio" id="wallet" name="payment" onclick="displayCheckout()" value="wallet">
+               <label  class="form-check-label" for="wallet">Wallet ₹
+                <span id="wallet-balance"><%-user.wallet%></span></label><span class="fw-light" id="wallet-status"></span><br>
+              </div>
+              
+                <div class="form-check">
+                    <input  type="radio" name="payment" id="cod" value="cod" required onclick="displayCheckout()">
+                    <label class="form-check-label" for="cod">
+                      Cash On Delivery
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input  type="radio" name="payment" id="Paypal" value="paypal"  onclick="displayPaypal()" required >
+                    <label class="form-check-label" for="Paypal">
+                      Paypal
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input  type="radio" name="payment" id="razorpay" value="razorpay" required onclick="displayCheckout()" >
+                    <label class="form-check-label" for="razorpay">
+                     Razor Pay
+                    </label>
+                  </div>
+
+                  
+           <%}else{%>
+            <p class="alert alert-danger">Add an address to continue!</p>
+            <%}%>
+           
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body ">
+            
+
+
+            <div class="card mb-4" id="available-coupons">
+              <div class="card-body  d-flex flex-row align-items-center">
+                <div class="form-outline flex-fill ">
+                  <h4 class="text-dark text-start fw-light m-0 fs-5">Available Coupons</h4>
+                </div>
+                <a class="btn btn-outline-warning btn-sm" onclick="displayDrop()"><i
+                    class="fa-solid fa-angle-down"></i></a>
+              </div>
+            </div>
+            <div class="card mb-4 d-none" id="coupons">
+              <ul class="list-group">
+                <%if(coupons.length>0){%>
+                  <%for(let item of coupons){%>
+                <li class="list-group-item d-flex justify-content-between text-success fs-6">
+                  Upto ₹<%-item.amount_off%>/- off on <br>purchases above <%-item.minimum_purchase%>
+                  <span> <span class="flex-end text-dark fw-bold"
+                      id="<%-item.coupon_code%>"><%-item.coupon_code%></span><a
+                      onclick="CopyToClipboard('<%-item.coupon_code%>');return false;" class="btn px-2 ms-2"><i
+                        class="fa-regular fa-copy fa-lg"></i></a></span>
+                </li>
+                <%}%>
+                <%}else{%>
+                <li class="list-group-item text-center">
+                  <span>Currently there is no available coupon</span>
+                </li>
+                <%}%>
+              </ul>
+            </div>
+            
+           
+            <%if(couponApplied){%>
+              <p class="mb-2 mt-3"><strong>Coupon Applied </strong></p>
+            <div class="mt-3 text-center"><%- include('../partials/flash')%></div>
+            
+            <div class="input-group mb-3">
+            <input type="text" name="couponCode" value="<%-couponApplied.coupon_code%>" class="form-control" readonly>
+            <a class="btn btn-primary" onclick="removeCoupon('<%-user._id%>')" id="apply-coupon">Remove</a>
+            </div>
+              
+            <%}else{%>
+            <p class="mb-2 mt-3"><strong>Have any coupon?</strong></p>
+            <div class="mt-3 text-center"><%- include('../partials/flash')%></div>
+            
+            <div class="input-group mb-3">
+            <input type="text" name="couponCode" class="form-control" placeholder="Coupon Code" aria-label="coupon code" aria-describedby="button-addon2">
+            <a class="btn btn-primary" onclick="addCoupon('<%-user._id%>')" id="apply-coupon">Apply</a>
+            </div>
+            <%}%>
+             
+            </div>
+          </div>
+
+
+
+
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Price Details</h5>
+          </div>
+          
+           
+          
+          <div class="card-body">
+            <%if(couponApplied){%>
+            <div >
+              <p class="text-success fs-6">Coupon applied for  <b>₹<span ><%-couponApplied.amount_off%></span>/- !</b></p>
+            </div>
+            <%}%>
+           
+            
+            <ul class="list-group list-group-flush">
+             
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Sub Total
+                <span>&#8377;<span id="subTotal"><%-subTotal%></span></span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Discount
+                <span class="text-success">-&#8377;<span id="discount"><%-discount%></span></span>
+              </li>
+              <div>
+                <%if(couponApplied){%>
+              <li class=" list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 " >
+                Coupon Discount
+                <span class="text-success ">-&#8377;<span id="couponDiscount"><%-couponApplied.amount_off%></span></span>
+              </li>
+              <%}%>
+            </div> 
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Convenience Fee
+                <span class="text-success">Free</span>
+              </li>
+              
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <div>
+                  <strong>Total amount</strong>
+                  <strong>
+                    <p class="mb-0">(including VAT)</p>
+                  </strong>
+                </div>
+                <strong>&#8377;<span id="totalAmount"><%-totalAmount%></span></strong>
+              </li>
+            </ul>
+            <div class="clr mt-4" id="paypal"></div>
+            <div class="clr" id="checkout-button">
+            <button id='placeOrder' type="submit" class="btn btn-primary  btn-lg btn-block">
+            Checkout
+            </button>
+            </div>
+          </form>
+          </div>
+          <%}%>
+        </div>
+     
+    
+ 
+</section>
+
+<%- include('../partials/footer')%>
+
+
+
+<script>
+
+
+  function addCoupon(userId){
+  let couponCode = document.querySelector("input[name='couponCode']").value
+   let total = parseInt(document.getElementById("totalAmount").innerText)
+  if(couponCode==""){
+
+  }
+  else{
+   console.log(total)
+   $.ajax({
+     url:'/apply-coupon',
+     data:{
+       couponCode,
+       total,
+       userId
+     },
+     method:'post',
+     success:(response)=>{
+      
+      location.reload()
+
+     }
+
+    })
+  }
+  }
+
+  function removeCoupon() {
+    
+  $.ajax({
+    url: '/remove-coupon',
+    method: 'get',
+    success: (response) => {
+      
+      location.reload()
+    }
+  })
+}
+
+
+  
+function CopyToClipboard(id) {
+  var r = document.createRange();
+  r.selectNode(document.getElementById(id));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(r);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+}
+
+function displayDrop() {
+    var element = document.getElementById("coupons");
+    var parent = document.getElementById("available-coupons");
+    element.classList.toggle("d-none");
+    parent.classList.toggle("mb-4");
+  }
+
+$(document).ready(function () {
+  let walletBalance = parseInt(document.getElementById('wallet-balance').innerText)
+  let total = parseInt(document.getElementById('totalAmount').innerText)
+  if (walletBalance < total) {
+    document.getElementById('wallet').classList.add('d-none')
+    document.getElementById('wallet-status').innerText = '(insufficient balance)'
+  }
+})
+
+
+  $("#checkout-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/placeOrder',
+      method:'post',
+      data:$('#checkout-form').serialize(),
+      success:(response)=>{
+        if(response.codSuccess){
+          location.replace('/orderSuccess')
+        }
+        else if(response.walletSuccess){
+          location.href='/orderSuccess'
+        }
+        else if(response.paypalSuccess){
+          sessionStorage.setItem("paypal","true")
+          location.href='/orderSuccess'
+        }
+        else if(response.order){
+          razorpayPayment(response.order)
+        }
+        else {
+          Swal.fire({
+            title: 'Something went wrong!',
+            text: "Please try again",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK!'
+          }).then(() => {
+            location.replace('/cart')
+          })
+        }
+      }
+    })
+  })
+
+
+  $("#checkout-guest-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/guestPlaceOrder',
+      method:'post',
+      data:$('#checkout-guest-form').serialize(),
+      success:(response)=>{
+        if(response.codSuccess){         
+          location.href='/orderSuccess'
+        }
+        else if(response.paypalSuccess){
+          sessionStorage.setItem("paypal","true")
+          location.href='/orderSuccess'
+        }
+        else if(response.order){
+         
+          razorpayPayment(response.order)
+        }
+        else {
+          Swal.fire({
+            title: 'Something went wrong!',
+            text: "Please try again",
+            icon: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK!'
+          }).then(() => {
+            location.replace('/cart')
+          })
+        }
+      }
+    })
+  })
+
+
+  paypal.Buttons({
+        // Sets up the transaction when a payment button is clicked
+        createOrder: (data, actions) => {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: document.getElementById('totalAmount').innerText // Can also reference a variable or function
+                    }
+                }]
+            });
+        },
+        // Finalize the transaction after payer approval
+        onApprove: (data, actions) => {
+            return actions.order.capture().then(function (orderData) {
+                // Successful capture! For dev/demo purposes:
+                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                // When ready to go live, remove the alert and show a success message within this page. For example:
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+                $("#placeOrder").trigger("click")
+            });
+        }
+    }).render('#paypal');
+
+    function displayCheckout() {
+
+        let list1 = document.getElementById("checkout-button").classList
+        let list2 = document.getElementById("paypal").classList;
+        list1.add('disbtn')
+        list2.remove('disbtn')
+    }
+
+    function displayPaypal() {
+        let list1 = document.getElementById("checkout-button").classList
+        let list2 = document.getElementById("paypal").classList;
+        list1.remove('disbtn')
+        list2.add('disbtn')
+
+    }NaN                  
+
+ 
+
+  function razorpayPayment(order){
+    console.log("order",order)
+    var options = {
+    "key": "rzp_test_uEQM9Ijif03z6w", // Enter the Key ID generated from the Dashboard
+    "amount": order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "LACEUP",
+    "description": "Test Transaction",
+    "image": "https://example.com/your_logo",
+    "order_id":order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature)
+
+        // console.log("heyyyyyyy  kitt")
+       
+        verifyPayment(response,order)
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
+        "contact": "9999999999"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+    rzp1.open();
+
+
+  }
+
+  function verifyPayment(payment,order){
+    console.log("orderrrrrrrsss",order)
+    $.ajax({
+      url:'/verify-payment',
+      data:{
+        payment,
+        order
+      },
+      method:'post',
+      success:(response)=>{
+        if(response.status){
+          location.href='/orderSuccess'
+        }
+        else{
+          
+        }
+      }
+    })
+  }
+
+  
+</script>
+<script>
+  const form = document.getElementById("myForm");
+  const fullnameError=document.getElementById("fullname-error")
+  const localityError=document.getElementById("locality-error")
+  const phonenoError=document.getElementById("phoneno-error")
+  const pincodeError=document.getElementById("pincode-error")
+  const cityError=document.getElementById("city-error")
+
+ 
+  const addresslineError =document.getElementById("addressline-error")
+
+  form.addEventListener('submit', e => {
+      
+      if(validateFullname()&&validatePhoneno()&&validatePincode()&&validateLocality()&&validateAddressline()&&validateCity()&&validateState()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+    function validateFullname() {
+      var fullname=document.getElementById('fullname').value.trim();  
+  
+      if (fullname.length==0) {
+          fullnameError.innerHTML='Name is Required';
+          fullnameError.style.color='red'
+          return false;
+      }
+      else if (fullname.length<=2) {
+          fullnameError.innerHTML='Atleast 3 characters';
+          fullnameError.style.color='red'
+          return false;
+      }
+  
+      if (!fullname.match(/^[A-Za-z\s]*$/)){
+          fullnameError.innerHTML='Write a valid name';
+          fullnameError.style.color='red'
+          return false;
+      }
+      
+      fullnameError.innerHTML='Name is valid';
+      fullnameError.style.color='green'
+      return true;
+  }
+
+function validatePhoneno() {
+  var phoneno =document.getElementById('phoneno').value.trim();
+ 
+  if (!phoneno.match(/^[0-9]*$/)){
+        phonenoError.innerHTML='Write a valid Phone Number';
+        phonenoError.style.color='red'
+        return false;
+    }
+  
+  if(phoneno.length!=10){
+     phonenoError.innerHTML ='Phone number invalid';
+     phonenoError.style.color='red'
+      return false;
+  
+  }
+ phonenoError.innerHTML='Phone number is valid';
+ phonenoError.style.color='green'
+  return true;    
+  
+}
+
+function validatePincode() {
+  var pincode =document.getElementById('pincode').value.trim();
+  
+  if (!pincode.match(/^[0-9]*$/)){
+        pincodeError.innerHTML='Write a valid pincode';
+        pincodeError.style.color='red'
+        return false;
+    }
+
+  if(pincode.length!=6){
+      pincodeError.innerHTML ='Pincode is invalid';
+      pincodeError.style.color='red'
+      return false;
+  
+  }
+  pincodeError.innerHTML='Pincode is valid';
+  pincodeError.style.color='green'
+  return true;    
+  
+}
+
+function validateLocality() {
+    var locality =document.getElementById('locality').value.trim();
+    
+    
+    if (locality.length==0) {
+        localityError.innerHTML='Locality is Required';
+        localityError.style.color='red'
+        return false;
+    }
+    localityError.innerHTML='Locality is valid';
+    localityError.style.color='green'
+    return true;    
+    
+}
+
+function validateAddressline() {
+    var addressline =document.getElementById('address_line').value.trim();
+    
+    
+    if (addressline.length==0) {
+        addresslineError.innerHTML='Addressline is Required';
+        addresslineError.style.color='red'
+        return false;
+    }
+    addresslineError.innerHTML='Addressline is valid';
+    addresslineError.style.color='green'
+    return true;    
+    
+}
+function validateCity() {
+    var city =document.getElementById('city').value.trim();
+    
+    
+    if (city.length==0) {
+        cityError.innerHTML='City is Required';
+        cityError.style.color='red'
+        return false;
+    }
+    cityError.innerHTML='City is valid';
+    cityError.style.color='green'
+    return true;    
+    
+}
+
+</script>   

@@ -1,0 +1,108 @@
+<%- include('../partials/sidebar')%>
+<div class="content">
+  <div class="row">
+    <div class="mt-3 text-center">
+      <%- include('../partials/flash')%>
+      </div>
+    <!-- <h2 class="text-center fw-bold mt-3">ADD PRODUCT</h2> -->
+    <div class="twelve heading">
+      <h1>ADD Category Offer</h1>
+      </div>
+    <div class="col-6 offset-3">
+      <form method="post" action="/admin/addCategoryOffer"  id="myForm" >
+        
+        <div class="row mb-3">
+          
+            <div class="col-md-6">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-select" name="category" id="category" >
+                 
+                  <% for(let cat of categories) {%>
+                  <option value="<%- cat._id %>"><%- cat.name%></option>
+                  <%}%>
+                </select>
+              </div>
+
+
+              <div class="col-md-6">
+                <label for="discount" class="form-label">Discount</label>
+                <div class="input-group">
+                   
+                  <input type="number" id="discount" name="discount" class="form-control" onkeyup="validateDiscount()" />
+                  <span class="input-group-text">&#37;</span> 
+                </div>
+                <span id="discount-error"></span>
+              </div> 
+            </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="valid_from" class="form-label">Valid from</label>
+                <input type="date" id="valid_from" name="valid_from" class="form-control " required />
+        <span id="validfrom-error"></span>
+
+            </div>
+  
+            <div class="col-md-6">
+              <label for="valid_till" class="form-label ">Valid till</label>
+             
+                <input type="date" id="valid_till" name="valid_till" class="form-control " required/>
+        <span id="validtill-error"></span>
+              
+            </div> 
+          </div>
+        <button type="submit" class="btn btn-primary align-center">Submit</button>
+        <span id="submit-error"></span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("myForm");
+  const validfromError=document.getElementById("validfrom-error")
+  const validtillError=document.getElementById("validtill-error")
+  const discountError=document.getElementById("discount-error")
+
+ 
+
+  form.addEventListener('submit', e => {
+      
+      if(validateDiscount()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+
+
+function validateDiscount() {
+    var discount =document.getElementById('discount').value.trim();
+    
+    
+    if(discount<=0){
+        discountError.innerHTML ='Discount cannot be negative value';
+        discountError.style.color='red'
+        return false;
+    
+    }
+    if(discount>100){
+        discountError.innerHTML ='Discount cannot be more than 100%';
+        discountError.style.color='red'
+        return false;
+    
+    }
+    discountError.innerHTML='Discount is valid';
+    discountError.style.color='green'
+    return true;    
+    
+}
+   
+</script>   

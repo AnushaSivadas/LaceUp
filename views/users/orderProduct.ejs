@@ -1,0 +1,701 @@
+<%- include('../partials/userHeader')%>
+<style>
+    .title{
+    color: rgb(19, 92, 126);
+    font-weight: 600;
+    margin-bottom: 2vh;
+    padding: 0 8%;
+    font-size: initial;
+}
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+ 
+ .track{
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 30px
+    }
+    
+.track .step{
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+    }
+.track .step.active:before{
+    background: #5eb2ca
+    }
+.track .step.active.cancel:before{
+    background: #f54747
+    }
+.track .step.active.cancel .icon{
+    background: #f60b0b;
+    color: #fff
+    }
+.track .step.active .icon{
+    background: #082c3c;
+    color: #fff
+    }
+
+
+    .track .step.return.active:before{
+    background: #f5c34d
+    }
+.track .step.return.active.cancel:before{
+    background: #f54747
+    }
+    .track .step.return.active.cancel .icon{
+    background: #f60b0b;
+    color: #fff
+    }
+.track .step.return.active .icon{
+    background: #fa7102;
+    color: #fff
+    }
+
+
+.track .step::before{
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+    }
+
+.track .icon{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+    }
+.track .step.active .text{
+    font-weight: 500;
+    color: rgb(19, 96, 159)
+    }
+.track .text{
+    display: block;
+    margin-top: 7px;
+    font-size:x-small;
+    }
+
+ul.row, ul.row-sm{
+    list-style: none;
+    padding: 0
+    }
+    
+    </style>
+    <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/userProfile">My profile</a></li>
+              <li class="breadcrumb-item"><a href="/orders">Orders</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Order Details</li>
+              <span class="ms-auto me-5 fw-bold">Order Total : <%-order.totalAmount%></span>
+            </ol>
+            
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-md-4">
+                        <div class="text-dark fw-bold fs-5">
+                            Delivery Address
+                        </div>
+                        <div class="text-dark fw-semibold my-1">
+                            <%-order.deliveryDetails.fullname%>
+                        </div>
+                        <div>
+                            <%-order.deliveryDetails.address_line%>,
+                            <%-order.deliveryDetails.locality%>,<br>
+                            <%-order.deliveryDetails.city_district_town%>-
+                            <%-order.deliveryDetails.pincode%>,<%-order.deliveryDetails.state%>   
+                        </div>
+                        <div class="text-dark fw-semibold my-1">
+                            Phone number : <%-order.deliveryDetails.phoneno%> 
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-md-4 border-sm-start-none border-start">
+                        <div class="text-dark fw-bold fs-5">
+                            Your Rewards
+                        </div>
+                        
+                    </div>
+                    <%if(productDetails.status=="delivered" || productDetails.status=="returnrequest" || productDetails.status=="returnapproved" || productDetails.status=="returnpickuped"
+                    || productDetails.status=="returncancelled" || productDetails.status=="returncancelledbyadmin"){%>
+                    <div class="col-md-4 border-sm-start-none border-start ">
+                        <div class="text-dark fw-bold fs-5">
+                            More Actions
+                        </div>
+                        <div class="my-2">
+                           
+                                <div  class="badge bg-warning text-white me-2"><i class="fa-solid fa-file-lines fs-6"></i></div>
+                                <span class="me-5">Download Invoice</span> 
+                                
+                                
+                                <a role="button" href="/invoice/<%-order._id%>" class="btn btn-outline-primary  text-primary ms-5">Invoice</a>
+                        </div>
+                        
+                    </div>
+                    <%}%>
+                    </div>
+                </div>
+            </div>           
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <div class="row main">
+                                <div class="col-4">
+                                    <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                        <img src="/uploads/<%-productDetails.product.images[0].filename%>"
+                                          class="w-100" />
+                                        <a href="/productDetails/<%-productDetails.item%>">
+                                          <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                          </div>
+                                        </a>
+                                      </div>
+                                </div>
+                                <div class="col-md-6">
+                                   
+                                    <div class="row text-dark fw-bold"><%- productDetails.product.name%></div>
+                                    <div class="row text-dark fw-normal">₹ <%- productDetails.product.sellingprice%> 
+                                    </div>
+                                    <div class="row mt-3 d-flex text-dark fw-bold  me-5 align-items-center">
+                                        Qty : <%-productDetails.quantity%>
+                                         (₹  <%-productDetails.quantity*productDetails.product.sellingprice%>)
+                                         </div>
+                                            
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                        <div class="col-md-4 ">
+                            <div class="tracking">
+                                <div class="title">Tracking Order</div>
+                            </div>
+                            <div class="track">
+                                <%if(productDetails.status=="delivered"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped <br><%-productDetails.shippedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way <br> <%-productDetails.outfordeliveryDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered <br><%-productDetails.deliveredDate%></span> </div>
+                                <%}else if(productDetails.status=="outfordelivery"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way <br> <%-productDetails.outfordeliveryDate%></span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                <%}else if(productDetails.status=="shipped"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                <%}else if(productDetails.status=="confirmed"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                <%}else if(productDetails.status=="pending"){%>
+                                    <div class="step "> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed</span> </div>
+                                    <div class="step"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered</span> </div>
+                                <%}else if(productDetails.status=="returnrequest"){%>
+                                    <div class="step return active"> <span class="icon"> <i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <div class="step"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup</span> </div>
+                                    <div class="step"> <span class="icon"><i class="fa-solid fa-wallet"></i> </span> <span class="text">Refund</span> </div>
+                                <%}else if(productDetails.status=="returnapproved"){%>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved<br><%-productDetails.returnApprovedDate%></span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup</span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa-solid fa-wallet"></i> </span> <span class="text">Refund</span> </div>
+                                <%}else if(productDetails.status=="returnpickuped"){%>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved<br><%-productDetails.returnApprovedDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup<br><%-productDetails.returnPickupedDate%></span> </div>
+                                    <div class="step"> <span class="icon"> <i class="fa-solid fa-wallet"></i> </span> <span class="text">Refund</span> </div>
+                                <%}else if(productDetails.status=="refunddone"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered <br><%-productDetails.deliveredDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <!-- <div class="step active"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved<br><%-productDetails.returnApprovedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup<br><%-productDetails.returnPickupedDate%></span> </div> -->
+                                    <div class="step return active"> <span class="icon"> <i class="fa-solid fa-wallet"></i> </span> <span class="text">Refund<br><%-productDetails.refundDoneDate%></span> </div>
+                                <%}else if(productDetails.status=="returncancelled"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered <br><%-productDetails.deliveredDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <!-- <div class="step active"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved<br><%-productDetails.returnApprovedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup<br><%-productDetails.returnPickupedDate%></span> </div> -->
+                                    <div class="step return active cancel"> <span class="icon "> <i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Return Cancelled<br><%-productDetails.returnCancelledDate%></span> </div>
+                                <%}else if(productDetails.status=="returncancelledbyadmin"){%>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Delivered <br><%-productDetails.deliveredDate%></span> </div>
+                                    <div class="step return active"> <span class="icon"><i class="fa-solid fa-arrow-rotate-left"></i> </span> <span class="text">Return<br><%-productDetails.returnRequestDate%></span> </div>
+                                    <!-- <div class="step active"> <span class="icon"><i class="fa-solid fa-thumbs-up"></i> </span> <span class="text">Return Approved<br><%-productDetails.returnApprovedDate%></span> </div>
+                                    <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">Pickup<br><%-productDetails.returnPickupedDate%></span> </div> -->
+                                    <div class="step return active cancel"> <span class="icon "> <i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Return rejected<br><%-productDetails.returnCancelledByAdminDate%></span> </div>
+                                                         
+                                <%}else if(productDetails.status=="cancelled"){%>
+                                    <%if(productDetails.outfordeliveryDate != 'undefined undefined'){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way<br><%-productDetails.outfordeliveryDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledDate%></span> </div>
+                                    <%}else if(productDetails.shippedDate != 'undefined undefined'){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledDate%></span> </div>
+                                    <%}else if(productDetails.confirmedDate != 'undefined undefined'){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledDate%></span> </div>
+                                    <%}else if(productDetails.orderedDate != 'undefined undefined'){%> 
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledDate%></span> </div>    
+                                    <%}%>
+                                <%}else{%>
+                                    <%if(!productDetails.outfordeliveryDate){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">On the way<br><%-productDetails.outfordeliveryDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"> <i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledbyadminDate%></span> </div>
+                                    <%}else if(productDetails.shippedDate){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active"> <span class="icon"><i class="fa-solid fa-truck-ramp-box"></i> </span> <span class="text">Shipped<br><%-productDetails.shippedDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"> <i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledbyadminDate%></span> </div>
+                                    <%}else if(productDetails.confirmedDate){%>
+                                        <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Confirmed<br><%-productDetails.confirmedDate%></span> </div>
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledDate%></span> </div>
+                                    <%}else{%> 
+                                        <div class="step active cancel"> <span class="icon bg-danger"><i class="fa-solid fa-rectangle-xmark"></i> </span> <span class="text">Cancelled<br><%-productDetails.cancelledbyadminDate%></span> </div>    
+                                    <%}%>
+                                <%}%>
+                            </div>
+                          
+                        </div>
+
+                        <div class="col-md-4  ">
+                            
+                           <div class="col d-flex mt-5 align-items-center justify-content-start">
+                             
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <%if(productDetails.status=="delivered"){%>     
+                                     <i class="fa-solid fa-circle text-success me-2"></i>Delivered on <%-productDetails.deliveredDate%>
+                                <%}else if(productDetails.status=="outfordelivery"){%>
+                                     <i class="fa-solid fa-circle-dot text-success me-2"></i>Outfordelivery on <%-productDetails.outfordeliveryDate%>
+                                 <%}else if(productDetails.status=="shipped"){%>
+                                     <i class="fa-solid fa-circle text-warning me-2"></i>Shipped on <%-productDetails.shippedDate%>
+                                 <%}else if(productDetails.status=="confirmed"){%>
+                                     <i class="fa-solid fa-circle text-primary me-2"></i>Confirmed on <%-productDetails.confirmedDate%>
+                                 <%}else if(productDetails.status=="cancelledbyadmin"){%>
+                                     <i class="fa-solid fa-circle text-danger me-2"></i> Cancelled by admin on <%-productDetails.cancelledbyadminDate%>
+                                 <%}else if(productDetails.status=="cancelled"){%>
+                                     <i class="fa-solid fa-circle text-danger me-2"></i>Cancelled on <%-productDetails.cancelledDate%>
+                                     <%}else if(productDetails.status=="returnrequest"){%>
+                                         <i class="fa-solid fa-circle text-warning me-2"></i>Return requested on <%-productDetails.returnRequestDate%>
+                                     <%}else if(productDetails.status=="returnapproved"){%>
+                                       <i class="fa-solid fa-circle text-success me-2"></i>Return approved on <%-productDetails.returnApprovedDate%>
+                                     <%}else if(productDetails.status=="returnpickuped"){%>
+                                       <i class="fa-solid fa-circle text-primary me-2"></i>Return pickuped on <%-productDetails.returnPickupedDate%>
+                                     <%}else if(productDetails.status=="refunddone"){%>
+                                       <i class="fa-solid fa-circle text-warning me-2"></i>Refund done on <%-productDetails.refundDoneDate%>
+                                     <%}else if(productDetails.status=="returncancelledbyadmin"){%>
+                                       <i class="fa-solid fa-circle text-danger me-2"></i>Return rejected on <%-productDetails.returnCancelledByAdminDate%>
+                                       <%}else if(productDetails.status=="returncancelled"){%>
+                                        <i class="fa-solid fa-circle text-danger me-2"></i>Return cancelled on <%-productDetails.returnCancelledDate%>
+                                             
+                                 <%}else{%>
+                                     <i class="fa-solid fa-circle-dot text-primary me-2"></i>Ordered on <%-productDetails.orderedDate%> <br>Wait for confirmation
+                                 <%}%>
+                                 </div>
+
+                            </div>
+                            <!-- <div class="col d-flex justify-content-center align-items-center text-primary fw-bold mt-3">
+                                <i class="fa-solid fa-circle-question"></i> &nbsp;Need Help ?
+                
+                            </div>   -->
+                            <div class="col d-flex justify-content-center align-items-center text-primary fw-bold ">
+
+                            <% if(productDetails.status == 'delivered'){%>
+                                <a href="/productview/<%-productDetails.product._id%>/writeReview"><i class="fa-solid fa-star "></i>&nbsp;Rate & Review Product</a>
+                            <%}%>
+
+                            
+                            </div>
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+            </div>
+
+            
+            
+            <% if( productDetails.status == 'confirmed' || productDetails.status == 'shipped' ||
+            productDetails.status == 'outfordelivery' ){%>
+                
+                <div class="d-flex justify-content-end mb-4 mx-5">
+                <a onclick="confirmation('<%-productDetails.item%>','<%-order._id%>','cancelled')" class="btn btn-danger">Cancel Order</a>
+                </div>
+                
+            <%}%> 
+            <% if(productDetails.status == 'returnrequest' || productDetails.status == 'returnapproved' || productDetails.status == 'returnpickuped'){%>
+                <div class="d-flex justify-content-end mb-4 mx-5">
+                <a class="btn btn-danger" onclick="returnCancelConfirmation('<%-productDetails.item%>','<%-order._id%>','returncancelled')">
+                    Cancel Return
+                </a>
+            </div>
+                <%}%>
+           
+                <% if(productDetails.status == 'delivered' ){%>
+                 <% if (returnAvailable){%>              
+                <div class="d-flex justify-content-end mb-4 mx-5">
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                       Return
+                      </button>
+                </div> 
+
+
+
+
+
+                <!-- Modal -->
+                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-dialog-centered modal-xl">
+                    <div class="modal-content rounded-5 bg-white">
+                        <!-- <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> -->
+                        <div class="modal-body" >
+                            
+                                <div class="row d-flex justify-content-center my-4">
+                                  <div class="col-md-8">
+                                    <div class="card mb-4">
+                                      <div class="card-header py-3">
+                                        <h3 class="col mb-0">Reason for return</h3>
+                                        
+                                      </div>
+                                      <div class="card-body" >
+                                        <form id="returnReasonForm">
+                                            <input type="text" name="proId" value="<%-productDetails.item%>" hidden>
+                                            <input type="text" name="orderId" value="<%-order._id%>" hidden>
+                                            <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-3 d-flex align-items-center">
+                                                   <span class="text-dark fw-bold"> Return reason  </span> 
+                                                </div>
+                                                <div class="col-md-9">
+                                                        <select class="form-select" aria-label="Default select example" name="reason">
+                                                            <option selected="true" disabled="disabled">--Select Reason--</option>
+                                                            <option value="The product is defective">The product is defective</option>
+                                                            <option value="Received wrong product">Received wrong product</option>
+                                                            <option value="The quality is not good">The quality is not good</option>
+                                                            <option value="The color is not as expected">The color is not as expected</option>
+                                                            <option value="Size is not perfect">Size is not perfect</option>
+                                                        </select>
+                                            </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-3 d-flex align-items-center">
+                                                   <span class="text-dark fw-bold"> Comments </span> 
+                                                </div>
+                                                <div class="col-md-9">
+                                              <div class="form-group mt-3">
+                                                <textarea class="form-control" name="comments" id="comments"
+                                                rows="3"></textarea>                                                 
+                                             </div> 
+                                            </div>
+                                        </div>
+                                             <div class="d-flex justify-content-center my-2 px-5 mx-5" >
+                          
+                                                <button type="submit"
+                                                      class="btn btn-primary align-center me-1 my-3" >Submit</button>
+                                                     <a href="/orders/viewProduct/<%-order._id%>/<%-p.item%>"  class="btn btn-danger align-center ms-1 my-3">Cancel
+                                                    </a>
+                                              </div>
+                                            </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                  
+                                  <div class="col-md-4">
+                                        
+                                        
+                                              <div class="card mb-4">
+                                                  <div class="card-header py-3">
+                                                      <h5 class="mb-0">Item Details</h5>
+                                                                        
+                                                   </div>
+                                                  <div class="card-body">
+                                                      <div class="row">
+                                                        <div class="row main d-flex justify-content-between">
+                                                           
+                                                            <div class="col-md-6">
+                                                               
+                                                                <div class="row text-dark fw-bold"><%- productDetails.product.name%></div>
+                                                                <div class="col mt-3 text-dark ">₹ <%- productDetails.product.sellingprice%> 
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                                    <img src="/uploads/<%-productDetails.product.images[0].filename%>"
+                                                                      class="w-100" />
+                                                                    <a href="/productDetails/<%-productDetails.item%>">
+                                                                      <div class="hover-overlay">
+                                                                        <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                                      </div>
+                                                                    </a>
+                                                                  </div>
+                                                                  <div class="col d-flex text-dark fw-normal">
+                                                                    Qty : <%-p.quantity%>
+                                                                     </div>
+                                                                     <div class="col d-flex text-dark fw-normal">
+                                                                     ₹  <%-p.quantity*productDetails.product.sellingprice%>
+                                                                         </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                      
+                                                      </div>
+                                                  </div>
+                                              </div>           
+                                         
+                            
+                                  </div>
+                                </div>
+                              
+                        </div>
+                        <!-- <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        </div> -->
+                    </div>
+                    </div>
+                </div>
+                <%}else{%> 
+                    <div class="d-flex justify-content-end mb-4 mx-5">
+                        <span class="text-muted fw-bold">Return policy ended on <%-returnAvailableDate%></span>
+                    </div>
+                <%}%>
+            <%}%> 
+                      
+        </div>
+      </div>
+
+      <%if(order.products.length>1){%>
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <h5 class="mb-0">Other items in this order </h5>
+                                      
+                 </div>
+                <div class="card-body">
+                    <div class="row">
+                        
+                            <% for(let p of order.products){%>
+                                <%if(p.item == productDetails.item){%>
+                                <%}else{%>
+                                <a href="/orders/viewProduct/<%-order._id%>/<%-p.item%>">
+                                <div class="row  border-bottom">
+
+                                    <div class="row main  p-3">
+                                        <div class="col-2">
+                                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                                <img src="/uploads/<%-p.product.images[0].filename%>"
+                                                  class="w-50" />
+                                                
+                                                  <div class="hover-overlay">
+                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                  </div>
+                                                
+                                              </div>
+                                        </div>
+                                        <div class="col-md-4 d-flex align-self-center">
+                                           
+                                            <div class="row text-dark fw-bold "><%- p.product.name%></div>
+                                            
+                                        </div>
+                                        <div class="col d-flex text-dark fw-bold  me-5 align-items-center ">
+                                           <div class="me-5">₹ <%- p.product.sellingprice%> </div> 
+                                                <!-- <span class="text-muted"><strike>₹<%- p.product.actualprice%></strike></span> -->
+                                            
+                                            Qty : <%-p.quantity%> <span class="ms-3">(₹ <%-(p.quantity* p.product.sellingprice)%>)</span>
+                                             </div>
+                                        <div class="col d-flex justify-content-start align-items-center">
+                                       <%if(p.status=="delivered"){%>     
+                                            <i class="fa-solid fa-circle text-success me-2"></i>Delivered on <%-p.deliveredDate%>
+                                       <%}else if(p.status=="outfordelivery"){%>
+                                            <i class="fa-solid fa-circle-dot text-success me-2"></i>Outfordelivery on <%-p.outfordeliveryDate%>
+                                        <%}else if(p.status=="shipped"){%>
+                                            <i class="fa-solid fa-circle text-warning me-2"></i>Shipped on <%-p.shippedDate%>
+                                        <%}else if(p.status=="confirmed"){%>
+                                            <i class="fa-solid fa-circle text-primary me-2"></i>Confirmed on <%-p.confirmedDate%>
+                                        <%}else if(p.status=="cancelledbyadmin"){%>
+                                            <i class="fa-solid fa-circle text-danger me-2"></i> Cancelled by admin on <%-p.cancelledbyadminDate%>
+                                        <%}else if(p.status=="cancelled"){%>
+                                            <i class="fa-solid fa-circle text-danger me-2"></i>Cancelled on <%-p.cancelledDate%>
+                                            <%}else if(p.status=="returnrequest"){%>
+                                                <i class="fa-solid fa-circle text-warning me-2"></i>Return requested on <%-p.returnRequestDate%>
+                                            <%}else if(p.status=="returnapproved"){%>
+                                              <i class="fa-solid fa-circle text-success me-2"></i>Return approved on <%-p.returnApprovedDate%>
+                                            <%}else if(p.status=="returnpickuped"){%>
+                                              <i class="fa-solid fa-circle text-primary me-2"></i>Return pickuped on <%-p.returnPickupedDate%>
+                                            <%}else if(p.status=="refunddone"){%>
+                                              <i class="fa-solid fa-circle text-warning me-2"></i>Refund done on <%-p.refundDoneDate%>
+                                            <%}else if(p.status=="returncancelledbyadmin"){%>
+                                              <i class="fa-solid fa-circle text-danger me-2"></i>Return rejected on <%-p.returnCancelledByAdminDate%>
+                                              <%}else if(p.status=="returncancelled"){%>
+                                                <i class="fa-solid fa-circle text-danger me-2"></i>Return cancelled on <%-p.returnCancelledDate%>
+                                                   
+                                        <%}else{%>
+                                            <i class="fa-solid fa-circle-dot text-primary me-2"></i>Ordered on <%-p.orderedDate%> <br>Wait for confirmation
+                                        <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                                <%}%>
+                           <%}%>
+                        
+                    
+                    </div>
+                </div>
+            </div>           
+        </div>
+      </div>
+      <%}%>
+    </div>        
+  </section>
+  <%- include('../partials/footer')%>
+  <script>
+    function changeOrderStatus(proId,orderId,status) {
+    $.ajax({
+        url: '/orders/change-order-status',
+        data: {
+            proId,
+            orderId,
+            status: status,
+        },
+        method: 'post',
+        success: (response) => { 
+            if(response.cancelled){          
+            sessionStorage.setItem("cancelOrder", "true");
+                location.reload()
+            }
+            else{
+                sessionStorage.setItem("returnCancel", "true");
+                location.reload()
+            }
+        }
+    })
+}
+
+        function myFunction(msg) {
+            alertify.success(msg);
+          }
+          
+        window.onload = function () {
+            var cancelOrder = sessionStorage.getItem("cancelOrder");
+      
+            if (cancelOrder) {
+              sessionStorage.removeItem("cancelOrder");
+              myFunction("Order Cancelled");
+            }
+            
+          }
+
+          window.onload = function () {
+            var returnCancel = sessionStorage.getItem("returnCancel");
+      
+            if (returnCancel) {
+              sessionStorage.removeItem("returnCancel");
+              myFunction("Return Cancelled");
+            }
+            
+          }
+
+function confirmation(proId,orderId,status){
+Swal.fire({
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, cancel it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    changeOrderStatus(proId,orderId,status)
+  }
+})
+}
+
+function returnCancelConfirmation(proId,orderId,status){
+Swal.fire({
+  title: 'Are you sure?',
+  text: "You want to cancel the return!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, cancel it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+    changeOrderStatus(proId,orderId,status)
+  }
+})
+}
+
+
+$("#returnReasonForm").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+        url: '/orders/return-item',
+        data:$('#returnReasonForm').serialize(),
+        method: 'post',
+        success: (response) => {           
+                location.reload()
+        }
+    })
+})
+
+
+
+
+  </script>

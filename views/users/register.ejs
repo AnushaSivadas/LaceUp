@@ -1,0 +1,184 @@
+<%- include('../partials/userHeader')%>
+<section class="py-5" style="background-image:url('./images/banner1.jpg')">
+<div class="container" >
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <!-- <h2 class="text-center text-dark fw-bold mt-4">Sign Up</h2> -->
+      <div class="mt-3 text-center">
+        <%- include('../partials/flash')%>
+        </div>
+      
+      <div class="card my-3">
+
+        <form class="card-body cardbody-color p-lg" action="/userRegister" method="post" id="myForm" novalidate>
+          <div class="text-center text-dark fw-bold fs-3 mt-4">Register Here</div>
+          <div class="text-center">
+            <img src="./images/profileavatar.png" class="img-fluid  img-thumbnail rounded-circle my-3"
+              width="100px" alt="profile">
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp"
+              placeholder="User Name" onkeyup="validateUsername()">
+              <label for="username" class=" text-muted">Username</label>
+              <span id="username-error"></span>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp"
+              placeholder="Email Id" onkeyup="validateEmail()">
+              <label for="email" class="text-muted">Email Id</label>
+              <span id="email-error"></span>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" name="phno" id="phno" aria-describedby="phnoHelp"
+              placeholder="phno Id" onkeyup="validatePhno()">
+              <label for="phno" class="text-muted">Phone Number</label>
+              <span id="phno-error"></span>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" onkeyup="validatePassword()">
+            <label for="password" class=" text-muted">Password</label>
+            <span id="password-error"></span>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" name="confirmpassword" id="confirmpassword" placeholder="Confirm Password" onkeyup="validateConfirmPassword()">
+            <label for="confirmpassword" class=" text-muted">Confirm Password</label>
+            <span id="confirmpassword-error"></span>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="referral" id="referral"  placeholder="Referral code">
+            <label for="referral" class=" text-muted">Referral code (optional)</label>
+          </div>
+
+
+          
+          <div class="text-center"><button type="submit" class="btn btn-color px-5 mb-3 w-100">Sign Up</button>
+          <span id="submit-error"></span>
+          </div>
+          <div id="emailHelp" class="form-text text-center mb-2 text-dark">Already have an account? <a href="/userLogin" class="text-dark fw-bold">Login here</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+<script>
+  const form = document.getElementById("myForm");
+  const usernameError=document.getElementById("username-error")
+  const passwordError=document.getElementById("password-error")
+  const emailError=document.getElementById("email-error")
+  const phnoError=document.getElementById("phno-error")
+  const confirmpasswordError =document.getElementById("confirmpassword-error")
+
+  form.addEventListener('submit', e => {
+      
+      if(validateUsername()&&validateEmail()&&validatePhno()&&validatePassword()&&validateConfirmPassword()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+function validateUsername() {
+    var username=document.getElementById('username').value.trim();  
+
+    if (username.length==0) {
+        usernameError.innerHTML='Username is Required';
+        usernameError.style.color='red'
+        return false;
+    }
+    else if (username.length<=4) {
+        usernameError.innerHTML='Atleast 5 characters';
+        usernameError.style.color='red'
+        return false;
+    }
+
+    if (!username.match(/^[A-Za-z][A-Za-z\s]*$/)){
+        usernameError.innerHTML='Write a valid username';
+        usernameError.style.color='red'
+        return false;
+    }
+    
+    usernameError.innerHTML='Username is valid';
+    usernameError.style.color='green'
+    return true;
+}
+
+function validatePhno() {
+    var phno =document.getElementById('phno').value.trim();
+    
+    
+    if(phno.length!=10){
+        phnoError.innerHTML ='Phone number invalid';
+        phnoError.style.color='red'
+        return false;
+    
+    }
+    phnoError.innerHTML='Phone number is valid';
+    phnoError.style.color='green'
+    return true;    
+    
+}
+
+
+function validatePassword() {
+    var password =document.getElementById('password').value.trim();
+    var Required=8;
+    var left=Required - password.length;
+    
+    if(left>0){
+        passwordError.innerHTML =left+ 'more character Required';
+        passwordError.style.color='red'
+        return false;
+    
+    }
+    passwordError.innerHTML='Password is valid';
+    passwordError.style.color='green'
+    return true;    
+    
+}
+
+function validateConfirmPassword(){
+  var password =document.getElementById('password').value.trim();
+  var confirmpassword =document.getElementById('confirmpassword').value.trim();
+  if(password===confirmpassword){
+    confirmpasswordError.innerHTML="Passwords match"
+    confirmpasswordError.style.color='green'
+    return true;    
+  }
+  confirmpasswordError.innerHTML="Passwords doesn't match"
+    confirmpasswordError.style.color='red'
+    return false;
+
+
+}
+
+  function validateEmail(){
+    var email = document.getElementById('email').value.trim();
+    if (email.length==0) {
+        emailError.innerHTML='Email is Required';
+        emailError.style.color='red'
+        return false;
+    }
+
+    if (!email.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        emailError.innerHTML='Email is Invalid';
+        emailError.style.color='red'
+        return false;
+    }
+    emailError.innerHTML='Email is valid';
+    emailError.style.color='green'
+    return true;
+}
+
+</script>   

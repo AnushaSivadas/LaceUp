@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LACE UP</title>
+    <link rel="icon" href="/images/logo2.png"emo type="image/gif" sizes="16x16">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/style.css" >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+
+<!-- alertify -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css" />
+
+<!-- 
+    RTL version
+-->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.rtl.min.css" />
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.rtl.min.css" />
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.rtl.min.css" />
+
+<!-- alertify -->
+
+<!-- Google Fonts -->
+<link
+href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+rel="stylesheet"
+/>
+<!-- MDB -->
+<link
+href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+rel="stylesheet"
+/>
+<style>
+  .dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+   
+ }
+ .CATEGORY .dropdown:hover{
+  background-color: rgb(219, 213, 213) !important;
+  color: black !important;
+ }
+
+ .nav-link:hover{
+  color: rgb(224, 222, 223) !important;
+ }
+ 
+</style>
+
+  </head>
+  <body>
+   
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  
+
+
+    <nav class="navbar navbar-expand-lg fixed-top py-3 px-5">
+     
+        <div class="container-fluid ">
+          <a class="navbar-brand ms-4 py-0 text-white" href="/"><div>
+            <img src="/images/laceupfont.png" class="img-fluid " width="180px" alt="profile">
+            <!-- <h3>BOOTIE</h3> -->
+          </div></a>
+          <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-dark"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 CATEGORY">
+            <%for(cat of CATEGORY){%>
+              <li class="nav-item dropdown ">
+                <a class="nav-link dropdown text-white px-5" id="acc" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                 <%-cat.name%>
+                </a>
+                <ul class="dropdown-menu " aria-labelledby="acc">
+                  <%for(subcat of SUBCATEGORY){%>
+                  <li><a role="button" class="dropdown-item" onclick="viewPage('<%-cat.name%>','<%-subcat._id%>')"><%-subcat.name%></a></li>
+                  <%}%>
+                </ul>
+              </li>
+            <%}%>
+            </ul>
+            <ul class="navbar-nav ms-auto  me-5">
+
+
+              
+              <!-- <% if(user) { %>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="/userProfile"><i class="fa-solid fa-user mx-2"></i>Profile</a>
+              </li>
+              <% } %> -->
+              <% if(user) { %>
+                <li class="nav-item me-3">
+                  <a class="nav-link text-white ho position-relative btn" href="/wishlist"><i class="fa-solid fa-heart me-1"></i>Wishlist
+                    <% if(wishlistCount){%>
+                    <span id="wishlist-count" class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-light text-dark"><%-wishlistCount%></span>
+                    <%}%>
+                  </a>
+                  
+                </li>
+                <% } %>
+              <% if(user) { %>
+              <li class="nav-item ">
+                <a class="nav-link text-white ho position-relative btn " href="/cart"><i class="fa-solid fa-cart-shopping me-1"></i>Cart
+                  <% if(cartCount){%>
+                    <span id="cart-count " class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-light text-dark"><%-cartCount%></span>
+                    <%}%> 
+                    
+                </a>
+              </li>
+              <%}else{%>
+                <li class="nav-item ">
+                  <a class="nav-link text-white  position-relative btn" href="/guestCart"><i class="fa-solid fa-cart-shopping me-1"></i>Cart
+                    <% if(guestCartCount){%>
+                      <span id="guest-cart-count" class="position-absolute top-0 start-10 translate-middle badge rounded-pill bg-light text-dark"><%-guestCartCount%></span>
+                    <%}%> </a>
+                  
+                </li>
+              <% } %>
+              
+            </ul>
+            <!-- <form class="d-flex " role="search">
+              <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-light mx-2" type="submit">Search</button>
+            </form> -->
+            <div class="dropdown   dropdown-toggle me-3">
+              <a class=text-white id="account" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                <% if(user) { %>
+                <img
+                src="/uploads/<%-user.dp.filename%>"
+                class="rounded-circle z-depth-0 me-1"
+                alt="avatar image"
+                height="35" width="35" style="object-fit: cover ;"
+                
+                
+              /><% } else { %>
+                <img
+                src="/uploads/profileavatar.png"
+                class="rounded-circle z-depth-0 me-2"
+                alt="avatar image"
+                height="35" width="35" style="object-fit: cover ;"
+                
+                
+              />
+                <% } %>
+               
+                <i><% if(user) { %>
+                  <%- user.username %>
+                <% } else { %>
+                  Account
+                <% } %>
+              </i>
+                
+            </a>
+              <ul class="dropdown-menu py-2" aria-labelledby="account">
+                <% if(user) { %>
+                <li class="mx-3 "><a href="/userProfile" class=""><i class="fa-solid fa-user mx-2"></i>My Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <% } %>
+                
+                <% if(user) { %>
+                  <li class="mx-3 "><a href="/orders" class=""><i class="fa-solid fa-calendar mx-2 "></i>My Orders</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                <% } %>
+
+                <% if(user) { %>
+                  <li class="mx-3"><a href="/userLogout" class=""><i class="fa-solid fa-right-from-bracket mx-2"></i>Logout</a></li>
+                <% } else { %>
+                  <li  class="mx-3"><a href="/userLogin" class=""><i class="fa-solid fa-right-to-bracket mx-2"></i>User Login</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li class="mx-3"><a  href="/userRegister" class=""><i class="fa-solid fa-user-plus mx-2"></i>Signup</a></li>
+                <% } %>
+                
+                
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+     
+      </nav>
+      <div style="padding-top: 48px;">
+
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <script>
+        function viewPage(catname,subcatID){
+          // sessionStorage.setItem(`${catname}`,true)
+         sessionStorage.setItem("navCat",`${catname}`)
+          location.href=`/subCategoryView/${subcatID}`
+        }
+      </script>
+  </body>
+</html>

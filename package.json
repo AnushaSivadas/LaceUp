@@ -1,0 +1,36 @@
+{
+  "name": "bootie",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
+    "bcrypt": "^5.1.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "easyinvoice": "^2.3.3",
+    "ejs": "^3.1.8",
+    "express": "~4.16.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-fileupload": "^1.4.0",
+    "express-session": "^1.17.3",
+    "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
+    "moment": "^2.29.4",
+    "mongoose": "^6.6.5",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20",
+    "paypal-rest-sdk": "^1.8.1",
+    "pdf-creator-node": "^2.3.5",
+    "razorpay": "^2.8.3",
+    "referral-code-generator": "^1.0.8",
+    "sweetalert": "^2.1.2",
+    "twilio": "^3.82.2",
+    "uuidv4": "^6.2.13"
+  }
+}

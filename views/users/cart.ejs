@@ -1,0 +1,445 @@
+<%- include('../partials/userHeader')%>
+<% if(cartItems.length>0){%>
+<section  style="background-color: rgb(160, 180, 193);">
+  <div class="container py-2 ">
+    <div class="row d-flex justify-content-center my-4 py-5">
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h3 class="col mb-0">My Cart </h3>
+            
+          </div>
+          <div class="card-body" >
+              <% for(var i=cartItems.length-1;i>=0;i--){%>
+            <!-- Single item -->
+            <div class="row" >
+              <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                <!-- Image -->
+                <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                  <img  src="/uploads/<%-cartItems[i].product.images[0].filename%>" 
+                    class="w-100" alt="Blue Jeans Jacket"/>
+                    <a href="/productDetails/<%-cartItems[i].product._id%>">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                  </a>
+                </div>
+                <!-- Image -->
+              </div>
+
+              <div class="col-lg-5 col-md-6 mb-4 mb-lg-0 ">
+                <!-- Data -->
+                <p class="text-danger"><strong><%-cartItems[i].product.subCategoryName%></strong></p>
+                <p><strong><%-cartItems[i].product.name%> (<%-cartItems[i].product.categoryName%>)</strong></p>
+                <!-- <p>Color: blue</p> -->
+                <p class="text-start">
+                  <strong>₹ <%- cartItems[i].product.sellingprice%></strong>
+                  <span class="text-muted"><strike>₹<%-cartItems[i].product.actualprice%></strike></span>
+                </p>
+                <button type="button" onclick="confirmation('<%-cartItems[i]._id%>','<%-cartItems[i].product._id%>')" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                  title="Remove the item">
+                  <i class="fas fa-trash"></i>
+                </button>
+                <button type="button" onclick="saveforlater('<%-cartItems[i]._id%>','<%-cartItems[i].product._id%>','<%-cartItems[i].quantity%>')" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                  title="Save for later">
+                  <i class="fa-solid fa-bookmark"></i>
+                </button>
+                <!-- Data -->
+              </div>
+
+              
+              <div class="col-lg-4 col-md-6 mb-4 mb-lg-5  mt-5">
+                <!-- Quantity -->
+                <div class="d-flex mb-4 " style="width: 150px;">
+                  <button onclick="changeQuantity('<%-cartItems[i]._id%>','<%-cartItems[i].product._id%>','<%-user._id%>',-1)" class="btn btn-primary  px-3 me-2 rounded-circle"
+                    <%if(cartItems[i].quantity==1){%>
+                      disabled
+                    <%}%>>
+                    <i class="fas fa-minus"></i>
+                  </button>
+
+                  <span class="form-control form-control-sm text-center fw-bold py-2" id="<%-cartItems[i].product._id%>"><%-cartItems[i].quantity%></span>
+
+                  <button onclick="changeQuantity('<%-cartItems[i]._id%>','<%-cartItems[i].product._id%>','<%-user._id%>',1)" class="btn btn-primary px-3 ms-2 rounded-circle"
+                    <%if(cartItems[i].quantity>=cartItems[i].product.stock){%>
+                      disabled
+                    <%}%>>
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  
+
+                </div>
+                <div class="">
+                  <p class="fw-bold text-dark ms-5">₹ <%-(cartItems[i].quantity*cartItems[i].product.sellingprice)%></p>
+                </div>
+               
+
+                <% if (cartItems[i].product.stock == cartItems[i].quantity) { %>
+                            
+                  <p class="text-danger mt-2">
+
+                Only this much quantity available
+              </p>
+                <%}  %>
+                <% if (cartItems[i].product.stock==0) { %>
+                  
+                  <p class="text-danger mt-2">
+
+                    Currently Out of Stock
+
+              </p>
+              <%} else if ( cartItems[i].product.stock < cartItems[i].quantity){ %>
+                <p class="text-danger mt-2">
+                  Only <%-cartItems[i].product.stock%> available
+                  <!-- To continue change the quantity to <%-cartItems[i].product.stock%>  -->
+
+                </p>
+                <%}  %>
+
+              </div>
+              
+            </div>
+            <!-- Single item -->
+
+            <hr class="my-4" />
+            <%}%>
+          </div>
+        </div>
+        
+      </div>
+      
+      <div class="col-md-4">
+
+       
+        <div class="card mb-4" >
+          <div class="card-header py-3">
+            <h5 class="mb-0">Price Details</h5>
+          </div>
+          
+           
+          
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Sub Total ( <%- cartItems.length %> items )
+                <span>&#8377;<span id="subTotal"><%-subTotal%></span></span>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                Discount
+                <span class="text-success">-&#8377;<span id="discount"><%-discount%></span></span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Convenience Fee
+                <span class="text-success">Free</span>
+              </li>
+              
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <div>
+                  <strong>Total amount</strong>
+                  <strong>
+                    <p class="mb-0">(including VAT)</p>
+                  </strong>
+                </div>
+                <strong>&#8377;<span id="totalAmount"><%-totalAmount%></span></strong>
+              </li>
+            </ul>
+
+            <a href="/placeOrder" class="text-light"><button type="button" class="btn btn-primary  btn-lg btn-block">
+             Place Order</a>
+            </button>
+          </div>
+        </div>
+
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body">
+            <p><strong>We accept</strong></p>
+            <img class="me-2" width="45px"
+              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+              alt="Visa" />
+            <img class="me-2" width="45px"
+              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+              alt="American Express" />
+            <img class="me-2" width="45px"
+              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+              alt="Mastercard" />
+            <img class="me-2" width="45px"
+              src="https://www.paypalobjects.com/webstatic/mktg/logo-center/PP_Acceptance_Marks_for_LogoCenter_266x142.png"
+              alt="PayPal acceptance mark" />
+          </div>
+        </div> 
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>
+<%}else{%>
+  
+  <section class="container p-5 my-5" style="width: 35rem;">
+    
+      
+    <div class="text-center">
+        <img src="/images/cartempty.webp" class="img-fluid">
+      <h5 class="card-title">Your cart is empty!!</h5>
+      <p class="card-text">Add something to make me happy :)</p>
+      <a href="/" class="btn  btn-primary px-5">Continue Shopping</a>
+    </div>
+  
+  
+</section>
+<%}%>
+
+<% if(saveforlater.length>0){%>
+<section style="background-color: rgb(160, 180, 193);">
+  <div class="container py-2">
+    <div class="row d-flex justify-content-center ">
+  
+      
+      <div class="col-md-12">
+        <div class="card mb-4" >
+          <div class="card-header  py-3">
+            <h5 class="mb-0 fs-4">Saved For Later</h5>
+          </div>
+          <div class="card-body">
+              <% for(var i = saveforlater.length-1;i>=0;i--){%>
+            
+              <!-- Single item -->
+              <div class="row" >
+                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                  <!-- Image -->
+                  <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                    <img  src="/uploads/<%-saveforlater[i].product.images[0].filename%>" 
+                      class="w-50" alt="Blue Jeans Jacket"/>
+                      <a href="/productDetails/<%-saveforlater[i].product._id%>">
+                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                    </a>
+                  </div>
+                  <!-- Image -->
+                </div>
+  
+                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0  ">
+                  <!-- Data -->
+                  <p class="text-danger"><strong><%-saveforlater[i].product.subCategoryName%></strong></p>
+
+                  <p><strong><%-saveforlater[i].product.name%> (<%-saveforlater[i].product.categoryName%>)</strong></p>
+                  <!-- <p>Color: blue</p> -->
+                  <p class="text-start">
+                    <strong>₹ <%- saveforlater[i].product.sellingprice%></strong>
+                    <span class="text-muted"><strike>₹<%-saveforlater[i].product.actualprice%></strike></span>
+                  </p>
+                  <button type="button" onclick="confirm('<%-saveforlater[i]._id%>','<%-saveforlater[i].product._id%>')" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                    title="Remove the item">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                  <button type="button"  onclick="movetocart('<%-saveforlater[i]._id%>','<%-saveforlater[i].product._id%>','<%-saveforlater[i].quantity%>')" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
+                    title="Move to cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                  </button>
+                  <!-- Data -->
+                </div>
+  
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-5 ">
+                  <!-- Quantity -->
+                  <div class="d-flex mb-4 " style="width: 150px">
+                    <button  class="btn btn-primary disabled px-3 me-2 rounded-circle">
+                      <i class="fas fa-minus"></i>
+                    </button>
+  
+                    <span class="form-control form-control-sm text-center fw-bold py-2" id="<%-saveforlater[i].product._id%>"><%-saveforlater[i].quantity%></span>
+                    
+
+
+
+                    <button  class="btn btn-primary disabled px-3 ms-2 rounded-circle">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <div class="">
+                    <p class="fw-bold text-dark ms-5">₹ <%-(saveforlater[i].quantity*saveforlater[i].product.sellingprice)%></p>
+                  </div>
+                 
+  
+                  <% if (saveforlater[i].product.stock == saveforlater[i].quantity) { %>
+                              
+                    <p class="text-danger mt-2">
+  
+                  Only this much quantity available
+                </p>
+                  <%}  %>
+                  <% if (saveforlater[i].product.stock==0) { %>
+                    
+                    <p class="text-danger mt-2">
+  
+                      Currently Out of Stock
+  
+                </p>
+                <%} else if ( saveforlater[i].product.stock < saveforlater[i].quantity){ %>
+                  <p class="text-danger mt-2">
+                    Only <%-saveforlater[i].product.stock%> available
+                    <!-- To continue change the quantity to <%-saveforlater[i].product.stock%>  -->
+  
+                  </p>
+                  <%}  %>
+
+
+                  
+                
+                  <!-- Quantity -->
+  
+                  <!-- Price -->
+                  
+                  <!-- Price -->
+                </div>
+                
+              </div>
+              <!-- Single item -->
+  
+              <hr class="my-4" />
+              <%}%>
+          </div>
+        </div>
+      </div>
+<%}%>
+      
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<script>
+
+
+function confirmation(cartId,proId){
+    
+  Swal.fire({
+  title: 'Are you sure?',
+  text: "You want to remove this item from cart!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, remove it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+   removeCartItem(cartId,proId)
+  }
+})
+}
+
+
+function confirm(cartId,proId){
+    
+    Swal.fire({
+    title: 'Are you sure?',
+    text: "You want to remove this item from save for later!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+     remove(cartId,proId)
+    }
+  })
+  }
+
+function changeQuantity(cartId,proId,userId,count){
+  let quantity=parseInt(document.getElementById(proId).innerHTML)
+  count=parseInt(count)
+  console.log(userId)
+  $.ajax({
+    url:'/change-product-quantity',
+    data:{
+      user:userId,
+      cart:cartId,
+      product:proId,
+      count:count,
+      quantity:quantity
+    },
+    method:'post',
+    success:(response)=>{
+      if(response.removeProduct){
+        alert("Product Removed from Cart")
+        location.reload()
+      }else{
+        console.log(response)
+        document.getElementById(proId).innerHTML=quantity+count
+        document.getElementById('totalAmount').innerHTML=response.totalAmount
+        document.getElementById('subTotal').innerHTML=response.subTotal
+        document.getElementById('discount').innerHTML=response.subTotal-response.totalAmount
+        location.reload()
+      }
+    }
+  })
+}
+
+function removeCartItem(cartId,proId){
+    $.ajax({
+      url:'/remove-cart-item',
+      data:{
+        cart:cartId,
+        product:proId,
+      },
+      method:'post',
+      success:(response)=>{
+        location.reload()
+      }
+    })
+  }
+
+  function saveforlater(cartId,productId,quantity) {
+          $.ajax({
+            url: '/save-for-later',
+            data: {
+              cart: cartId,
+              product: productId,
+              qty:quantity
+            },
+            method: 'post',
+            success: (response) => {
+              location.reload()
+            }
+          })
+        }
+
+        function movetocart(cartId, productId,quantity) {
+          $.ajax({
+            url: '/move-to-cart',
+            data: {
+              cart: cartId,
+              product: productId,
+              qty:quantity
+            },
+            method: 'post',
+            success: (response) => {
+              location.href='/cart'
+            }
+          })
+        }
+        
+        function remove(cartId, productId) {
+          $.ajax({
+            url: '/remove-savedItem',
+            data: {
+              cart: cartId,
+              product: productId
+            },
+            method: 'post',
+            success: (response) => {
+              location.reload()
+            }
+          })
+        }
+
+</script>
+
+
+
+<%- include('../partials/footer')%>

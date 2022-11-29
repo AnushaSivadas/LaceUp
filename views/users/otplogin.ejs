@@ -1,0 +1,275 @@
+<%- include('../partials/userHeader')%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .height-100 {
+        height: 100vh;
+      }
+
+      .card {
+        width: 400px;
+        border: none;
+        height: 300px;
+        box-shadow: 0px 5px 20px 0px #d2dae3;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card h6 {
+        color: red;
+        font-size: 20px;
+      }
+
+      .inputs input {
+        width: 40px;
+        height: 40px;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+
+      .card-2 {
+        background-color: #fff;
+        padding: 10px;
+        width: 350px;
+        height: 100px;
+        bottom: -50px;
+        left: 20px;
+        position: absolute;
+        border-radius: 5px;
+      }
+
+      .card-2 .content {
+        margin-top: 50px;
+      }
+
+      .card-2 .content a {
+        color: red;
+      }
+
+      .form-control:focus {
+        box-shadow: none;
+        border: 2px solid red;
+      }
+
+      .validate {
+        border-radius: 20px;
+        height: 40px;
+        background-color: red;
+        border: 1px solid red;
+        width: 140px;
+      }
+      .resend{
+        background-color: rgb(36, 34, 34);
+        border: 1px solid  rgb(36, 34, 34);
+        color: white;
+      }
+
+      .resend:hover{
+        background-color:  rgb(67, 63, 63);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container height-100 d-flex justify-content-center align-items-center"
+    >
+    
+    <form method="post" action="/otplogin" novalidate id="myForm">
+      <div class="position-relative">
+        <div class="card p-2 text-center">
+          <h6>
+            Please enter the one time password <br />
+            to verify your account
+          </h6>
+          <div>
+            <span>A code has been sent to  <b><%-phno%></b></span>
+             <!-- <small>*******9897</small> -->
+             <input type="number" class="form-control" name="phno" id="phno" value="<%-phno%>" hidden>
+          
+            </div>
+          
+          <!-- <div
+            id="otp"
+            class="inputs d-flex flex-row justify-content-center mt-2"
+          >
+          
+
+             
+         
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="first"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="second"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="third"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="fourth"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="fifth"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="sixth"
+              maxlength="1"
+            />
+          </div> -->
+          <div class="form-floating my-3">
+            <input type="number" class="form-control" name="otp" id="otp" onkeyup="validateOTP()"> 
+            <label for="otp" class=" text-muted">Enter your code</label>            
+            <span id="otp-error"></span>
+          </div>
+          <div id="count" class="mt-1"></div>
+          <div class="mt-2">
+            <button type="submit" id="btnValidate" class="btn btn-danger px-4 validate">Validate</button>
+          </form>
+          <button type="button" id="btnResend" onclick="resendOTP('<%-phno%>')" disabled class="btn btn-dark px-4 validate resend">Resend</button>
+
+          </div>
+         
+          <span id="submit-error"></span>
+        </div>
+      </div>
+    
+    
+    </div>
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        function OTPInput() {
+          const inputs = document.querySelectorAll("#otp > *[id]");
+          for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("keydown", function (event) {
+              if (event.key === "Backspace") {
+                inputs[i].value = "";
+                if (i !== 0) inputs[i - 1].focus();
+              } else {
+                if (i === inputs.length - 1 && inputs[i].value !== "") {
+                  return true;
+                } else if (event.keyCode > 47 && event.keyCode < 58) {
+                  inputs[i].value = event.key;
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                } else if (event.keyCode > 64 && event.keyCode < 91) {
+                  inputs[i].value = String.fromCharCode(event.keyCode);
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                }
+              }
+            });
+          }
+        }
+        OTPInput();
+      });
+    </script> -->
+
+    <script>
+      // Get refreence to span and button
+    var spn = document.getElementById("count");
+    var resend = document.getElementById("btnResend");
+    var validate = document.getElementById("btnValidate")
+    
+    var count = 10;     // Set count
+    var timer = null;  // For referencing the timer
+    
+    (function countDown(){
+      // Display counter and start counting down
+      spn.textContent = count;
+      
+      // Run the function again every second if the count is not zero
+      if(count !== 0){
+        timer = setTimeout(countDown, 1000);
+        count--; // decrease the timer
+      } else {
+        // Enable the button
+        resend.removeAttribute("disabled");
+        validate.setAttribute("disabled","true")
+      }
+    }());
+    </script>
+
+
+    <script>
+
+function resendOTP(phno){
+    $.ajax({
+      url:'/enterphno',
+      data:{
+        phno
+      },
+      method:'post',
+      success:(response)=>{
+        location.reload()
+      }
+    })
+  }
+
+
+    const form = document.getElementById("myForm");
+      const otpError = document.getElementById("otp-error");
+      
+    
+      form.addEventListener("submit", (e) => {
+        if (validateOTP()) {
+          console.log("hai");
+        } else {
+          e.preventDefault();
+          var error = document.getElementById("submit-error");
+          error.innerHTML = "Enter the code";
+          error.style.color = "red";
+          setTimeout(function () {
+            error.innerHTML = "";
+          }, 3000);
+        }
+      });
+    
+      function validateOTP() {
+    var otp =document.getElementById('otp').value.trim();
+    
+    
+    if(otp.length!=6){
+        otpError.innerHTML ='OTP contains 6 digits';
+        otpError.style.color='red'
+        return false;
+    
+    }
+    otpError.innerHTML='OTP is valid';
+    otpError.style.color='green'
+    return true;    
+    
+}
+
+    </script>
+  </body>
+</html>

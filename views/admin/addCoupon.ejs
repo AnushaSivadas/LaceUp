@@ -1,0 +1,161 @@
+<%- include('../partials/sidebar')%>
+<div class="content">
+  <div class="row">
+    <div class="mt-3 text-center">
+      <%- include('../partials/flash')%>
+      </div>
+    <!-- <h2 class="text-center fw-bold mt-3">ADD PRODUCT</h2> -->
+    <div class="twelve heading">
+      <h1>ADD Coupon</h1>
+      </div>
+    <div class="col-6 offset-3">
+      <form method="post" action="/admin/addCoupon"  id="myForm" >
+        <div class="mb-3">
+          <label for="coupon_code" class="form-label">Coupon code</label>
+          <input type="text" class="form-control " name="coupon_code" id="coupon_code" onkeyup="validateCoupon()"/>
+        <span id="coupon-error"></span>
+
+        </div>
+
+        
+
+        <div class="row mb-3">
+          
+
+            <div class="col-md-6">
+            <label for="minimum_purchase" class="form-label">Minimum Purchase</label>
+                <div class="input-group">
+                  <span class="input-group-text">&#8377;</span>
+                  <input type="number" id="minimum_purchase" name="minimum_purchase" class="form-control " onkeyup="validateMinimum()" />
+                  <span class="input-group-text">.00</span>
+                  
+                </div>
+            <span id="minimum-error"></span>
+
+             </div>
+
+
+             <div class="col-md-6">
+                <label for="amount_off" class="form-label">Amount off</label>
+                <div class="input-group">
+                  <span class="input-group-text">&#8377;</span>
+                  <input type="number" id="amount_off" name="amount_off" class="form-control " onkeyup="validateAmountoff()" />
+                  <span class="input-group-text">.00</span>
+                  
+                </div>
+            <span id="amountoff-error"></span>
+    
+                </div>
+        </div>
+
+        
+        <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="valid_from" class="form-label">Valid from</label>
+                <input type="date" id="valid_from" name="valid_from" class="form-control " required />
+        <span id="validfrom-error"></span>
+
+            </div>
+  
+            <div class="col-md-6">
+              <label for="valid_till" class="form-label ">Valid till</label>
+             
+                <input type="date" id="valid_till" name="valid_till" class="form-control " required/>
+        <span id="validtill-error"></span>
+              
+            </div> 
+          </div>
+
+        
+       
+
+        <button type="submit" class="btn btn-primary align-center">Submit</button>
+        <span id="submit-error"></span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById("myForm");
+  const couponError=document.getElementById("coupon-error")
+  const amountoffError=document.getElementById("amountoff-error")
+  const minimumError=document.getElementById("minimum-error")
+  const validfromError=document.getElementById("validfrom-error")
+  const validtillError=document.getElementById("validtill-error")
+ 
+
+  form.addEventListener('submit', e => {
+      
+      if(validateCoupon()&&validateAmountoff()&&validateMinimum()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+function validateCoupon() {
+    var name=document.getElementById('coupon_code').value.trim();  
+
+    if (name.length<5) {
+        couponError.innerHTML='Atleast 5 characters';
+        couponError.style.color='red'
+        return false;
+    }
+
+   
+    
+    couponError.innerHTML='Coupon code is valid';
+    couponError.style.color='green'
+    return true;
+}
+function validateAmountoff() {
+    var amountoff =document.getElementById('amount_off').value.trim();
+    var minimum =parseInt(document.getElementById('minimum_purchase').value.trim());
+    
+    
+    if(amountoff<=0){
+        amountoffError.innerHTML ='Cannot be -ve value or zero';
+        amountoffError.style.color='red'
+        return false;
+    
+    }
+     
+    if(amountoff>minimum){
+        amountoffError.innerHTML ='Should be less than minimum purchase';
+        amountoffError.style.color='red'
+        return false;
+    
+    }
+    amountoffError.innerHTML='Amount off is valid';
+    amountoffError.style.color='green'
+    return true;    
+    
+}
+function validateMinimum() {
+    var minimum =document.getElementById('minimum_purchase').value.trim();
+    
+    
+    if(minimum<=0){
+        minimumError.innerHTML ='Minimum purchase cannot be -ve or zero';
+        minimumError.style.color='red'
+        return false;
+    
+    }
+    
+    minimumError.innerHTML='Minimum purchase is valid';
+    minimumError.style.color='green'
+    return true;    
+    
+}
+
+        
+
+</script>   

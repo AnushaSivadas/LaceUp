@@ -1,0 +1,1370 @@
+<div class="card mb-4" id="available-coupons">
+  <div class="card-body p-3 d-flex flex-row align-items-center">
+    <div class="form-outline flex-fill ">
+      <h4 class="text-dark text-start fw-light m-0">Available Coupons</h4>
+    </div>
+    <button class="btn btn-outline-warning btn-lg" onclick="displayDrop()"><i
+        class="fa-solid fa-angle-down"></i></button>
+  </div>
+</div>
+<div class="card mb-4 d-none" id="coupons">
+  <ul class="list-group">
+    {{#if coupons}}
+    {{#each coupons}}
+    <li class="list-group-item d-flex justify-content-between text-success">
+      Upto ₹{{this.amount_off}}/- off on purchases above {{this.minimum_purchase}}
+      <span> <span class="flex-end text-dark fw-bold"
+          id="{{this.coupon_code}}">{{this.coupon_code}}</span><button
+          onclick="CopyToClipboard('{{this.coupon_code}}');return false;" class="btn px-2 ms-2"><i
+            class="fa-regular fa-copy fa-lg"></i></button></span>
+    </li>
+    {{/each}}
+    {{else}}
+    <li class="list-group-item text-center">
+      <span>Currently there is no available coupon</span>
+    </li>
+    {{/if}}
+  </ul>
+</div>
+
+
+
+
+<p class="mb-2 mt-3"><strong>Have any coupon?</strong></p>
+<div class="input-group mb-3">
+<input type="text" class="form-control" placeholder="Coupon Code" aria-label="coupon code" aria-describedby="button-addon2">
+<button class="btn btn-primary" type="button" id="button-addon2">Apply</button>
+</div>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pdf Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+</head>
+<body class="container">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="left" valign="top" bgcolor="#ffe77b" style="background-color:#fff;">
+              <img height="100" width="100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgQ_m4DUpDZtd5CnGPtFUpGMXXEoPWNSVnAA&usqp=CAU" alt="">
+            </td>
+            <td align="left" bgcolor="#ffe77b" style="background-color: #fff;">
+              <h2 style="font-weight: 900;color: brown;">Online Store</h2>
+              <p>227 Cobblestone Road, 30000 Bedrock, Cobblestone County <br/> 
+                http://dinostore.bed | hello@dinostore.bed +555 7 789-1234</p>
+            </td>
+        </tr>
+    </table> 
+    <h1 style="font-size: 30px;font-weight: 600; color: green; margin-top: 10px;">INVOICE</h1>
+    <h4>#1</h4> z
+    <table width="95%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+          <td width="30%" align="left" valign="top" bgcolor="#ffe77b" style="background-color:#fff;">
+            <p>Invoice To:</p>
+            <h3 style="font-weight: 800;color: brown;">Jhone Carter</h3>
+          </td>
+          <td width="70%" align="left" bgcolor="#ffe77b" style="background-color: #fff;">             
+          </td>
+      </tr>
+      <tr>
+        <td width="30%" align="left" valign="top" bgcolor="#ffe77b" style="background-color:#fff;">
+          <p>Social Media Manager</p>
+          <p>Bolen Tex .Inc</p>
+        </td>
+        <td width="70%" align="left" bgcolor="#ffe77b" style="background-color: #fff;">             
+        </td>
+      </tr>
+  </table>  
+      <table width="95%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="30%" align="left" valign="top" bgcolor="#ffe77b" style="background-color:#fff;">
+            <p>+152 5248 523</p>
+            <p>info@gmail.com</p>
+          </td>
+          <td width="40%" align="left" bgcolor="#ffe77b" style="background-color: #fff;">             
+          </td>
+          <td width="30%" align="right" bgcolor="#ffe77b" style="background-color: #fff;">
+            <h4 style="font-weight: 700;color: #000000;">Date: 01 Dec 2020</h4> 
+            <h4 style="font-weight: 700;color: #000000;">INVOICE NO: DX-5236</h4>            
+          </td>
+        </tr>
+      </table>   
+      <table class="table" width="95%">
+          <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">Description</th>
+              <th scope="col">Unit</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+            <tr>
+              <td width="10%">
+                <img height="70" width="70" src="" alt="">
+              </td>
+              <th scope="row" width="50%">
+                <h5 style="font-weight: 700;color:chocolate"></h5>
+                <p></p>
+              </th>
+              <td width="10%"></td>
+              <td width="10%"></td>
+              <td width="10%"></td>
+              <td width="10%"></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="90%"  align="right" style="font-size: 25px;font-weight: 700;color:darkred; background-color: #f6f6f6;">Sub Total</td>
+            <td width="10%" align="right" style="background-color: lightgreen;"><h2 style="font-size: 25px;font-weight: 700;color:#fff;"></h2></td>
+          </tr>
+          <tr>
+            <td width="90%"  align="right" style="font-size: 25px;font-weight: 700;color:darkred; background-color: #f6f6f6;">Tax</td>
+            <td width="10%" align="right" style="background-color: lightcoral;"><h2 style="font-size: 25px;font-weight: 700;color:#fff;"></h2></td>
+          </tr>
+          <tr>
+            <td width="90%"  align="right" style="font-size: 25px;font-weight: 700;color:darkred; background-color: #f6f6f6;">Grand Total</td>
+            <td width="10%" align="right" style="background-color: lightgreen;"><h2 style="font-size: 25px;font-weight: 700;color:#fff;"></h2></td>
+          </tr>
+        </table>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="100%"  align="left" style="font-size: 25px;font-weight: 700;color:red; background-color: #f6f6f6;">Notice:</td>
+          </tr>
+          <tr>
+            <td width="100%"  align="left" style="font-size: 25px;font-weight: 700;color:#000; background-color: #f6f6f6;">A finance charge of 1.5% will be made on unpaid balances after 30 days.</td>
+          </tr>
+        </table>
+</body>
+</html>        
+
+
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <style>
+        body {
+  font-family: 'Poppins', sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+hr{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.flex-column {
+  display: flex;
+  align-items: center;
+}
+.flex-column .column-item:nth-of-type(1){
+  flex-basis:40%;
+}
+.flex-column .column-item:nth-of-type(2) {
+  flex-basis:60%;
+}
+
+#invoice{
+  padding: 30px;
+}
+
+.invoice {
+  position: relative;
+  background-color: #FFF;
+  min-height: 680px;
+  padding: 15px
+}
+
+.invoice header {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #9d6e2f;
+}
+
+.invoice .company-details {
+  text-align: right
+}
+
+.invoice .company-details .name {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.invoice .contacts {
+  margin-bottom: 20px
+}
+
+.invoice .invoice-to {
+  text-align: left
+}
+
+.invoice .invoice-to .to {
+  margin-top: 0;
+  margin-bottom: 0
+}
+
+.invoice .invoice-details {
+  text-align: right
+}
+
+.invoice .invoice-details .invoice-id {
+  margin-top: 0;
+}
+
+.invoice main {
+  padding-bottom: 50px
+}
+
+.invoice main .thanks {
+  /* margin-top: -100px; */
+  font-size: 1em;
+  /* margin-bottom: 50px */
+}
+
+.invoice main .notices {
+  padding-left: 6px;
+  border-left: 6px solid #9d6e2f
+}
+
+.invoice main .notices .notice {
+  font-size: 1em
+}
+
+.invoice table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px
+}
+
+.invoice table td,.invoice table th {
+  padding: 15px;
+  background: #eee;
+  border-bottom: 1px solid #fff
+}
+
+.invoice table th {
+  white-space: nowrap;
+  font-weight: 400;
+  font-size: 16px
+}
+
+.invoice table td h3 {
+  margin: 0;
+  font-weight: 400;
+  color: #9d6e2f;
+  font-size: 1.2em
+}
+
+.invoice table .total,.invoice table .unit {
+  text-align: right;
+  font-size: 1.2em
+}
+.invoice table .qty{
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.invoice table .no {
+  color: #fff;
+  font-size: 1.6em;
+  background: #9d6e2f
+}
+
+.invoice table .unit {
+  background: #ddd
+}
+
+.invoice table .total {
+  background: #9d6e2f;
+  color: #fff
+}
+
+.invoice table tbody tr:last-child td {
+  border: none
+}
+
+.invoice table tfoot td {
+  background: 0 0;
+  border-bottom: none;
+  white-space: nowrap;
+  text-align: right;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-top: 1px solid #aaa
+}
+
+.invoice table tfoot tr:first-child td {
+  border-top: none
+}
+
+.invoice table tfoot tr:last-child td {
+  /* color: #9d6e2f; */
+  font-size: 1.4em;
+  /* border-top: 1px solid #9d6e2f */
+}
+
+.invoice table tfoot tr td:first-child {
+  border: none
+}
+
+.invoice footer {
+  width: 100%;
+  text-align: center;
+  color: #000;
+  border-top: 1px solid #aaa;
+  padding: 8px 0;
+  background:none
+}
+.trouble{
+  text-align:center
+}
+    </style>
+    <body>
+        <!-- <div class="trouble" style="display: flex; flex-basis:100%">
+          Having trouble viewing this email? View it in your browser
+        </div> -->
+        <div id="invoice" class="">
+            <!-- <div class="toolbar hidden-print p-t-20">
+                <div class="row flex">
+                    <div class="text-left p-l-20" style="flex: 2">
+                        <h2 style="padding-left:25px">Booking Confirmation</h2>
+                    </div>
+                </div>
+                <hr>
+            </div> -->
+            <div class="invoice overflow-auto">
+                <div>
+                    <header>
+                        <div class="flex-column row">
+                            <table>
+                                <tr>
+                                  <td width="40%">
+                                    <div class="column-item col">
+                                        <a target="_blank" href="index.php">
+                                            <img src="https://aplusboss.com/images/logo.png" width="150px"/>
+                                            <!-- <img src="/images/invoicelogo.png" alt="INVOICE"  width="150px"  > -->
+                                        </a>
+                                    </div>
+                                  </td>
+                                  <td width="60%">
+                                    <div class="column-item col company-details">
+                                <h2 class="name">
+                                    <span target="_blank" class="">
+                                        Bootie
+                                    </span>
+                                </h2>
+                                <div>Oppo Emc</div>
+                                <div>Palarivattom,Kochi</div>
+                                <div>+60193119054</div>
+                                <div>bootie@gmail.com</div>
+                            </div>
+                                  </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </header>
+                    <main>
+                        <div class="row contacts">
+                            <div class="col invoice-to">
+                                <div class="text-gray-light">RECEIPT TO:</div>
+                                <h2 class="to">syafiq</h2>
+                                <div class="email"><span>syafiq.zahir@yahoo.com</span></div>
+                            </div>
+                            <div class="col invoice-details">
+                                <h2 class="invoice-id color-primary">RECEIPT NO: WS000009</h2>
+                                <div class="date">Date of Payment: 23/08/2021</div>
+                            </div>
+                        </div>
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="text-left">DESCRIPTION</th>
+                                    <th class="text-right">COURSE PRICE</th>
+                                    <th class="text-right">QTY</th>
+                                    <th class="text-right">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                  
+    <tr>
+        <td class="no">1</td>
+        <td class="text-left"><h3>Online EMBA</h3></td>
+        <td class="unit">RM 23,800.00</td>
+        <td class="qty">1</td>
+        <td class="total">23,800.00</td>
+    </tr>
+                            </tbody>
+                            <tfoot>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">SUBTOTAL</td>
+                                        <td>RM 23,800.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">TAX 11%</td>
+                                        <td>RM 2,856.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td colspan="2">GRAND TOTAL</td>
+                                        <td>RM 26,656.00</td>
+                                    </tr>
+
+
+                            </tfoot>
+                        </table>
+            
+                        <div class="notices">
+                            <div>NOTICE: Cooling of Period</div>
+                            <!-- <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div> -->
+                            <div class="notice">10% of total payment will be charged if less than seven (7) business days before the booked session is due to commence</div>
+                        </div>
+                        <div style="padding-top:10px">Thank you for enrolling A PLUS BOSS course! A copy will receipt will be sent to your email.</div>
+                      
+                    </main>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </body>
+    </html>
+
+<!-- //////////////////// invoice /////////////  -->
+
+router.get('/dashboard/day',Module.requireAdminLogin, async (req, res) => {
+  await adminHelpers.findOrdersbyday().then((data) => {
+      console.log('day',data);
+      res.json(data)
+  })
+})
+
+router.get('/dashboard/week',Module.requireAdminLogin, async (req, res) => {
+  await adminHelpers.findorderbyweek().then((data) => {
+      res.json(data)
+  })
+})
+
+router.get('/dashboard/month',Module.requireAdminLogin, async (req, res) => {
+  await adminHelpers.findorderbymonth().then((data) => {
+      res.json(data)
+  })
+})
+
+router.get('/dashboard/catSalesReport',Module.requireAdminLogin, (req, res) => {
+  adminHelpers.findorderbycat().then((data) => {
+      res.json(data)
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%- include('../partials/userHeader')%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .height-100 {
+        height: 100vh;
+      }
+
+      .card {
+        width: 400px;
+        border: none;
+        height: 300px;
+        box-shadow: 0px 5px 20px 0px #d2dae3;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .card h6 {
+        color: red;
+        font-size: 20px;
+      }
+
+      .inputs input {
+        width: 40px;
+        height: 40px;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+      }
+
+      .card-2 {
+        background-color: #fff;
+        padding: 10px;
+        width: 350px;
+        height: 100px;
+        bottom: -50px;
+        left: 20px;
+        position: absolute;
+        border-radius: 5px;
+      }
+
+      .card-2 .content {
+        margin-top: 50px;
+      }
+
+      .card-2 .content a {
+        color: red;
+      }
+
+      .form-control:focus {
+        box-shadow: none;
+        border: 2px solid red;
+      }
+
+      .validate {
+        border-radius: 20px;
+        height: 40px;
+        background-color: red;
+        border: 1px solid red;
+        width: 140px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container height-100 d-flex justify-content-center align-items-center"
+    >
+    
+    <form method="post" action="/otplogin" novalidate id="myForm">
+      <div class="position-relative">
+        <div class="card p-2 text-center">
+          <h6>
+            Please enter the one time password <br />
+            to verify your account
+          </h6>
+          <div>
+            <span>A code has been sent to</span>
+             <!-- <small>*******9897</small> -->
+             <input type="number" class="form-control" name="phno" id="phno" value="<%-phno%>">
+          
+            </div>
+          
+          <!-- <div
+            id="otp"
+            class="inputs d-flex flex-row justify-content-center mt-2"
+          >
+          
+
+             
+         
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="first"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="second"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="third"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="fourth"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="fifth"
+              maxlength="1"
+            />
+            <input
+              class="m-2 text-center form-control rounded"
+              type="text"
+              id="sixth"
+              maxlength="1"
+            />
+          </div> -->
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" name="otp" id="otp" onkeyup="validateOTP()"> 
+            <label for="otp" class=" text-muted">Enter your code</label>            
+            <span id="otp-error"></span>
+          </div>
+          
+          <div class="mt-4">
+            <button type="submit" class="btn btn-danger px-4 validate">Validate</button>
+            
+          </div>
+          <span id="submit-error"></span>
+        </div>
+      </div>
+    </form>
+    </div>
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        function OTPInput() {
+          const inputs = document.querySelectorAll("#otp > *[id]");
+          for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener("keydown", function (event) {
+              if (event.key === "Backspace") {
+                inputs[i].value = "";
+                if (i !== 0) inputs[i - 1].focus();
+              } else {
+                if (i === inputs.length - 1 && inputs[i].value !== "") {
+                  return true;
+                } else if (event.keyCode > 47 && event.keyCode < 58) {
+                  inputs[i].value = event.key;
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                } else if (event.keyCode > 64 && event.keyCode < 91) {
+                  inputs[i].value = String.fromCharCode(event.keyCode);
+                  if (i !== inputs.length - 1) inputs[i + 1].focus();
+                  event.preventDefault();
+                }
+              }
+            });
+          }
+        }
+        OTPInput();
+      });
+    </script> -->
+    <script>
+      const form = document.getElementById("myForm");
+      const otpError = document.getElementById("otp-error");
+      
+    
+      form.addEventListener("submit", (e) => {
+        if (validateOTP()) {
+          console.log("hai");
+        } else {
+          e.preventDefault();
+          var error = document.getElementById("submit-error");
+          error.innerHTML = "Enter the code";
+          error.style.color = "red";
+          setTimeout(function () {
+            error.innerHTML = "";
+          }, 3000);
+        }
+      });
+    
+      function validateOTP() {
+    var otp =document.getElementById('otp').value.trim();
+    
+    
+    if(otp.length!=6){
+        otpError.innerHTML ='OTP contains 6 digits';
+        otpError.style.color='red'
+        return false;
+    
+    }
+    otpError.innerHTML='OTP is valid';
+    otpError.style.color='green'
+    return true;    
+    
+}
+
+    </script>
+  </body>
+</html>
+
+
+
+
+                           <!-- <% if(item.status == "cancelled"){%>
+                            <td class="">
+                                
+                               <button class="btn btn-danger px-5" style="pointer-events: none;"> <%-item.status%></button>
+                               
+                            </td>
+                            <%}%>
+                            <% if(item.status == "cancelled by admin"){%>
+                                <td class="">
+                                    
+                                   <button class="btn btn-danger " style="pointer-events: none;">  <%-item.status%></button>
+                                   
+                                </td>
+                            <%}%>
+                           
+                            <% if(item.status != "cancelled"){%>
+                            <td class="">
+                                <% if(item.status == "pending"){%>
+                                <div class="dropdown">
+                                    <button class="btn btn-warning dropdown-toggle px-5" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" 
+                                        aria-expanded="false">
+                                        <%-item.status%>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a onclick="changeOrderStatus('<%-item._id%>','confirmed')" class="dropdown-item"
+                                            href="#">Confirmed</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','shipped')" class="dropdown-item"
+                                            href="#">Shipped</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','outfordelivery')"
+                                            class="dropdown-item" href="#">Out For Delivery</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','delivered')" class="dropdown-item"
+                                            href="#">Delivered</a>
+                                            <a onclick="changeOrderStatus('<%-item._id%>','cancelled by admin')" class="dropdown-item"
+                                                href="#">Cancel</a> 
+                                    </div>
+                                </div>
+                               <%}%>
+                               <% if(item.status == "confirmed"){%>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle px-5" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false" >
+                                        <%-item.status%>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a onclick="changeOrderStatus('<%-item._id%>','shipped')" class="dropdown-item"
+                                            href="#">Shipped</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','outfordelivery')"
+                                            class="dropdown-item" href="#">Out For Delivery</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','cancelled by admin')" class="dropdown-item"
+                                            href="#">Cancel</a> 
+                                    </div>
+                                </div>
+                               <%}%>
+                               <% if(item.status == "shipped"){%>
+                                <div class="dropdown">
+                                    <button class="btn btn-info dropdown-toggle px-5" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <%-item.status%>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a onclick="changeOrderStatus('<%-item._id%>','outfordelivery')"
+                                            class="dropdown-item" href="#">Out For Delivery</a>
+                                        <a onclick="changeOrderStatus('<%-item._id%>','cancelled by admin')" class="dropdown-item"
+                                            href="#">Cancel</a>
+                                    </div>
+                                </div>
+                              <%}%>
+                              <% if(item.status == "outfordelivery"){%>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle " type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <%-item.status%>
+                                    </button>
+                                    <div class="dropdown-menu" data-bs-toggle="dropdown" aria-labelledby="dropdownMenuButton">
+                                        <a onclick="changeOrderStatus('<%-item._id%>','delivered')" class="dropdown-item" 
+                                            href="#">Delivered</a>
+                                    </div>
+                                </div>
+                            <%}%>
+                            <% if(item.status == "delivered"){%>
+                              <button class="btn btn-success px-5" style="pointer-events: none;">  <%-item.status%> </button>
+                            <%}%> 
+                            
+                               
+                            </td>
+                            <%}%> -->
+
+                            <% if(p.status == "cancelled"){%>
+                              <button class="btn btn-danger " style="pointer-events: none;"><%-item.status%></button>
+                          <%}%>
+
+                          <% if(p.status == "cancelled by admin"){%>
+                              <button class="btn btn-danger " style="pointer-events: none;"><%-p.status%></button>
+                          <%}%>
+             
+                          <% if(p.status != "cancelled"){%>
+                 
+                              <% if(p.status == "pending"){%>
+                                  <div class="dropdown">
+                                      <button class="btn btn-warning dropdown-toggle px-5" type="button"
+                                          id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" 
+                                          aria-expanded="false">
+                                          <%-p.status%>
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          <a onclick="changeOrderStatus('<%-p._id%>','confirmed')" class="dropdown-p"
+                                              href="#">Confirmed</a>
+                                          <!-- <a onclick="changeOrderStatus('<%-p._id%>','shipped')" class="dropdown-p"
+                                              href="#">Shipped</a>
+                                          <a onclick="changeOrderStatus('<%-p._id%>','outfordelivery')"
+                                              class="dropdown-p" href="#">Out For Delivery</a>
+                                          <a onclick="changeOrderStatus('<%-p._id%>','delivered')" class="dropdown-p"
+                                              href="#">Delivered</a> -->
+                                          <a onclick="changeOrderStatus('<%-p._id%>','cancelled by admin')" class="dropdown-p"
+                                                  href="#">Cancel</a> 
+                                      </div>
+                                  </div>
+                              <%}%>
+
+                              <% if(p.status == "confirmed"){%>
+                                  <div class="dropdown">
+                                      <button class="btn btn-secondary dropdown-toggle px-5" type="button"
+                                          id="dropdownMenuButton" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                                          aria-expanded="false" >
+                                          <%-p.status%>
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          <a onclick="changeOrderStatus('<%-p._id%>','shipped')" class="dropdown-p"
+                                              href="#">Shipped</a>
+                                          <!-- <a onclick="changeOrderStatus('<%-p._id%>','outfordelivery')"
+                                              class="dropdown-p" href="#">Out For Delivery</a> -->
+                                          <a onclick="changeOrderStatus('<%-p._id%>','cancelled by admin')" class="dropdown-p"
+                                              href="#">Cancel</a> 
+                                      </div>
+                                  </div>
+                              <%}%>
+
+                              <% if(p.status == "shipped"){%>
+                                  <div class="dropdown">
+                                      <button class="btn btn-info dropdown-toggle px-5" type="button"
+                                          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                          <%-p.status%>
+                                      </button>
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          <a onclick="changeOrderStatus('<%-p._id%>','outfordelivery')"
+                                              class="dropdown-p" href="#">Out For Delivery</a>
+                                          <a onclick="changeOrderStatus('<%-p._id%>','cancelled by admin')" class="dropdown-p"
+                                              href="#">Cancel</a>
+                                      </div>
+                                  </div>
+                              <%}%>
+
+                              <% if(p.status == "outfordelivery"){%>
+                                  <div class="dropdown">
+                                      <button class="btn btn-primary dropdown-toggle " type="button"
+                                          id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                          <%-p.status%>
+                                      </button>
+                                      <div class="dropdown-menu" data-bs-toggle="dropdown" aria-labelledby="dropdownMenuButton">
+                                          <a onclick="changeOrderStatus('<%-p._id%>','delivered')" class="dropdown-p" 
+                                              href="#">Delivered</a>
+                                      </div>
+                                  </div>
+                              <%}%>
+
+                              <% if(p.status == "delivered"){%>
+                              <button class="btn btn-success px-5" style="pointer-events: none;">  <%-p.status%> </button>
+                              <%}%> 
+                          
+                          <%}%>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+          
+              <%}%>
+
+
+
+              
+<%- include('../partials/userHeader')%>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<section >
+    <div class="container-fluid">
+        
+        <div class="row mx-3 mt-5">
+            <div class="col-md-12">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" scope="col">Date</th>
+                            <th class="text-center" scope="col">Address</th>
+                            <th class="text-center" scope="col">Pincode</th>
+                            <th class="text-center" scope="col">Mobile</th>
+                            <th class="text-center" scope="col">Amount</th>
+                            <th class="text-center" scope="col">Payment</th>
+                            <th class="text-center" scope="col">Status</th>
+                            <th class="text-center" scope="col">Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <% for(let item of orders){%>
+                        <tr>
+                            <td class="text-center col-md-1"><%-item.placedDate%></td>
+                            <td class="text-center col-md-2">
+                                <%-item.deliveryDetails.address_line%>,
+                                <%-item.deliveryDetails.locality%>,
+                                <%-item.deliveryDetails.city_district_town%>,
+                                <%-item.deliveryDetails.state%>
+                            </td>
+                            <td class="text-center"><%-item.deliveryDetails.pincode%></td>
+                            <td class="text-center"><%-item.deliveryDetails.phoneno%></td>
+                            <td class="text-center"><i class="fa-solid fa-indian-rupee-sign mx-1"></i><%-item.totalAmount%></td>
+                            <td class="text-center"><%-item.paymentMethod%></td>
+                            <td class="text-center"><%-item.status%></td>
+                            <td class="text-center">
+                                <a href="/orders/viewProducts/<%-item._id%>" class="btn btn-success"
+                                    style="background-color: #00b74a;">View Products</a>
+                                <br><br>
+                                <% if(item.status != 'cancelled' ){%>
+                                    <% if(item.status != 'delivered' ){%>
+                                        <% if(item.status != 'cancelled by admin' ){%>
+                                <a href="/orders/cancelOrder/<%-item._id%>"  class="btn btn-danger"
+                                    style="background-color: #f93154;">Cancel Order</a>
+                                    <%}%>
+                                    <%}%>
+                               <%}%>
+                            </td>
+                        </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "order": [[0, "desc"]],
+            "columnDefs": [{ "targets": 0, "type": "date-eu" }],
+            responsive: {
+                details: {
+                    display: $.fn.dataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return 'Details for ' + data[0] + ' ' + data[1];
+                        }
+                    }),
+                    renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            }
+        });
+    });
+</script> -->
+
+
+
+<!-- SALES REPORT  -->
+
+<%- include('../partials/sidebar')%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"> </script>
+
+    <div class="content">
+       
+            
+            <!-- boxes -->
+            <div class="container-fluid">
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Earnings (Monthly)</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rs:<%=Math.round((month[0].total)/1000)%>K</div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Earnings (Annual)</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Rs:<%=Math.round((year[0].total)/1000)%>K</div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            Total Users</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%=totalUsers%></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Todays income</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <div class="container-fluid px-4">
+                <div class="row my-5">
+
+
+                    <div class="col">
+                        <table class="table bg-white rounded shadow-sm  table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col" width="50">Graphical</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        <div class="d-flex align-items-center justify-content-between mb-4" id="content">
+                            <div class="row">
+                                
+                                <div class="col-sm-12 col-xl-6 col-12 mb-4">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            
+                                            <h6 class="mb-0">Daily sales</h6>
+                                            <button id="btn-download" class="btn btn-dark">
+                                                Download
+                                            </button>
+                                        </div>
+                                        <canvas id="myChart" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-xl-6 mb-4 col-12">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-0">Weekly sales</h6>
+                                            <button id="btn-download1" class="btn btn-dark">
+                                                Download
+                                            </button>
+                                        </div>
+                                        <canvas id="Chart" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-sm-12 col-xl-6 mb-4 col-12">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-4">Yearly sales</h6>
+                                            <!-- <button id="btn-download2" class="btn btn-dark">
+                                                Download
+                                            </button> -->
+                                        </div>
+                                        <canvas id="Chartz" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-xl-6 mb-4 col-12">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-4">Category sales</h6>
+                                            <!-- <button id="btn-download3" class="btn btn-dark">
+                                                Download
+                                            </button> -->
+                                        </div>
+                                        <canvas id="CategoryChartz" width="400" height="400"></canvas>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        
+var el = document.getElementById("wrapper");
+var toggleButton = document.getElementById("menu-toggle");
+let myChart = document.getElementById('myChart')
+let Charts = document.getElementById('Chart')
+let chartz = document.getElementById('Chartz')
+// let form = document.getElementById('checkoutform')
+let catchart = document.getElementById('CategoryChartz')
+
+
+
+
+
+fetch('/admin/dashboard/day', {
+    method: 'get',
+}).then((val) => val.json())
+    .then((data) => {
+        console.log(data);
+        let xaxis = []
+        let countss = []
+        for (const val of data) {
+            let date = `${val.detail.day}/${val.detail.month}/${val.detail.year}`
+            xaxis.push(date)
+            countss.push(val.count)
+        }
+
+        const masspopChart = new Chart(myChart, {
+            type: 'line',
+            data: {
+                labels: [...xaxis],
+                datasets: [{
+                    label: 'Number of orders',
+                    data: [...countss],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(245, 125, 75, 1.2)',
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                        'rgb(255, 205, 86)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        })
+
+        // Get the chart's base64 image string
+        var image = masspopChart.toBase64Image();
+        console.log(image);
+
+        document.getElementById('btn-download').onclick = function () {
+            // Trigger the download
+            var a = document.createElement('a');
+            a.href = masspopChart.toBase64Image();
+            a.download = 'my_file_name.png';
+            a.click();
+        }
+    })
+
+
+
+fetch('/admin/dashboard/month', {
+    method: "get",
+}).then(data => data.json()).then((data) => {
+    // console.log(data);
+
+    let xaxis = []
+    let countss = []
+    var months = ['a',"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    for (const val of data) {
+        let month = `${val.detail.month}`
+        let m = months[month]
+        xaxis.push(m)
+        countss.push(val.count)
+    }
+
+    const masspopChart1 = new Chart(chartz, {
+        type: 'bar',
+        data: {
+            labels: [...xaxis],
+            datasets: [{
+                label: 'Number of orders in a week',
+                data: [...countss],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(245, 125, 75, 1.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+    // Get the chart's base64 image string
+        var image = masspopChart1.toBase64Image();
+        console.log(image);
+
+        document.getElementById('btn-download').onclick = function () {
+            // Trigger the download
+            var a = document.createElement('a');
+            a.href = masspopChart1.toBase64Image();
+            a.download = 'my_file_name.png';
+            a.click();
+        }
+
+})
+
+
+fetch('/admin/dashboard/week', {
+    method: "get",
+}).then(data => data.json()).then((data) => {
+    // console.log(data);
+
+    let xaxis = []
+    let countss = []
+    for (const val of data) {
+        let week = `${val.detail.week}`
+        xaxis.push(week)
+        countss.push(val.count)
+    }
+
+    const masspopChart = new Chart(Charts, {
+        type: 'doughnut',
+        data: {
+            labels: [...xaxis],
+            datasets: [{
+                label: 'Number of orders in a week',
+                data: [...countss],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(245, 125, 75, 1.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+
+})
+
+
+fetch('/admin/dashboard/catSalesReport', {
+    method: 'get',
+}).then((data => data.json())).then((data) => {
+    // console.log(data);
+    let xaxis = []
+    let countss = []
+    for (const val of data) {
+        let week = `${val.detail.cat}`
+        xaxis.push(week)
+        countss.push(val.count)
+    }
+
+    const masspopChart = new Chart(catchart, {
+        type: 'bar',
+        data: {
+            labels: [...xaxis],
+            datasets: [{
+                label: 'Category wise',
+                data: [...countss],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(245, 125, 75, 1.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+})
+        </script>

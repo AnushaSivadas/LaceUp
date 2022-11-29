@@ -1,0 +1,494 @@
+<%- include('../partials/userHeader')%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.11/cropper.js"></script>
+<style>
+  
+.profilepic {
+  position: relative;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #111;
+  
+}
+
+.profilepic:hover .profilepic__content {
+  opacity: 1;
+}
+
+.profilepic:hover .profilepic__image {
+  opacity: .5;
+}
+
+.profilepic__image {
+  object-fit: fill;
+  opacity: 1;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: white;
+  padding-bottom: 8px;
+}
+
+.fas {
+  font-size: 20px;
+}
+
+.profilepic__text {
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 50%;
+  text-align: center;
+} 
+
+</style>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class=" text-center">
+        <%- include('../partials/flash')%>
+        </div>
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+
+              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+
+
+          <div class="card mb-4">
+            <div class="card-body text-center ">
+              <div class="d-flex justify-content-center">
+            <div class="profilepic d-flex justify-content-center ">
+              
+              <img class="" src="/uploads/<%-user.dp.filename%>" alt="avatar">
+
+              </div></div>
+              <h5 class="my-3"><%-user.username%></h5>
+           
+
+             
+              <div class="form-control d-flex justify-content-between border" >
+                <span class="fs-6 fw-bold text-dark align-self-center d-flex" id="refferalId"><%-user.referral_code%></span>
+                <button class="btn px-3 text-dark" onclick="CopyToClipboard('refferalId');return false;">Copy</button>
+              </div>
+              <p class="text-muted m-0 text-center" style="font-size: 13px;">Share your refferal Id to win ₹<%-referral.referrer_offer%>/- wallet  balance</p>
+
+            </div>
+          </div>
+          
+          <div class="card mb-4 ">
+            <div class="card-body p-4 d-flex justify-content-between align-items-center">
+              <i class="fa-solid fa-wallet fa-xl"><span class="fs-6  logo"> Wallet</span> </i>
+              <span>Balance:<span class="fs-4 fw-bold"> ₹ <%-user.wallet%>/-</span></span>
+            </div>
+          </div>
+
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                    <i class="fa-solid fa-calendar mx-2 text-dark"></i>
+                  <a href="/orders"><p class="mb-0 fw-bold text-dark">MY ORDERS</p></a>
+                </li>
+                <!-- <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-heart mx-2 text-dark"></i>
+                <a href="/wishlist"><p class="mb-0 fw-bold text-dark">MY WISHLIST</p></a>
+              </li> -->
+
+
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-user-gear mx-2 text-primary"></i>
+                  <p class="mb-0 fw-bold text-primary"> ACCOUNT SETTINGS</p>
+                </li>
+                <li class=" bg-light list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-primary"></i>
+                    <a href='/userProfile'> <p class="mb-0 text-primary">Profile Information</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href='/viewAddress'><p class="mb-0 text-dark">Manage Addresses</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href="/changePassword"><p class="mb-0 text-dark">Change Password </p></a>
+                </li>
+
+
+                <li class="list-group-item d-flex px-5  align-items-center p-3">
+                  <i class="fa-solid fa-id-card-clip mx-2 text-dark"></i>
+                  <p class="mb-0 fw-bold text-dark"> MY STUFFS</p>
+                </li>
+                <li class="  list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href='/myCoupons'> <p class="mb-0 text-dark">My Coupons</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark "></i>
+                    <a href='/wishlist'><p class="mb-0 text-dark">My Wishlist</p></a>
+                </li>
+                <li class="list-group-item d-flex px-5 mx-5 align-items-center p-3">
+                    <i class="fa-regular fa-circle-dot mx-2 text-dark"></i>
+                    <a href=""><p class="mb-0 text-dark">Ratings And Reviews</p></a>
+                </li>
+
+
+                <li class="list-group-item d-flex px-5 align-items-center p-3">
+                    <i class="fa-solid fa-right-from-bracket mx-2 text-dark"></i>
+                    <a href="/userLogout"><p class="mb-0 fw-bold text-dark">LOGOUT</p></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              
+             <div class="row">
+              <div class="d-flex justify-content-center mb-5">
+                
+                <div class="profilepic d-flex justify-content-center">
+                  <img class="profilepic__image " id=imgView1 src="/uploads/<%-user.dp.filename%>"  alt="Profibild" />
+                  <form method="post" action="/edit-profile-pic" enctype="multipart/form-data" id="myForm">
+                  <label for="id_image1">
+                    <div class="profilepic__content" role="button">
+                      <span class="profilepic__icon"><i class="fas fa-camera"></i></span>
+                      <span class="profilepic__text">
+                        <input  type="file" id="id_image1" name="image" accept="image/*"  onchange="validateImage()"  hidden/>Edit Profile
+                      </span>
+                    </div>
+                  </label>
+                  <input type="submit" id="editDp" hidden>
+                  </form>
+                </div>
+               
+                
+                
+              </div>
+            </div>
+                 
+            <div class="row text-end mb-3">
+              <span id="image-error"></span> 
+              
+              <div >
+                <div id="image-box1" class="image-container"></div>
+                <div class="d-flex justify-content-end">
+                <a class="btn btn-sm btn-primary ms-3" id="crop-btn1" style=" margin-top: 10px; display: none;">Crop</a>
+                
+              
+                  <a href="/userProfile" class="btn btn-sm btn-danger  ms-3" id="cancel-crop" style=" margin-top: 10px; display: none;">Cancel</a>
+                 
+                </div>
+              </div>  
+
+            </div>
+               
+         
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Username</p>
+                </div>
+
+                
+                 
+                
+
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0 "><%-user.username%>
+                     <!-- <a href="/editAddress/"> -->
+                      <a href="#editUsername"  data-bs-toggle="modal" >
+                      <i class=" fa-solid fa-pen-to-square ms-3 "></i>
+                      
+                      </a>
+                    <!-- </a> -->
+                  </p>
+                 
+
+                  <!-- Modal -->
+                            <div class="modal fade" id="editUsername" tabindex="-1" aria-labelledby="editUsernameLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content" >
+                                  <div class="modal-header d-flex justify-content-center">
+                                   <h1 class="modal-title fs-5 " id="editUsernameLabel">Edit Username</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <h1 class="modal-title fs-5 mb-4 text-center id="editUsernameLabel">Edit Username</h1>
+                                    <form id="edit-username">
+                                    <div class="form-floating mb-3 ">
+                                      <input type="text" class="form-control" name="username" id="username" aria-describedby="emailHelp"
+                                        placeholder="User Name" value="<%-user.username%>" onkeypress="return (event.charCode > 64 && 
+                                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)">
+                                        <label for="username" class=" text-muted">Username</label>
+                                    </div>                                  
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    <!-- <span id="username-error"></span> -->
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
+                            </div>
+
+
+
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-user.email%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-user.phno%></p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Total Referrals</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"><%-user.referred_count%> 
+                    <%if(user.referred_count>0){%>
+                    <a  href="#referredUsers" data-bs-toggle="modal" >
+                      <i class=" fa-solid fa-eye text-muted"></i>
+                    </a>
+                    <%}%>
+                  </p>
+
+
+                  <div class="modal fade" id="referredUsers" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Referred Users</h1>
+                          
+                        </div>
+                        <div class="modal-body">
+                          
+                            <ol>
+                             <%for(u of referredUsers){%>
+                              <li><%-u.username%></li>
+                              <hr>
+                              <%}%>
+                            </ol>
+                            <!-- 
+                              <p class=text-center>Not referred anyone...!
+                                <div class="form-control d-flex justify-content-between border" >
+                                  <span class="fs-6 fw-bold text-dark align-self-center d-flex" id="refferalId"><%-user.referral_code%></span>
+                                  <button class="btn px-3 text-dark" onclick="CopyToClipboard('refferalId');return false;">Copy</button>
+                                </div>
+                                <p class="text-muted m-0 text-center" style="font-size: 13px;">Share your refferal Id to win ₹<%-referral.referrer_offer%>/- wallet  balance</p>
+                              </p> -->
+                           
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+             
+             
+            </div>
+
+          </div>
+          <div class="d-flex justify-content-end">          
+            <button data-bs-toggle="modal" data-bs-target="#deactivate" class="btn btn-danger">Deactivate</button>
+          </div>
+
+          
+          <div class="modal fade" id="deactivate" tabindex="-1" aria-labelledby="deactivateACCLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content" >
+                <div class="modal-header d-flex justify-content-center">
+                 <h1 class="modal-title fs-5 " id="deactivateACCLabel">Do you want to deactivate your account ?</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="edit-username" method="post" action="/deactivateAccount">
+                  <div class=" mb-3 ">
+                    <label for="email" class=" text-muted">Enter your email Id</label>
+
+                    <input type="text" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                  </div>
+                  
+                  <div class=" mb-3 ">
+                    <label for="password" class=" text-muted">Enter your password</label>
+
+                    <input type="text" class="form-control" name="password" id="password" aria-describedby="emailHelp">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No let me stay</button>
+                  <button type="submit" class="btn btn-danger">Confirm Deactivation</button>
+                  <!-- <span id="username-error"></span> -->
+                </div>
+              </form>
+              </div>
+            </div>
+          </div>
+
+
+
+
+      </div>
+    </div>
+  </section>
+  <%- include('../partials/footer')%>
+
+  <script>
+const imageError = document.getElementById("image-error");
+function validateImage() {
+      var fileInput =
+          document.getElementById('id_image1');
+        
+      var filePath = fileInput.value;
+   
+      // Allowing file type
+      var allowedExtensions =
+              /(\.jpg|\.webp|\.jpeg|\.png|\.gif)$/i;
+       
+      if (!allowedExtensions.exec(filePath)) {
+        imageError.innerHTML = "Image is not valid";
+        imageError.style.color = "red";
+          return false;
+      }
+
+      imageError.innerHTML = "Image is valid";
+                      imageError.style.color = "green";
+                      return true;
+  
+  }
+
+  const imagebox1 = document.getElementById('image-box1')
+  const crop_btn1 = document.getElementById('crop-btn1')
+  const input1 = document.getElementById('id_image1')
+  
+  // When user uploads the image this event will get triggered
+  input1.addEventListener('change', () => {
+    if(imageError.innerHTML=="Image is valid"){
+    // Getting image file object from the input variable
+    const img_data1 = input1.files[0]
+    // createObjectURL() static method creates a DOMString containing a URL representing the object given in the parameter.
+    // The new object URL represents the specified File object or Blob object.
+    const url1 = URL.createObjectURL(img_data1)
+    // Creating a image tag inside imagebox which will hold the cropping view image(uploaded file) to it using the url created before.
+    imagebox1.innerHTML = `<img src="${url1}" id="image1" style="width:50%;">`
+    // Storing that cropping view image in a variable
+    const image = document.getElementById('image')
+    // Displaying the image box
+    document.getElementById('image-box1').style.display = 'block'
+    // Displaying the Crop buttton
+    document.getElementById('crop-btn1').style.display = 'block'
+    document.getElementById('cancel-crop').style.display = 'block'
+    // Hiding the Post button
+    const cropper1 = new Cropper(image1, {
+      autoCropArea: 1,
+      viewMode: 1,
+      scalable: false,
+      zoomable: false,
+      movable: false,
+      minCropBoxWidth: 50,
+      minCropBoxHeight: 50,
+    })
+    // When crop button is clicked this event will get triggered
+    crop_btn1.addEventListener('click', () => {
+      // This method coverts the selected cropped image on the cropper canvas into a blob object
+      cropper1.getCroppedCanvas().toBlob((blob) => {
+        // Gets the original image data
+        let fileInputElement1 = document.getElementById('id_image1');
+        // Make a new cropped image file using that blob object, image_data.name will make the new file name same as original image
+        let file1 = new File([blob], img_data1.name, { type: "image/*", lastModified: new Date().getTime() });
+        // Create a new container
+        let container1 = new DataTransfer();
+        // Add the cropped image file to the container
+        container1.items.add(file1);
+        // Replace the original image file with the new cropped image file
+        fileInputElement1.files = container1.files;
+        // document.getElementById('imgView1').src = URL.createObjectURL(fileInputElement1.files[0])
+        // Hide the cropper box
+        document.getElementById('image-box1').style.display = 'none'
+        // Hide the crop button
+        document.getElementById('crop-btn1').style.display = 'none'
+        document.getElementById('cancel-crop').style.display = 'none'
+
+        $("#editDp").trigger("click")
+
+      })
+    })
+  }
+})
+
+
+
+
+
+
+
+
+
+     $("#edit-username").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/editUsername',
+      method:'post',
+      data:$('#edit-username').serialize(),
+      success:(response)=>{
+        location.reload()
+      }
+    })
+  })
+
+ 
+  function CopyToClipboard(id) {
+  var r = document.createRange();
+  r.selectNode(document.getElementById(id));
+  window.getSelection().removeAllRanges();
+  window.getSelection().addRange(r);
+  document.execCommand('copy');
+  window.getSelection().removeAllRanges();
+}
+
+
+  </script>

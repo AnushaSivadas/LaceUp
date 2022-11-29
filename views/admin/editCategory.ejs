@@ -1,0 +1,142 @@
+<%- include('../partials/sidebar')%>
+<div class="content">
+  <div class="row">
+    <div class="mt-3 text-center">
+      <%- include('../partials/flash')%>
+      </div>
+    <!-- <h2 class="text-center fw-bold mt-3">EDIT CATEGORY</h2> -->
+    <div class="twelve heading">
+      <h1>EDIT CATEGORY</h1>
+      </div>
+    <div class="col-6 offset-3 ">
+      <form method="post" action="/admin/editCategory/<%- category._id %>?_method=PUT" enctype="multipart/form-data" id="myForm">
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" name="name" id="name" value="<%- category.name%>" onkeyup="validateName()"/>
+          <span id="name-error"></span>
+        </div>
+
+        
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <img src="/uploads/<%-category.image.filename%>" alt="" class="mb-2" style="width:50px; height:50px;" id="imgView">
+          <input class="form-control" type="file" id="image" name="image" onchange="validateImage()"/>
+          <span id="image-error"></span>
+        </div>
+
+        
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" name="description" id="description" rows="3" onkeyup="validateDescription()"><%- category.description %></textarea>
+          <span id="description-error"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary align-center">Save Changes</button>
+        <span id="submit-error"></span>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    // function viewImage(event){
+    //   document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])
+    // }
+  
+  const form = document.getElementById("myForm");
+  const nameError=document.getElementById("name-error") 
+  const descriptionError =document.getElementById("description-error")
+  const imageError =document.getElementById("image-error")
+
+  form.addEventListener('submit', e => {
+      
+      if(validateName()  &&validateDescription()){
+         console.log('hai')
+      }else{
+        e.preventDefault()
+        var error=document.getElementById('submit-error')
+        error.innerHTML='Fill all fields'
+        error.style.color='red'
+        setTimeout(function(){
+          error.innerHTML=''
+        },3000);
+      } 
+    })
+
+   
+function validateName() {
+    var name=document.getElementById('name').value.trim();  
+
+    if (name.length==0) {
+        nameError.innerHTML='Name is Required';
+        nameError.style.color='red'
+        return false;
+    }
+    else if (name.length<=2) {
+        nameError.innerHTML='Atleast 3 characters';
+        nameError.style.color='red'
+        return false;
+    }
+
+    if (!name.match(/^[0-9A-Za-z\s]*$/)){
+        nameError.innerHTML='Write a valid name';
+        nameError.style.color='red'
+        return false;
+    }
+    
+    nameError.innerHTML='name is valid';
+    nameError.style.color='green'
+    return true;
+}
+
+  function validateDescription(){
+    var description = document.getElementById('description').value.trim();
+    var Required=8;
+    var left=Required - description.length;
+    if (left>0) {
+        descriptionError.innerHTML=left+'more character Required';
+        descriptionError.style.color='red'
+        return false;
+    }
+
+    descriptionError.innerHTML='description is valid';
+    descriptionError.style.color='green'
+    return true;
+}
+
+function validateImage() {
+      var fileInput =
+          document.getElementById('image');
+        
+      var filePath = fileInput.value;
+   
+      // Allowing file type
+      var allowedExtensions =
+              /(\.jpg|\.webp|\.jpeg|\.png|\.gif)$/i;
+       
+      if (!allowedExtensions.exec(filePath)) {
+        imageError.innerHTML = "Image is not valid";
+        imageError.style.color = "red";
+          return false;
+      }
+      else
+      {
+       
+          // Image preview
+          if (fileInput.files && fileInput.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function(e) {
+                  document.getElementById(
+                      'imgView').src = e.target.result;
+                     
+              };
+               
+              reader.readAsDataURL(fileInput.files[0]);
+              imageError.innerHTML = "Image is valid";
+                      imageError.style.color = "green";
+                      return true;
+          }
+      }
+  }
+
+</script>  

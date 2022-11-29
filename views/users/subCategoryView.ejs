@@ -1,0 +1,313 @@
+<%- include('../partials/userHeader')%>
+<link rel="stylesheet" href="/stylesheets/products.css">
+ <style>
+
+
+.hide{
+  display: none;
+}
+
+
+</style> 
+<section style="background-color: #eee;">
+    <div class="container-fluid py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between">
+           <div>
+            <span class="ms-5 text-dark fw-bold"><%-subCategory.name%> - <%-product.length%> items</span>
+          </div>
+          <div>
+            <div class="input-group me-5">
+              <div class="form-input" id="search-container">
+                <input type="search" id="search-input" class="form-control" placeholder="Search"/>
+                <!-- <label class="form-label" for="form1">Search</label> -->
+              </div>
+              <button type="button" id="search" class="btn btn-primary">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-2">
+          <!-- <div class="card mb-4">
+            <div class="card-body ">
+                <p class=" mx-2"><strong>Filters</strong></p>
+                
+
+            </div>
+          </div>  -->
+          <div class="card mb-4">
+            <div class="card-body">
+                <p class=" mx-2"><strong>Categories</strong></p>
+                <div class="form-check">
+                  <input class="form-check-input button-value" type="radio" id="all" name="filter" onclick="filterProducts('all')">
+                  <label class="form-check-label" for="all">
+                    All
+                  </label>
+              </div>
+                <%for(let cat of CATEGORY){%>
+                <div class="form-check">
+                    <input class="form-check-input button-value" type="radio" id="<%-cat.name%>" name="filter" onclick="filterProducts('<%-cat.name%>')" >
+                    <label class="form-check-label" for="<%-cat.name%>">
+                      <%-cat.name%>
+                    </label>
+                </div>
+                <%}%>
+
+            </div>
+          </div>        
+        </div>
+        
+        <div class="col-lg-10">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+               
+                <% if(product.length>0){%>
+                   
+                        <% for(let p of product){%>
+                          <!-- <div class="col-md-3 col-sm-6  bg-light p-4 cards hide <%-p.categoryName%> ">
+                              <div class="product-grid">
+                                  <div class="product-image">
+                                    <a href="/productDetails/<%- p._id%>" class="image">
+                                          <img class="pic-1" src="/uploads/<%-p.images[0].filename%>">
+                                          <img class="pic-2" src="/uploads/<%-p.images[1].filename%>">
+                                      </a>
+                                       <ul class="social">
+                                        <li><a href="/productDetails/<%- p._id%>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                                        <%if(user){%>
+                                          <%if(p.inWishlist){%>
+                                            <li><a role="button" onclick="removeWishlistItem('<%-p._id%>','<%-user._id%>')" data-tip="Remove from wishlist"><i class="fa fa-heart text-danger"></i></a></li>
+                                          <%}else{%>
+                                            <li><a role="button" onclick="addToWishlist('<%-p._id%>','<%-user._id%>')" data-tip="Add to wishlist"><i class="fa fa-heart "></i></a></li>
+                                          <%}%>
+                                        <%}else{%>
+                                          <li><a href="/loginNeedWL" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
+                                        <%}%>
+                                    </ul>
+                                      <div class="product-rating">
+                                          <ul class="rating">
+                                              <li class="fas fa-star"></li>
+                                              <li class="fas fa-star"></li>
+                                              <li class="fas fa-star"></li>
+                                              <li class="far fa-star"></li>
+                                              <li class="far fa-star"></li>
+                                          </ul>
+                                          <a class="add-to-cart category-name"><%-p.categoryName%> </a>
+                                      </div>
+                                  </div>
+                                  <div class="product-content">
+                                      <h3 class="title fs-6 product-name"><a href="/productDetails/<%- p._id%>"><%-p.name%></a></h3>
+                                      <div class="price text-dark text-decoration-none">&#8377;<%-p.sellingprice%><span>&#8377;<%-p.actualprice%></span></div>
+                                  </div>
+                              </div>
+                          </div> --> 
+
+                          <div class="col-md-3 col-sm-6 bg-light p-4 cards hide <%-p.categoryName%> ">
+                            <div class="product-grid">
+                                <div class="product-image">
+                                    
+                                    <a href="/productDetails/<%- p._id%>" class="image">
+                                      <img class="pic-1" src="/uploads/<%-p.images[0].filename%>">
+                                      <img class="pic-2" src="/uploads/<%-p.images[1].filename%>">
+                                  </a>
+                                  <%if(user){%>
+                                    <%if(p.inWishlist){%>
+                                    <a class="product-like-icon fs-6" role="button"  onclick="removeWishlistItem('<%-p._id%>','<%-user._id%>')" data-tip="Remove from Wishlist">
+                                        <i class="fa fa-heart text-danger"></i>
+                                    </a>
+                                    <%}else{%>
+                                      <a  class="product-like-icon fs-6" role="button"   onclick="addToWishlist('<%-p._id%>','<%-user._id%>')" data-tip="Add to Wishlist">
+                                        <i class="fa fa-heart "></i>
+                                    </a>
+                                    <%}%>
+                                  <%}else{%>
+                                    <a  class="product-like-icon fs-6" role="button" href="/loginNeedWL" data-tip="Add to Wishlist">
+                                      <i class="fa fa-heart "></i>
+                                  </a>
+                                  <%}%>
+                                    <!-- <ul class="product-links">
+                                        <%if(user){%>
+                                        <li><a href="/addToCart/<%-p._id%>" role="button" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                                        <%}else{%>
+                                        <li><a href="/addToGuestCart/<%-p._id%>" role="button" title="Add to Cart"><i class="fas fa-shopping-cart"></i></a></li>
+                                        <%}%>
+                         
+                                    </ul> -->
+                                </div>
+                                <div class="product-content p-2 text-center">
+                                    <h3 class="title product-name"><a href="/productDetails/<%- p._id%>"><%-p.name%> <span class="text-muted category-name" >(<%-p.categoryName%>)</span></a></h3>
+                                    
+                                    <div class="price text-decoration-none"><span>&#8377;<%-p.actualprice%></span>  &#8377;<%-p.sellingprice%></div>
+                                    <%if(p.stock==0){%>
+                                      <div class=text-danger>Currently Unavailable</div>
+                                      <%}%>
+                                </div>
+                            </div>
+                        </div>
+                     
+
+                          
+                          
+                          <%}%>
+                          </div>
+                  </div>
+                 
+                  <%}else{%>
+                   
+                    <div class="d-flex justify-content-center align-items-center my-5" style="height:300px;">
+                        
+                        <h3 class="fw-bold text-danger" >This category has no products</h3>
+                    </div>
+                    <%}%>
+                     
+             
+             
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+<section>
+   
+</section>
+<%- include('../partials/footer')%>
+<script>
+     function removeWishlistItem(proId,userId){
+    $.ajax({
+      url:'/remove-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem('reloading',true)
+        sessionStorage.setItem('filter',true)
+
+        location.reload()
+      }
+    })
+  }
+  function addToWishlist(proId,userId){
+    console.log('heyy kuttaa')
+    $.ajax({
+      url:'/add-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem('addtowish',true)
+        sessionStorage.setItem('filter',true)
+        
+        location.reload()
+      }
+    })
+  }
+
+  function myFunction(msg) {
+            alertify.success(msg);
+          }
+          
+        window.onload = function () {
+          
+            var reloading = sessionStorage.getItem("reloading");
+            var addtowish = sessionStorage.getItem("addtowish");
+            var filter = sessionStorage.getItem("filter");
+
+           
+            if (reloading) {
+              sessionStorage.removeItem("reloading");
+              myFunction('Removed From Wishlist');
+            }
+            if(addtowish){
+              sessionStorage.removeItem("addtowish");
+              myFunction("Added to Wishlist");
+            }
+            
+            var navCat = sessionStorage.getItem("navCat")
+            
+             if(navCat){
+              sessionStorage.removeItem("navCat");
+              document.getElementById(navCat).checked=true
+              filterProducts(navCat)
+             }
+           
+             else{
+              if(filter){
+              
+                sessionStorage.removeItem("filter");
+
+                let value = sessionStorage.getItem("category")
+                sessionStorage.removeItem("category")
+              document.getElementById(value).checked=true
+
+                filterProducts(value)
+              }
+              else{
+              document.getElementById("all").checked=true
+              filterProducts('all')
+            }
+             }
+          }
+
+  function filterProducts(value){
+    
+    let elements = document.querySelectorAll(".cards");
+    elements.forEach((element)=>{
+      if(value=="all"){
+        sessionStorage.setItem('category',value)
+
+        element.classList.remove("hide");
+      }
+      else{
+        if(element.classList.contains(value)){
+        sessionStorage.setItem('category',value)
+          element.classList.remove("hide")
+        }
+        else{
+          element.classList.add("hide")
+        }
+      }
+    })
+  }
+
+  document.getElementById('search').addEventListener
+        ("click", () => {
+          let searchInput = document.getElementById("search-input").value;
+          let elements = document.querySelectorAll(".product-name");
+          let elementsOfCat = document.querySelectorAll(".category-name");
+
+          let cards = document.querySelectorAll(".cards")
+          console.log(searchInput)
+
+          elements.forEach((element, index) => {
+            console.log(element.innerText)
+            console.log(searchInput.toUpperCase())
+            if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+              cards[index].classList.remove("hide");
+            }
+            else {
+
+              elementsOfCat.forEach((element, indexx) => {
+
+                if (element.innerText.toUpperCase().includes(searchInput.toUpperCase())) {
+                  cards[indexx].classList.remove("hide");
+                }
+                else {
+                  cards[index].classList.add("hide");
+                }
+              })
+            }
+          })
+        })
+ 
+  
+  </script>

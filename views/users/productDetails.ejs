@@ -1,0 +1,369 @@
+<%- include('../partials/userHeader')%>
+<link rel="stylesheet" href="/stylesheets/products.css">
+<link rel='stylesheet' href='https://sachinchoolur.github.io/lightslider/dist/css/lightslider.css'>
+<style>
+  /* === BASE HEADING === */ 
+
+.twelve h1 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  font-size: 40px;
+  color: #080808;
+  -webkit-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+}
+
+
+
+.twelve h1 {
+  font-size:26px; font-weight:700;  letter-spacing:1px; text-transform:uppercase; width:160px; text-align:center; margin:auto; white-space:nowrap; padding-bottom:13px;
+}
+.twelve h1:before {
+    background-color: rgb(134, 158, 173);
+    content: '';
+    display: block;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 5px;
+}
+.twelve h1:after {
+    background-color: rgb(134, 158, 173);
+    content: '';
+    display: block;
+  position:absolute; right:0; bottom:0;
+    height: 3px;
+    width: 75px;
+    margin-bottom: 0.25em;
+}
+
+
+
+/* ------- Helper Styles -------------*/
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* body {
+  background: #eee;
+} */
+.heading {
+  position: relative;
+  /* background: #f8f8f8; */
+  width: 90%;
+  max-width: 500px;
+  padding: 2em;
+  margin: 1.5em auto;
+  /* border: 3px solid rgba(0, 0, 0, 0.08); */
+}
+
+.twelve h1:before,
+.twelve h1:after {
+  background-color: rgb(134, 158, 173);
+}
+ h4 {
+	color: #000;
+	font-size: 26px;
+	font-weight: 300;
+	text-align: center;
+	text-transform: uppercase;
+	position: relative; 
+  /* font-weight: 400; */
+	margin: 30px 0 60px;
+}
+h4::after {
+	content: "";
+	width: 100px;
+	position: absolute;
+	margin: 0 auto;
+	height: 4px;
+	border-radius: 1px;
+	background: rgb(134, 158, 173);
+	left: 0;
+	right: 0;
+	bottom: 0px;
+}
+</style>
+<%if(product){%>
+<section class="bg-light" >
+<div class="container" style="padding-top: 70px; padding-bottom: 70px;" >
+    
+  <div class="productDetails-card">
+
+    <div class="row g-0">
+      <div class="col-md-6 border-end py-3 bg-white">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="main_image ">
+            <img id="zoom" 
+              src="/uploads/<%-product.images[0].filename%>"
+              
+              width="350"
+            />
+          </div>
+          <div class="thumbnail_images">
+            <ul id="thumbnail">
+                <% for(let p of product.images) {%>
+              <li>
+                <img
+                  onclick="changeImage(this)"
+                  src="/uploads/<%-p.filename%>"
+                  width="70"
+                />
+              </li>
+              <%}%>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 " style="background-color: rgb(226, 237, 237);">
+        
+        <div class="p-3 right-side">
+          <h5><%-subCategory.name%></h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <h3><%-product.name%>(<%-category.name%>)</h3>
+            <% if(user){%>
+              <%if(inWishlist==-1){%>
+                <!-- <a href="/addToWishlist/<%-product._id%>"><span class="heart"><i class="fa-regular fa-heart "></i></span></a> -->
+                <a role="button" onclick="addToWishlist('<%-product._id%>','<%-user._id%>')" data-tip="Add to wishlist"><span class="heart"><i class="far fa-heart "></i></span></a>
+
+            <%}else{%>
+            <a role="button" onclick="removeWishlistItem('<%-product._id%>','<%-user._id%>')" data-tip="Remove from wishlist"><span class="heart"><i class="fa fa-heart text-danger"></i></span></a>
+            <%}%>
+            <%}else{%>
+              <a href="/loginNeedWL"><span class="heart"><i class="fa fa-heart "></i></span></a>
+              <%}%>
+          </div>
+          
+            <p>
+              <span class="text-success mx-2 fs-3 fw-semibold"> <%-product.discount%>% off</span>
+              <br><span class="fs-4 fw-bold px-2">₹<%-product.sellingprice%></span>
+            <span class="text-muted"><strike>₹<%-product.actualprice%></strike></span></p>
+          <div class="ratings d-flex flex-row align-items-center">
+            <div class="d-flex flex-row">
+              <i class="bx bxs-star"></i> <i class="bx bxs-star"></i>
+              <i class="bx bxs-star"></i> <i class="bx bxs-star"></i>
+              <i class="bx bx-star"></i>
+            </div>
+            <!-- <span>441 reviews</span> -->
+          </div>
+         
+          <div class="mt-5 pr-3  ">
+            <p><span class="text-dark fw-bold">Description : </span><br>
+                <span class="fs-6"><%-product.description%></span>
+                </p>
+          </div>
+          <div class="buttons d-flex mt-5 gap-3 align-items-end">
+            <% if(user){%>
+              
+                <a href="/addToWishlist/<%-product._id%>"><button  class="btn btn-warning">Buy Now</button></a>
+                <%if(inCart==-1){%>
+                <a href="/addToCart/<%-product._id%>"><button  class="btn btn-outline-dark">Add to Cart</button></a>
+                <%}else{%>
+                <a href="/cart"><button  class="btn btn-dark">Go to Cart</button></a>
+                <%}%>
+            <%}else{%>
+              <a href="#"><button  class="btn btn-warning">Buy Now</button></a>
+              <%if(inGuestCart==-1){%>
+              <a href="/addToGuestCart/<%-product._id%>"><button  class="btn btn-outline-dark">Add to Cart</button></a>
+              <%}else{%>
+                <a href="/guestCart"><button  class="btn btn-dark">Go to Cart</button></a>
+                <%}%>
+            <%}%>
+            
+          </div>
+          <div class="d-flex justify-content-center">
+            <%if(product.stock==0){%>
+              <div class="text-danger mt-3">Currently Unavailable</div>
+              <%}%>
+          </div>
+          
+        </div>
+      </div>
+
+  
+    <%if(relatedProducts.length>0){%>
+      <section>
+        <div class="container ">
+          <!-- <h4 class="py-4 text-dark"><strong>Similar Products</strong></h4> -->
+          <div class="twelve heading">
+            <h1>Similar Products</h1>
+          </div>
+
+          <div class="row d-flex justify-content-center">
+            <% for(let p of relatedProducts){%>
+              <!-- <div class="col-md-3 col-sm-6  bg-light p-4">
+               
+                  <div class="product-grid">
+                      <div class="product-image">
+                        <a href="/productDetails/<%- p._id%>" class="image">
+                              <img class="pic-1" src="/uploads/<%-p.images[0].filename%>">
+                              <img class="pic-2" src="/uploads/<%-p.images[1].filename%>">
+                          </a>
+                          <ul class="social">
+                            <li><a href="/productDetails/<%- p._id%>" data-tip="Quick View"><i class="fa fa-eye"></i></a></li>
+                            <%if(user){%>
+                              <%if(p.inWishlist){%>
+                                <li><a role="button" onclick="removeWishlistItem('<%-p._id%>','<%-user._id%>')" data-tip="Remove from wishlist"><i class="fa fa-heart text-danger"></i></a></li>
+                              <%}else{%>
+                                <li><a role="button" onclick="addToWishlist('<%-p._id%>','<%-user._id%>')" data-tip="Add to wishlist"><i class="fa fa-heart "></i></a></li>
+                              <%}%>
+                            <%}else{%>
+                              <li><a href="/loginNeedWL" data-tip="Add to wishlist"><i class="fa fa-heart"></i></a></li>
+                            <%}%>
+                        </ul>
+                          <div class="product-rating">
+                              <ul class="rating">
+                                  <li class="fas fa-star"></li>
+                                  <li class="fas fa-star"></li>
+                                  <li class="fas fa-star"></li>
+                                  <li class="far fa-star"></li>
+                                  <li class="far fa-star"></li>
+                              </ul>
+                          <a class="add-to-cart" href="/subCategoryView/<%-p.subCategory%>"><%-relSubCat.name%></a> 
+                              
+                          </div>
+                      </div>
+                      <div class="product-content">
+                          <h3 class="title fs-6"> <a href="/productDetails/<%- p._id%>"><%-p.name%></a></h3>
+                          <span>(<%-relCat.name%>)</span>
+                          <div class="price text-dark text-decoration-none">&#8377;<%-p.sellingprice%>   <span >&#8377;<%-p.actualprice%></span></div>
+                      </div>
+                  </div>
+              </div> -->
+
+
+              <div class="col-md-3 col-sm-6 p-4">
+                <div class="product-grid">
+                    <div class="product-image">
+                        
+                        <a href="/productDetails/<%- p._id%>" class="image">
+                          <img class="pic-1" src="/uploads/<%-p.images[0].filename%>">
+                          <img class="pic-2" src="/uploads/<%-p.images[1].filename%>">
+                      </a>
+                      <%if(user){%>
+                        <%if(p.inWishlist){%>
+                        <a class="product-like-icon fs-6" role="button"  onclick="removeWishlistItem('<%-p._id%>','<%-user._id%>')" data-tip="Remove from Wishlist">
+                            <i class="fa fa-heart text-danger"></i>
+                        </a>
+                        <%}else{%>
+                          <a  class="product-like-icon fs-6" role="button"   onclick="addToWishlist('<%-p._id%>','<%-user._id%>')" data-tip="Add to Wishlist">
+                            <i class="fa fa-heart "></i>
+                        </a>
+                        <%}%>
+                      <%}else{%>
+                        <a  class="product-like-icon fs-6" role="button" href="/loginNeedWL" data-tip="Add to Wishlist">
+                          <i class="fa fa-heart "></i>
+                      </a>
+                      <%}%>
+                      
+                    </div>
+                    <div class="product-content p-2 text-center">
+                        <h3 class="title"><a href="/productDetails/<%- p._id%>"><%-p.name%> <span class="text-muted">(<%-relCat.name%>)</span></a></h3>
+                        
+                        <a hidden class="add-to-cart " href="/subCategoryView/<%-p.subCategory%>"><%-relSubCat.name%></a> 
+                        <div class="price text-decoration-none"><span>&#8377;<%-p.actualprice%></span>  &#8377;<%-p.sellingprice%></div>
+                        <%if(p.stock==0){%>
+                        <div class=text-danger>Currently Unavailable</div>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+              <%}%>
+     
+          </div>
+
+      </div>
+    </section>
+<%}%>
+
+
+    </div>
+  </div>
+</div>
+</section>
+<%}else{%>
+
+<%}%>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+<script src='https://sachinchoolur.github.io/lightslider/dist/js/lightslider.js'></script>
+<script> $('#lightSlider').lightSlider({ gallery: true, item: 1, loop: true, slideMargin: 0, thumbItem: 9 });</script>
+<script src="/javascripts/zoomsl.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#zoom").imagezoomsl ({
+
+            zoomrange: [4, 4]
+        });
+    })
+</script>
+<script>
+
+function changeImage(element) {
+
+var main_prodcut_image = document.getElementById('zoom');
+main_prodcut_image.src = element.src;
+}
+</script>
+
+
+  
+<%- include('../partials/footer')%>
+
+<script>
+  function removeWishlistItem(proId,userId){
+    $.ajax({
+      url:'/remove-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem("reloading", "true");
+        location.reload()
+      }
+    })
+  }
+
+
+   function addToWishlist(proId,userId){
+    console.log('heyy kuttaa')
+    $.ajax({
+      url:'/add-wishlist-item',
+      data:{
+        product:proId,
+        user:userId
+      },
+      method:'patch',
+      success:(response)=>{
+        sessionStorage.setItem("addtowish", "true");
+        location.reload()
+      }
+    })
+  }
+  
+  function myFunction(msg) {
+            // alertify.set('notifier','position','bottom-left')
+            alertify.success(msg);
+          }
+          
+        window.onload = function () {
+            var reloading = sessionStorage.getItem("reloading");
+            var addtowish = sessionStorage.getItem("addtowish");
+            if (reloading) {
+              sessionStorage.removeItem("reloading");
+              myFunction('Removed From Wishlist');
+            }
+            if(addtowish){
+              sessionStorage.removeItem("addtowish");
+              myFunction("Added to Wishlist");
+            }
+          }
+</script>

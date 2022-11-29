@@ -1,0 +1,583 @@
+<!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css" rel="stylesheet"> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"> </script>
+<%- include('../partials/sidebar')%>
+<style>
+  
+h2,
+h5,
+.h2,
+.h5 {
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: .5rem;
+  color: #32325d;
+}
+
+h5,
+.h5 {
+  font-size: .8125rem;
+}
+
+@media (min-width: 992px) {
+  
+  .col-lg-6 {
+    max-width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  
+  .col-xl-3 {
+    max-width: 25%;
+    flex: 0 0 25%;
+  }
+  
+  .col-xl-6 {
+    max-width: 50%;
+    flex: 0 0 50%;
+  }
+}
+
+
+.bg-danger {
+  background-color: #f5365c !important;
+}
+
+
+
+@media (min-width: 1200px) {
+  
+  .justify-content-xl-between {
+    justify-content: space-between !important;
+  }
+}
+
+
+.pt-5 {
+  padding-top: 3rem !important;
+}
+
+.pb-8 {
+  padding-bottom: 8rem !important;
+}
+
+@media (min-width: 768px) {
+  
+  .pt-md-8 {
+    padding-top: 8rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  
+  .mb-xl-0 {
+    margin-bottom: 0 !important;
+  }
+}
+
+
+
+
+.font-weight-bold {
+  font-weight: 600 !important;
+}
+
+
+a.text-success:hover,
+a.text-success:focus {
+  color: #24a46d !important;
+}
+
+.text-warning {
+  color: #fb6340 !important;
+}
+
+a.text-warning:hover,
+a.text-warning:focus {
+  color: #fa3a0e !important;
+}
+
+.text-danger {
+  color: #f5365c !important;
+}
+
+a.text-danger:hover,
+a.text-danger:focus {
+  color: #ec0c38 !important;
+}
+
+.text-white {
+  color: #fff !important;
+}
+
+a.text-white:hover,
+a.text-white:focus {
+  color: #e6e6e6 !important;
+}
+
+.text-muted {
+  color: #8898aa !important;
+}
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+  
+  p,
+  h2 {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  h2 {
+    page-break-after: avoid;
+  }
+  
+  @page {
+    size: a3;
+  }
+  
+  body {
+    min-width: 992px !important;
+  }
+}
+
+figcaption,
+main {
+  display: block;
+}
+
+main {
+  overflow: hidden;
+}
+
+.bg-yellow {
+  background-color: #ffd600 !important;
+}
+
+
+
+
+
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+}
+
+.icon i {
+  font-size: 2.25rem;
+}
+
+.icon-shape {
+  display: inline-flex;
+  padding: 12px;
+  text-align: center;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+</style>
+<div class="content">
+  <div class="main-content">
+    <div class="header bg-gradient-primary pb-8 pt-3 pt-md-5">
+      <div class="container-fluid">
+       
+        <div class="header-body">
+
+
+          
+          <div class="row">
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Orders</h5>
+                      <span class="h2 font-weight-bold mb-0"><%-ordersCount%></span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Products</h5>
+                      <span class="h2 font-weight-bold mb-0"><%-productsCount%></span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+                        <i class="fas fa-chart-pie"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last week</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Users</h5>
+                      <span class="h2 font-weight-bold mb-0"><%-usersCount%></span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                    <span class="text-nowrap">Since yesterday</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Revenue</h5>
+                      <span class="h2 font-weight-bold mb-0"><%=Math.round((total)/1000)%>K</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                        <i class="fas fa-percent"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <p class="mt-3 mb-0 text-muted text-sm">
+                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
+                    <span class="text-nowrap">Since last month</span>
+                  </p> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <!-- <div class="row">
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">&#x20b9;44k</h2>
+                      </div>
+                      <div>
+                        <h4>Total Sales</h4>
+                        <p class="mb-0">Sales Amount</p>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fa-solid fa-coins fa-3x" style="color: gold;"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">55</h2>
+                      </div>
+                      <div>
+                        <h4>Total customers</h4>
+                        <p class="mb-0">User report</p>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fa-solid fa-user text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        -->
+
+        <div class="mt-5 d-flex justify-content-end me-5">
+          <a href="salesReport" class="btn btn-dark">Sales Report</a>
+        </div>
+
+          <section class="bg-white py-5 mx-3 ">
+            <div class="row">
+                <div class="col-lg-12" style="width: 50%;">
+                    <canvas id="bar-chart" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                </div>
+                <div class="col-lg-12"  style="width: 50%;">
+                    <canvas id="circle-chart" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                </div>
+              <div class="d-flex justify-content-between px-5">
+                <div class="col-lg-12 mt-5"  style="width: 35%;">
+                    <canvas id="finalchart" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                </div>
+              
+                <div class="col-lg-12 mt-5"  style="width: 50%;">
+                    <canvas id="CategoryChartz" style="display: block; box-sizing: border-box; height: 310px; width: 450px;"></canvas>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        
+
+
+        </div>
+
+        <!-- <a href='/admin/salesReport' >Sales Report</a> -->
+
+
+
+      </div>
+    </div>
+    <!-- Page content -->
+  </div>
+  
+</div>
+</div>
+
+
+<script>
+let monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+let monthlyProfit = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+let weekly = [0, 0, 0, 0, 0, 0, 0]
+let weekName = ["Sunday", "Monday", "Tuesday", "WednesDay", "Thursday", "Friday", "Saturday"]
+let paymethod=["Paypal","Razorpay","Cash on Delivery"]
+let payamount=[0,0,0]
+let barChart = document.getElementById("bar-chart").getContext('2d')
+let circleChart = document.getElementById("circle-chart").getContext('2d')
+let finalchart=document.getElementById("finalchart").getContext('2d')
+let catchart = document.getElementById('CategoryChartz')
+document.addEventListener('DOMContentLoaded', () => 
+{
+    fetch('/admin/getChartData', 
+    {
+        method: 'get',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json()).then(res => 
+    {
+        let { data, weeklyReport,details } = res;
+        for (i = 0; i < data.length; ++i) 
+        {
+            switch (data[i].month)
+             {
+                case 1:
+                    monthlyProfit[0] = data[i].total
+                    break;
+                case 2:
+                    monthlyProfit[1] = data[i].total
+                    break;
+                case 3:
+                    monthlyProfit[2] = data[i].total
+                    break;
+                case 4:
+                    monthlyProfit[3] = data[i].total
+                    break;
+                case 5:
+                    monthlyProfit[4] = data[i].total
+                    break;
+                case 6:
+                    monthlyProfit[5] = data[i].total
+                    break;
+                case 7:
+                    monthlyProfit[6] = data[i].total
+                    break;
+                case 8:
+                    monthlyProfit[7] = data[i].total
+                    break;
+                case 9:
+                    monthlyProfit[8] = data[i].total
+                    break;
+                case 10:
+                    monthlyProfit[9] = data[i].total
+                    break;
+                case 11:
+                    monthlyProfit[10] = data[i].total
+                    break;
+                case 12:
+                    monthlyProfit[11] = data[i].total
+                    break;
+            }
+        }
+        console.log(monthlyProfit)
+        const months = monthName;
+        const data1 = {
+            labels: months,
+            datasets: [{
+                label: 'Monthly sales',
+                backgroundColor: "#003f5c",
+                borderColor: 'red',
+                data: monthlyProfit,
+            }]
+        };
+        const monthlyconfig = {
+            type: 'bar',
+            data: data1,
+            options: {}
+        };
+        let chart1 = new Chart(barChart, monthlyconfig)
+        for (i = 0; i < weeklyReport.length; ++i) {
+            switch (weeklyReport[i].date) {
+                case 1:
+                    weekly[0] = weeklyReport[i].total
+                    break;
+                case 2:
+                    weekly[1] = weeklyReport[i].total
+                    break;
+                case 3:
+                    weekly[2] = weeklyReport[i].total
+                    break;
+                case 4:
+                    weekly[3] = weeklyReport[i].total
+                    break;
+                case 5:
+                    weekly[4] = weeklyReport[i].total
+                    break;
+                case 6:
+                    weekly[5] = weeklyReport[i].total
+                    break;
+                case 7: weekly[6] = weeklyReport[i].total
+                    break;
+            }
+        }
+
+    
+        //weekly sales
+        const labels = weekName;
+        const data2 = {
+            labels: labels,
+            datasets: [{
+                label: 'Weekly sales',
+                backgroundColor: 'yellow',
+                borderColor: '#ff6361',
+                data: weekly,
+            }]
+        };
+        const config = {
+            type: 'line',
+            data: data2,
+            options: {}
+        };
+        let chart2 = new Chart(circleChart, config)
+
+
+
+
+        
+                    
+        const paymentmethod=paymethod;
+        const data3={
+            labels:paymentmethod,
+            datasets:[{
+                label: 'Payment Methods',
+                backgroundColor: ["#EC6B56","#FFC154","#47B39C"],
+                borderColor: 'rgb(255, 99, 132)',
+                data: [details.dailyPaypalCount,details.dailyRazorCount,details.dailyCodCount],
+                hoverOffset: 4
+            }]
+        };
+         const con = {
+            type: 'doughnut',
+            data: data3,
+            options: {}
+        };
+        let chart3 = new Chart(finalchart,con) 
+    })
+})
+
+
+fetch('/admin/dashboard/catSalesReport', {
+    method: 'get',
+}).then((data => data.json())).then((data) => {
+    // console.log(data);
+    let xaxis = []
+    let countss = []
+    for (const val of data) {
+        let week = `${val.detail.cat}`
+        xaxis.push(week)
+        countss.push(val.count)
+    }
+
+    const masspopChart = new Chart(catchart, {
+        type: 'bar',
+        data: {
+            labels: [...xaxis],
+            datasets: [{
+                label: 'Category sales',
+                data: [...countss],
+
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(245, 125, 75, 1.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
+})
+
+</script>
+
+
