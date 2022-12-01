@@ -10,10 +10,11 @@ const flash = require('connect-flash')
 var easyinvoice = require('easyinvoice')
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
+const url = process.env.URL
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/Bootie')
+mongoose.connect(url)
 .then(()=>{
   console.log('CONNECTION OPEN')
 })
